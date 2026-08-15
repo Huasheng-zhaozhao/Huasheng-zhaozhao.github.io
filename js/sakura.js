@@ -4175,8 +4175,12 @@ function stopp() {
     /* =====================================================
      * 🌫️ 夜间雨雾
      *
-     * Dark Mode  → 显示
-     * Light Mode → 隐藏
+     * Dark Mode  → 雾气出现
+     * Light Mode → 雾气消失
+     *
+     * 独立 Canvas
+     * 不依赖页面背景
+     * 不遮挡月亮 / 太阳 / 流星
      * ===================================================== */
 
 
@@ -4184,353 +4188,637 @@ function stopp() {
      * 防止重复创建
      * ===================================================== */
 
-    var oldFog =
-        document.getElementById('night-rain-fog');
+    var oldCanvas =
+        document.getElementById('canvas_night_fog');
 
-    if (oldFog) {
-        oldFog.remove();
-    }
-
-    var oldStyle =
-        document.getElementById('night-rain-fog-style');
-
-    if (oldStyle) {
-        oldStyle.remove();
+    if (oldCanvas) {
+        oldCanvas.remove();
     }
 
 
     /* =====================================================
-     * 创建雾气总容器
+     * 创建 Canvas
      * ===================================================== */
 
-    var fog =
-        document.createElement('div');
+    var canvas =
+        document.createElement('canvas');
 
-    fog.id =
-        'night-rain-fog';
+    canvas.id =
+        'canvas_night_fog';
 
 
-    fog.style.cssText =
+    canvas.style.cssText =
 
         'position:fixed !important;' +
 
         'left:0 !important;' +
         'top:0 !important;' +
 
-        'width:100vw !important;' +
-        'height:100vh !important;' +
+        'width:100% !important;' +
+        'height:100% !important;' +
 
         'pointer-events:none !important;' +
 
         /*
-         * 必须在雨的下面
-         * 但不能被页面背景盖住
+         * 雾在雨下面
+         *
+         * 但不会被页面背景压住
          */
-        'z-index:9997 !important;' +
-
-        'overflow:hidden !important;' +
+        'z-index:9996 !important;' +
 
         'opacity:0 !important;' +
 
         'visibility:hidden !important;';
 
 
+    document.body.appendChild(
+        canvas
+    );
+
+
+    var ctx =
+        canvas.getContext('2d');
+
+
     /* =====================================================
-     * 🌫️ 第一层
+     * Canvas 尺寸
+     * ===================================================== */
+
+    var width =
+        window.innerWidth;
+
+    var height =
+        window.innerHeight;
+
+
+    function resizeFog() {
+
+        width =
+            window.innerWidth;
+
+        height =
+            window.innerHeight;
+
+
+        canvas.width =
+            width;
+
+        canvas.height =
+            height;
+
+    }
+
+
+    resizeFog();
+
+
+    window.addEventListener(
+        'resize',
+        resizeFog
+    );
+
+
+    /* =====================================================
+     * 🌫️ 雾气
+     * ===================================================== */
+
+    var fogLayers = [];
+
+
+    /*
+     * 创建三层雾
      *
-     * 整个页面下半部分的冷雾
-     * ===================================================== */
+     * 每一层速度、大小、透明度不同
+     */
 
-    var fog1 =
-        document.createElement('div');
+    function createFogLayer(
+        y,
+        size,
+        speed,
+        alpha
+    ) {
 
-    fog1.style.cssText =
+        return {
 
-        'position:absolute !important;' +
+            x:
+                Math.random() *
+                width,
 
-        'left:-20% !important;' +
-        'bottom:-10% !important;' +
+            y:
+                y,
 
-        'width:140% !important;' +
-        'height:65% !important;' +
+            size:
+                size,
 
-        'background:' +
+            speed:
+                speed,
 
-            'radial-gradient(' +
+            alpha:
+                alpha,
 
-                'ellipse at 50% 100%,' +
+            phase:
+                Math.random() *
+                Math.PI * 2
 
-                'rgba(205,225,245,0.28) 0%,' +
+        };
 
-                'rgba(190,215,238,0.18) 20%,' +
+    }
 
-                'rgba(175,205,232,0.11) 40%,' +
 
-                'rgba(160,195,225,0.055) 58%,' +
+    function createFog() {
 
-                'rgba(150,185,215,0) 78%' +
+        fogLayers = [];
 
-            ')' +
 
-        '!important;' +
+        /*
+         * 第一层
+         *
+         * 远处雾
+         */
 
-        'filter:blur(20px) !important;' +
+        fogLayers.push(
+            createFogLayer(
+                height * 0.72,
+                height * 0.30,
+                0.18,
+                0.22
+            )
+        );
 
-        'animation:nightFogMove1 18s ease-in-out infinite !important;';
+
+        /*
+         * 第二层
+         *
+         * 中距离雾
+         */
+
+        fogLayers.push(
+            createFogLayer(
+                height * 0.82,
+                height * 0.38,
+                -0.12,
+                0.28
+            )
+        );
+
+
+        /*
+         * 第三层
+         *
+         * 靠近地面的雾
+         */
+
+        fogLayers.push(
+            createFogLayer(
+                height * 0.92,
+                height * 0.45,
+                0.08,
+                0.32
+            )
+        );
+
+    }
+
+
+    createFog();
 
 
     /* =====================================================
-     * 🌫️ 第二层
+     * 🌫️ 绘制一层雾
+     * ===================================================== */
+
+    function drawFogLayer(
+        fog
+    ) {
+
+        /*
+         * 雾气左右漂浮
+         */
+
+        fog.x +=
+            fog.speed;
+
+
+        /*
+         * 超出屏幕以后
+         * 从另一边回来
+         */
+
+        if (
+            fog.x >
+            width + fog.size
+        ) {
+
+            fog.x =
+                -fog.size;
+
+        }
+
+
+        if (
+            fog.x <
+            -fog.size
+        ) {
+
+            fog.x =
+                width + fog.size;
+
+        }
+
+
+        /*
+         * 呼吸效果
+         */
+
+        var breathing =
+            0.85 +
+            Math.sin(
+                Date.now() * 0.00035 +
+                fog.phase
+            ) * 0.15;
+
+
+        /*
+         * 创建巨大径向渐变
+         */
+
+        var gradient =
+            ctx.createRadialGradient(
+
+                fog.x,
+                fog.y,
+
+                0,
+
+                fog.x,
+                fog.y,
+
+                fog.size
+
+            );
+
+
+        /*
+         * 雾的中心
+         */
+
+        gradient.addColorStop(
+            0,
+            'rgba(210,225,240,' +
+            (
+                fog.alpha *
+                breathing
+            ) +
+            ')'
+        );
+
+
+        /*
+         * 中间
+         */
+
+        gradient.addColorStop(
+            0.25,
+            'rgba(195,215,235,' +
+            (
+                fog.alpha *
+                breathing *
+                0.65
+            ) +
+            ')'
+        );
+
+
+        /*
+         * 边缘
+         */
+
+        gradient.addColorStop(
+            0.55,
+            'rgba(180,205,228,' +
+            (
+                fog.alpha *
+                breathing *
+                0.30
+            ) +
+            ')'
+        );
+
+
+        /*
+         * 完全透明
+         */
+
+        gradient.addColorStop(
+            1,
+            'rgba(160,190,215,0)'
+        );
+
+
+        ctx.save();
+
+
+        ctx.fillStyle =
+            gradient;
+
+
+        /*
+         * 巨大的椭圆雾团
+         */
+
+        ctx.beginPath();
+
+        ctx.ellipse(
+
+            fog.x,
+            fog.y,
+
+            fog.size * 1.65,
+            fog.size * 0.38,
+
+            0,
+
+            0,
+            Math.PI * 2
+
+        );
+
+        ctx.fill();
+
+
+        ctx.restore();
+
+    }
+
+
+    /* =====================================================
+     * 🌫️ 第二种雾
      *
-     * 横向漂浮的雾带
+     * 页面底部的薄雾
      * ===================================================== */
 
-    var fog2 =
-        document.createElement('div');
+    function drawBottomFog() {
 
-    fog2.style.cssText =
+        var gradient =
+            ctx.createLinearGradient(
 
-        'position:absolute !important;' +
+                0,
+                height * 0.62,
 
-        'left:-30% !important;' +
-        'top:52% !important;' +
+                0,
+                height
 
-        'width:160% !important;' +
-        'height:28% !important;' +
+            );
 
-        'background:' +
 
-            'radial-gradient(' +
+        gradient.addColorStop(
+            0,
+            'rgba(170,200,225,0)'
+        );
 
-                'ellipse at 50% 50%,' +
 
-                'rgba(215,230,245,0.20) 0%,' +
+        gradient.addColorStop(
+            0.45,
+            'rgba(180,210,232,0.035)'
+        );
 
-                'rgba(195,218,238,0.12) 28%,' +
 
-                'rgba(175,205,230,0.055) 48%,' +
+        gradient.addColorStop(
+            0.72,
+            'rgba(195,220,238,0.075)'
+        );
 
-                'rgba(155,190,215,0) 72%' +
 
-            ')' +
+        gradient.addColorStop(
+            1,
+            'rgba(210,228,240,0.13)'
+        );
 
-        '!important;' +
 
-        'filter:blur(25px) !important;' +
+        ctx.save();
 
-        'animation:nightFogMove2 25s ease-in-out infinite !important;';
+
+        ctx.fillStyle =
+            gradient;
+
+
+        ctx.fillRect(
+
+            0,
+            height * 0.55,
+
+            width,
+            height * 0.45
+
+        );
+
+
+        ctx.restore();
+
+    }
 
 
     /* =====================================================
-     * 🌫️ 第三层
+     * 🌫️ 动画
+     * ===================================================== */
+
+    var fogRunning =
+        false;
+
+
+    function fogAnimation() {
+
+        if (!fogRunning) {
+
+            /*
+             * 不运行时清空画面
+             */
+
+            ctx.clearRect(
+                0,
+                0,
+                width,
+                height
+            );
+
+            return;
+
+        }
+
+
+        ctx.clearRect(
+            0,
+            0,
+            width,
+            height
+        );
+
+
+        /*
+         * 底部薄雾
+         */
+
+        drawBottomFog();
+
+
+        /*
+         * 三层漂浮雾
+         */
+
+        for (
+            var i = 0;
+            i < fogLayers.length;
+            i++
+        ) {
+
+            drawFogLayer(
+                fogLayers[i]
+            );
+
+        }
+
+
+        requestAnimationFrame(
+            fogAnimation
+        );
+
+    }
+
+
+    /* =====================================================
+     * 🌙 开启雾气
+     * ===================================================== */
+
+    function showFog() {
+
+        fogRunning =
+            true;
+
+
+        canvas.style.visibility =
+            'visible';
+
+
+        canvas.style.opacity =
+            '1';
+
+
+        /*
+         * 如果之前没有动画
+         * 启动动画
+         */
+
+        fogAnimation();
+
+    }
+
+
+    /* =====================================================
+     * ☀️ 关闭雾气
+     * ===================================================== */
+
+    function hideFog() {
+
+        canvas.style.opacity =
+            '0';
+
+
+        canvas.style.visibility =
+            'hidden';
+
+
+        fogRunning =
+            false;
+
+    }
+
+
+    /* =====================================================
+     * 🌙☀️ 根据当前主题判断
+     * ===================================================== */
+
+    function updateFog() {
+
+        var theme =
+            document.documentElement
+                .getAttribute(
+                    'data-theme'
+                );
+
+
+        if (
+            theme === 'dark'
+        ) {
+
+            showFog();
+
+        } else {
+
+            hideFog();
+
+        }
+
+    }
+
+
+    /* =====================================================
+     * 初始化
+     * ===================================================== */
+
+    updateFog();
+
+
+    /* =====================================================
+     * 🌗 监听 Butterfly / 你的月亮太阳
      *
-     * 靠近底部的雾
+     * data-theme 改变：
+     *
+     * light → dark
+     * 雾出现
+     *
+     * dark → light
+     * 雾消失
      * ===================================================== */
 
-    var fog3 =
-        document.createElement('div');
+    var themeObserver =
+        new MutationObserver(
+            function (mutations) {
 
-    fog3.style.cssText =
+                for (
+                    var i = 0;
+                    i < mutations.length;
+                    i++
+                ) {
 
-        'position:absolute !important;' +
+                    if (
+                        mutations[i]
+                            .attributeName ===
+                        'data-theme'
+                    ) {
 
-        'left:-25% !important;' +
-        'bottom:-5% !important;' +
+                        updateFog();
 
-        'width:150% !important;' +
-        'height:30% !important;' +
+                    }
 
-        'background:' +
-
-            'radial-gradient(' +
-
-                'ellipse at 50% 100%,' +
-
-                'rgba(225,235,245,0.24) 0%,' +
-
-                'rgba(205,225,240,0.15) 25%,' +
-
-                'rgba(185,210,232,0.075) 45%,' +
-
-                'rgba(165,195,220,0) 75%' +
-
-            ')' +
-
-        '!important;' +
-
-        'filter:blur(28px) !important;' +
-
-        'animation:nightFogMove3 20s ease-in-out infinite !important;';
-
-
-    fog.appendChild(fog1);
-    fog.appendChild(fog2);
-    fog.appendChild(fog3);
-
-
-    document.body.appendChild(fog);
-
-
-    /* =====================================================
-     * 🎨 CSS
-     * ===================================================== */
-
-    var style =
-        document.createElement('style');
-
-    style.id =
-        'night-rain-fog-style';
-
-
-    style.innerHTML = `
-
-
-        /* =================================================
-         * 🌫️ 第一层雾
-         * ================================================= */
-
-        @keyframes nightFogMove1 {
-
-            0% {
-
-                transform:
-                    translateX(-4%)
-                    translateY(3%)
-                    scale(1);
+                }
 
             }
+        );
 
-            50% {
 
-                transform:
-                    translateX(4%)
-                    translateY(-2%)
-                    scale(1.08);
+    themeObserver.observe(
 
-            }
+        document.documentElement,
 
-            100% {
+        {
+            attributes:true,
 
-                transform:
-                    translateX(-4%)
-                    translateY(3%)
-                    scale(1);
-
-            }
+            attributeFilter:[
+                'data-theme'
+            ]
 
         }
 
-
-        /* =================================================
-         * 🌫️ 第二层雾
-         * ================================================= */
-
-        @keyframes nightFogMove2 {
-
-            0% {
-
-                transform:
-                    translateX(6%)
-                    scale(1);
-
-            }
-
-            50% {
-
-                transform:
-                    translateX(-6%)
-                    scale(1.12);
-
-            }
-
-            100% {
-
-                transform:
-                    translateX(6%)
-                    scale(1);
-
-            }
-
-        }
-
-
-        /* =================================================
-         * 🌫️ 第三层雾
-         * ================================================= */
-
-        @keyframes nightFogMove3 {
-
-            0% {
-
-                transform:
-                    translateX(-5%)
-                    translateY(5%)
-                    scale(1);
-
-            }
-
-            50% {
-
-                transform:
-                    translateX(5%)
-                    translateY(-3%)
-                    scale(1.10);
-
-            }
-
-            100% {
-
-                transform:
-                    translateX(-5%)
-                    translateY(5%)
-                    scale(1);
-
-            }
-
-        }
-
-
-        /* =================================================
-         * 🌙 Dark Mode
-         * ================================================= */
-
-        html[data-theme="dark"]
-        #night-rain-fog {
-
-            opacity:1 !important;
-
-            visibility:visible !important;
-
-            transition:
-                opacity 2.5s ease,
-                visibility 2.5s ease;
-
-        }
-
-
-        /* =================================================
-         * ☀️ Light Mode
-         * ================================================= */
-
-        html[data-theme="light"]
-        #night-rain-fog {
-
-            opacity:0 !important;
-
-            visibility:hidden !important;
-
-            transition:
-                opacity 2s ease,
-                visibility 2s ease;
-
-        }
-
-
-    `;
-
-
-    document.head.appendChild(
-        style
     );
 
 
