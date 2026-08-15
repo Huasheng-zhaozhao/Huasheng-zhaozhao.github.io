@@ -2771,43 +2771,105 @@ function stopp() {
         );
 
     /* =====================================================
-     * 🌙 / ☀️ 设置图标状态
-     * ===================================================== */
+    * 🌙 / ☀️ 页面加载时立即显示正确图标
+    * ===================================================== */
 
-    function updateMoonSun(theme) {
+    if (
+        currentTheme === 'dark'
+    ) {
 
-        if (theme === 'dark') {
+        /*
+        * 当前是夜晚
+        * 立即显示月亮
+        */
 
-            /*
-             * 夜晚
-             *
-             * 显示月亮
-             */
-            moon.classList.remove(
-                'is-day'
-            );
+        moon.classList.remove(
+            'is-day'
+        );
 
-            moon.classList.add(
-                'is-night'
-            );
+        moon.classList.add(
+            'is-night'
+        );
 
 
-        } else {
+        moonCore.style.opacity =
+            '1';
 
-            /*
-             * 白天
-             *
-             * 显示太阳
-             */
-            moon.classList.remove(
-                'is-night'
-            );
+        moonCore.style.visibility =
+            'visible';
 
-            moon.classList.add(
-                'is-day'
-            );
+        moonAura.style.opacity =
+            '1';
 
-        }
+        moonAura.style.visibility =
+            'visible';
+
+        moonAuraFar.style.opacity =
+            '1';
+
+        moonAuraFar.style.visibility =
+            'visible';
+
+        moonGlow.style.opacity =
+            '1';
+
+        moonGlow.style.visibility =
+            'visible';
+
+
+        sun.style.opacity =
+            '0';
+
+        sun.style.visibility =
+            'hidden';
+
+
+    } else {
+
+        /*
+        * 当前是白天
+        * 立即显示太阳
+        */
+
+        moon.classList.remove(
+            'is-night'
+        );
+
+        moon.classList.add(
+            'is-day'
+        );
+
+
+        moonCore.style.opacity =
+            '0';
+
+        moonCore.style.visibility =
+            'hidden';
+
+        moonAura.style.opacity =
+            '0';
+
+        moonAura.style.visibility =
+            'hidden';
+
+        moonAuraFar.style.opacity =
+            '0';
+
+        moonAuraFar.style.visibility =
+            'hidden';
+
+        moonGlow.style.opacity =
+            '0';
+
+        moonGlow.style.visibility =
+            'hidden';
+
+
+        sun.style.opacity =
+            '1';
+
+        sun.style.visibility =
+            'visible';
 
     }
 
