@@ -1548,19 +1548,17 @@ function stopp() {
 (function () {
 
     /* =====================================================
-     * 创建整体氛围层
+     * 🌙 创建整体氛围层
      * ===================================================== */
 
-    var atmosphere =
-        document.createElement('div');
+    var atmosphere = document.createElement('div');
 
-    atmosphere.id =
-        'sakura-atmosphere';
+    atmosphere.id = 'sakura-atmosphere';
 
     atmosphere.innerHTML =
 
         /*
-         * 呼吸光
+         * 夜空呼吸光
          */
         '<div id="night-breathing"></div>' +
 
@@ -1597,48 +1595,60 @@ function stopp() {
         'opacity: 1 !important;';
 
 
-    document.body.appendChild(
-        atmosphere
-    );
+    document.body.appendChild(atmosphere);
 
 
     /* =====================================================
-     * 🌊 背景呼吸光
+     * 🌊 夜空呼吸光
      * ===================================================== */
 
     var breathing =
-        document.getElementById(
-            'night-breathing'
-        );
+        document.getElementById('night-breathing');
 
 
     breathing.style.cssText =
 
         'position: absolute !important;' +
-        'left: -10% !important;' +
-        'top: -10% !important;' +
-        'width: 120% !important;' +
-        'height: 120% !important;' +
+
+        'left: -15% !important;' +
+        'top: -15% !important;' +
+
+        'width: 130% !important;' +
+        'height: 130% !important;' +
+
         'pointer-events: none !important;' +
 
         /*
-         * 很淡的蓝白色夜光
+         * 比原来的范围更大
+         *
+         * 让整个页面有一种很轻的夜光
          */
         'background: radial-gradient(' +
             'ellipse at 75% 18%,' +
-            'rgba(150,175,240,0.12) 0%,' +
-            'rgba(130,160,230,0.07) 18%,' +
-            'rgba(100,130,210,0.035) 38%,' +
-            'rgba(80,110,190,0.015) 55%,' +
-            'rgba(0,0,0,0) 75%' +
+
+            'rgba(160,185,250,0.14) 0%,' +
+
+            'rgba(145,175,245,0.09) 15%,' +
+
+            'rgba(125,155,230,0.055) 30%,' +
+
+            'rgba(105,135,215,0.025) 48%,' +
+
+            'rgba(80,110,190,0.008) 65%,' +
+
+            'rgba(0,0,0,0) 78%' +
+
         ') !important;' +
 
-        'opacity: 0.75 !important;' +
+        /*
+         * 初始透明度
+         */
+        'opacity: 0.55 !important;' +
 
         /*
-         * 非常慢的呼吸
+         * 呼吸动画
          */
-        'animation: nightBreathing 12s ease-in-out infinite !important;';
+        'animation: nightBreathing 16s ease-in-out infinite !important;';
 
 
     /* =====================================================
@@ -1646,23 +1656,18 @@ function stopp() {
      * ===================================================== */
 
     var moon =
-        document.getElementById(
-            'night-moon'
-        );
+        document.getElementById('night-moon');
 
 
     moon.style.cssText =
 
         'position: absolute !important;' +
 
-        /*
-         * 右上角
-         */
         'top: 7% !important;' +
         'right: 8% !important;' +
 
-        'width: 72px !important;' +
-        'height: 72px !important;' +
+        'width: 100px !important;' +
+        'height: 100px !important;' +
 
         'pointer-events: none !important;' +
 
@@ -1670,7 +1675,7 @@ function stopp() {
         'visibility: visible !important;' +
         'opacity: 1 !important;' +
 
-        'animation: moonFloat 10s ease-in-out infinite !important;';
+        'animation: moonFloat 12s ease-in-out infinite !important;';
 
 
     /* =====================================================
@@ -1678,9 +1683,7 @@ function stopp() {
      * ===================================================== */
 
     var outer =
-        document.getElementById(
-            'moon-aura-outer'
-        );
+        document.getElementById('moon-aura-outer');
 
 
     outer.style.cssText =
@@ -1690,8 +1693,8 @@ function stopp() {
         'left: 50% !important;' +
         'top: 50% !important;' +
 
-        'width: 330px !important;' +
-        'height: 330px !important;' +
+        'width: 360px !important;' +
+        'height: 360px !important;' +
 
         'transform: translate(-50%, -50%) !important;' +
 
@@ -1699,13 +1702,16 @@ function stopp() {
 
         'background: radial-gradient(' +
             'circle,' +
-            'rgba(170,195,255,0.045) 0%,' +
-            'rgba(160,190,255,0.025) 30%,' +
-            'rgba(150,180,255,0.01) 52%,' +
-            'rgba(150,180,255,0) 72%' +
+
+            'rgba(175,200,255,0.055) 0%,' +
+            'rgba(165,195,255,0.035) 25%,' +
+            'rgba(155,185,250,0.018) 48%,' +
+            'rgba(145,175,245,0.006) 65%,' +
+            'rgba(145,175,245,0) 75%' +
+
         ') !important;' +
 
-        'animation: moonAura 12s ease-in-out infinite !important;';
+        'animation: moonAura 14s ease-in-out infinite !important;';
 
 
     /* =====================================================
@@ -1713,9 +1719,7 @@ function stopp() {
      * ===================================================== */
 
     var aura =
-        document.getElementById(
-            'moon-aura'
-        );
+        document.getElementById('moon-aura');
 
 
     aura.style.cssText =
@@ -1725,8 +1729,8 @@ function stopp() {
         'left: 50% !important;' +
         'top: 50% !important;' +
 
-        'width: 220px !important;' +
-        'height: 220px !important;' +
+        'width: 230px !important;' +
+        'height: 230px !important;' +
 
         'transform: translate(-50%, -50%) !important;' +
 
@@ -1734,23 +1738,24 @@ function stopp() {
 
         'background: radial-gradient(' +
             'circle,' +
-            'rgba(230,235,255,0.22) 0%,' +
-            'rgba(225,232,255,0.12) 25%,' +
-            'rgba(220,228,255,0.05) 48%,' +
-            'rgba(220,228,255,0) 72%' +
+
+            'rgba(235,240,255,0.20) 0%,' +
+            'rgba(230,237,255,0.11) 22%,' +
+            'rgba(220,232,255,0.055) 42%,' +
+            'rgba(215,228,255,0.018) 60%,' +
+            'rgba(215,228,255,0) 75%' +
+
         ') !important;' +
 
-        'animation: moonGlow 8s ease-in-out infinite !important;';
+        'animation: moonGlow 10s ease-in-out infinite !important;';
 
 
     /* =====================================================
-     * 🌕 月亮本体
+     * 🌘 残月
      * ===================================================== */
 
     var core =
-        document.getElementById(
-            'moon-core'
-        );
+        document.getElementById('moon-core');
 
 
     core.style.cssText =
@@ -1768,65 +1773,135 @@ function stopp() {
         'border-radius: 50% !important;' +
 
         /*
-         * 月亮颜色
+         * 月牙本体
          */
         'background: radial-gradient(' +
-            'circle at 35% 30%,' +
+            'circle at 36% 30%,' +
+
             '#ffffff 0%,' +
-            '#fafaf2 38%,' +
-            '#eeeeE1 70%,' +
-            '#d9d9ca 100%' +
+            '#fafbf5 35%,' +
+            '#f0f1e8 68%,' +
+            '#dedfd3 100%' +
+
         ') !important;' +
 
         /*
-         * 月亮自身强一点的光
+         * 用伪元素制造缺口
          */
         'box-shadow:' +
-            '0 0 8px rgba(255,255,250,1),' +
-            '0 0 20px rgba(255,250,235,0.95),' +
-            '0 0 40px rgba(230,235,255,0.7),' +
-            '0 0 70px rgba(210,220,255,0.35)' +
+            '0 0 7px rgba(255,255,250,0.95),' +
+            '0 0 18px rgba(255,250,235,0.85),' +
+            '0 0 38px rgba(225,235,255,0.55),' +
+            '0 0 65px rgba(205,220,255,0.25)' +
+
         '!important;';
 
 
     /* =====================================================
+     * 🌘 用 CSS 制造月牙缺口
+     * ===================================================== */
+
+    var moonMask =
+        document.createElement('div');
+
+
+    moonMask.id =
+        'moon-mask';
+
+
+    moonMask.style.cssText =
+
+        'position: absolute !important;' +
+
+        /*
+         * 向右偏移
+         *
+         * 左边留下亮月牙
+         */
+        'left: 20px !important;' +
+        'top: -5px !important;' +
+
+        'width: 72px !important;' +
+        'height: 72px !important;' +
+
+        'border-radius: 50% !important;' +
+
+        /*
+         * 使用透明黑色遮住月亮
+         *
+         * 因为背景透明，所以实际上显示的是
+         * 背景原本的夜色
+         */
+        'background: rgba(8,12,25,0.96) !important;' +
+
+        /*
+         * 给缺口一点点蓝色环境光
+         */
+        'box-shadow: inset 4px 0 10px rgba(40,55,100,0.08) !important;';
+
+
+    core.appendChild(moonMask);
+
+
+    /* =====================================================
      * 🌑 月面细节
+     *
+     * 残月状态下仍然保留一点月面层次
      * ===================================================== */
 
     var craters =
-        core.querySelectorAll(
-            '.moon-crater'
-        );
+        core.querySelectorAll('.moon-crater');
 
 
     craters[0].style.cssText =
+
         'position:absolute !important;' +
+
         'width:10px !important;' +
         'height:7px !important;' +
+
         'left:18px !important;' +
         'top:20px !important;' +
+
         'border-radius:50% !important;' +
-        'background:rgba(190,190,175,0.20) !important;';
+
+        'background:rgba(190,190,175,0.17) !important;' +
+
+        'filter:blur(0.5px);';
 
 
     craters[1].style.cssText =
+
         'position:absolute !important;' +
+
         'width:14px !important;' +
         'height:10px !important;' +
+
         'right:13px !important;' +
         'top:34px !important;' +
+
         'border-radius:50% !important;' +
-        'background:rgba(185,185,170,0.16) !important;';
+
+        'background:rgba(185,185,170,0.13) !important;' +
+
+        'filter:blur(0.6px);';
 
 
     craters[2].style.cssText =
+
         'position:absolute !important;' +
+
         'width:8px !important;' +
         'height:8px !important;' +
+
         'left:29px !important;' +
         'bottom:12px !important;' +
+
         'border-radius:50% !important;' +
-        'background:rgba(185,185,170,0.15) !important;';
+
+        'background:rgba(185,185,170,0.12) !important;' +
+
+        'filter:blur(0.5px);';
 
 
     /* =====================================================
@@ -1851,28 +1926,46 @@ function stopp() {
 
             0% {
 
-                opacity: 0.45 !important;
+                opacity: 0.38 !important;
 
                 transform:
-                    scale(0.98);
+                    scale(0.96);
+
+            }
+
+            25% {
+
+                opacity: 0.52 !important;
+
+                transform:
+                    scale(1.00);
 
             }
 
             50% {
 
-                opacity: 1 !important;
+                opacity: 0.82 !important;
 
                 transform:
-                    scale(1.04);
+                    scale(1.055);
+
+            }
+
+            75% {
+
+                opacity: 0.52 !important;
+
+                transform:
+                    scale(1.00);
 
             }
 
             100% {
 
-                opacity: 0.45 !important;
+                opacity: 0.38 !important;
 
                 transform:
-                    scale(0.98);
+                    scale(0.96);
 
             }
 
@@ -1917,7 +2010,7 @@ function stopp() {
 
             0% {
 
-                opacity: 0.45;
+                opacity: 0.35;
 
                 transform:
                     translate(-50%, -50%)
@@ -1927,7 +2020,7 @@ function stopp() {
 
             50% {
 
-                opacity: 1;
+                opacity: 0.90;
 
                 transform:
                     translate(-50%, -50%)
@@ -1937,7 +2030,7 @@ function stopp() {
 
             100% {
 
-                opacity: 0.45;
+                opacity: 0.35;
 
                 transform:
                     translate(-50%, -50%)
@@ -1956,31 +2049,31 @@ function stopp() {
 
             0% {
 
-                opacity: 0.35;
+                opacity: 0.28;
 
                 transform:
                     translate(-50%, -50%)
-                    scale(0.92);
+                    scale(0.90);
 
             }
 
             50% {
 
-                opacity: 0.85;
+                opacity: 0.72;
 
                 transform:
                     translate(-50%, -50%)
-                    scale(1.08);
+                    scale(1.10);
 
             }
 
             100% {
 
-                opacity: 0.35;
+                opacity: 0.28;
 
                 transform:
                     translate(-50%, -50%)
-                    scale(0.92);
+                    scale(0.90);
 
             }
 
@@ -2012,9 +2105,7 @@ function stopp() {
     `;
 
 
-    document.head.appendChild(
-        style
-    );
+    document.head.appendChild(style);
 
 
 })();
