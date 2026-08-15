@@ -2131,61 +2131,41 @@ function stopp() {
         'left:50% !important;' +
         'top:50% !important;' +
 
-        'width:92px !important;' +
-        'height:92px !important;' +
+        'width:86px !important;' +
+        'height:86px !important;' +
 
         'transform:translate(-50%,-50%) !important;' +
 
         'border-radius:50% !important;' +
 
+        /*
+        * 不再做明显的太阳线
+        *
+        * 改成非常淡的光晕
+        */
         'background:' +
 
-            'conic-gradient(' +
+            'radial-gradient(' +
 
-                'from 0deg,' +
+                'circle,' +
 
-                'transparent 0deg,' +
-                'rgba(255,230,170,0.18) 7deg,' +
-                'transparent 14deg,' +
+                'rgba(255,240,190,0) 35%,' +
 
-                'transparent 45deg,' +
-                'rgba(255,230,170,0.13) 52deg,' +
-                'transparent 59deg,' +
+                'rgba(255,230,170,0.035) 48%,' +
 
-                'transparent 90deg,' +
-                'rgba(255,230,170,0.16) 97deg,' +
-                'transparent 104deg,' +
+                'rgba(255,225,165,0.055) 55%,' +
 
-                'transparent 135deg,' +
-                'rgba(255,230,170,0.13) 142deg,' +
-                'transparent 149deg,' +
+                'rgba(255,220,160,0.018) 66%,' +
 
-                'transparent 180deg,' +
-                'rgba(255,230,170,0.16) 187deg,' +
-                'transparent 194deg,' +
-
-                'transparent 225deg,' +
-                'rgba(255,230,170,0.13) 232deg,' +
-                'transparent 239deg,' +
-
-                'transparent 270deg,' +
-                'rgba(255,230,170,0.16) 277deg,' +
-                'transparent 284deg,' +
-
-                'transparent 315deg,' +
-                'rgba(255,230,170,0.13) 322deg,' +
-                'transparent 329deg,' +
-
-                'transparent 360deg' +
+                'rgba(255,215,150,0) 75%' +
 
             ')' +
 
         '!important;' +
 
-        'filter:blur(0.8px) !important;' +
+        'filter:blur(1.5px) !important;' +
 
-        'animation:sunRays 24s linear infinite !important;';
-
+        'animation:sunRays 16s ease-in-out infinite !important;';
 
     /* =====================================================
      * ☀️ 太阳本体
@@ -2197,49 +2177,57 @@ function stopp() {
         );
 
 
-    sunCore.style.cssText =
+        sunCore.style.cssText =
 
-        'position:absolute !important;' +
+            'position:absolute !important;' +
 
-        'left:50% !important;' +
-        'top:50% !important;' +
+            'left:50% !important;' +
+            'top:50% !important;' +
 
-        'width:50px !important;' +
-        'height:50px !important;' +
+            'width:46px !important;' +
+            'height:46px !important;' +
 
-        'transform:translate(-50%,-50%) !important;' +
+            'transform:translate(-50%,-50%) !important;' +
 
-        'border-radius:50% !important;' +
+            'border-radius:50% !important;' +
 
-        /*
-         * 不使用鲜艳黄色
-         *
-         * 使用暖白 + 淡金
-         */
-        'background:' +
+            /*
+            * 暖白色太阳
+            */
+            'background:' +
 
-            'radial-gradient(' +
+                'radial-gradient(' +
 
-                'circle at 35% 30%,' +
+                    'circle at 34% 30%,' +
 
-                '#fffef5 0%,' +
-                '#fff9df 35%,' +
-                '#ffeab0 70%,' +
-                '#f5d47c 100%' +
+                    'rgba(255,255,249,1) 0%,' +
+                    'rgba(255,252,232,0.98) 32%,' +
+                    'rgba(255,241,195,0.96) 68%,' +
+                    'rgba(246,218,150,0.88) 100%' +
 
-            ')' +
+                ')' +
 
-        '!important;' +
+            '!important;' +
 
-        'box-shadow:' +
+            /*
+            * 很柔的光
+            */
+            'box-shadow:' +
 
-            '0 0 7px rgba(255,250,220,0.95),' +
+                '0 0 5px rgba(255,255,245,0.95),' +
 
-            '0 0 18px rgba(255,235,175,0.70),' +
+                '0 0 13px rgba(255,244,205,0.75),' +
 
-            '0 0 38px rgba(255,220,145,0.34)' +
+                '0 0 27px rgba(255,229,170,0.42),' +
 
-        '!important;';
+                '0 0 52px rgba(255,220,160,0.16)' +
+
+            '!important;' +
+
+            /*
+            * 轻微柔化
+            */
+            'filter:blur(0.15px) !important;';
 
 
     /* =====================================================
@@ -2567,6 +2555,7 @@ function stopp() {
             }
 
         }
+            
 
 
         /* =================================================
