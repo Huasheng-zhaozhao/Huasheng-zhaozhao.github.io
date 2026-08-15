@@ -1557,14 +1557,8 @@ function stopp() {
 
     atmosphere.innerHTML =
 
-        /*
-         * 夜空呼吸光
-         */
         '<div id="night-breathing"></div>' +
 
-        /*
-         * 月亮
-         */
         '<div id="night-moon">' +
 
             '<div id="moon-aura-outer"></div>' +
@@ -1610,45 +1604,36 @@ function stopp() {
 
         'position: absolute !important;' +
 
-        'left: -15% !important;' +
-        'top: -15% !important;' +
+        'left: -20% !important;' +
+        'top: -20% !important;' +
 
-        'width: 130% !important;' +
-        'height: 130% !important;' +
+        'width: 140% !important;' +
+        'height: 140% !important;' +
 
         'pointer-events: none !important;' +
 
         /*
-         * 比原来的范围更大
+         * 非常大的蓝白色夜光
          *
-         * 让整个页面有一种很轻的夜光
+         * 光源集中在右上方月亮附近
          */
         'background: radial-gradient(' +
-            'ellipse at 75% 18%,' +
+            'ellipse at 76% 17%,' +
 
-            'rgba(160,185,250,0.14) 0%,' +
-
-            'rgba(145,175,245,0.09) 15%,' +
-
-            'rgba(125,155,230,0.055) 30%,' +
-
-            'rgba(105,135,215,0.025) 48%,' +
-
-            'rgba(80,110,190,0.008) 65%,' +
-
-            'rgba(0,0,0,0) 78%' +
+            'rgba(155,180,245,0.13) 0%,' +
+            'rgba(140,170,240,0.075) 18%,' +
+            'rgba(120,150,225,0.04) 34%,' +
+            'rgba(100,130,210,0.018) 50%,' +
+            'rgba(70,100,180,0) 72%' +
 
         ') !important;' +
 
-        /*
-         * 初始透明度
-         */
-        'opacity: 0.55 !important;' +
+        'opacity: 0.48 !important;' +
 
         /*
-         * 呼吸动画
+         * 只改变亮度，不缩放整个背景
          */
-        'animation: nightBreathing 16s ease-in-out infinite !important;';
+        'animation: nightBreathing 18s ease-in-out infinite !important;';
 
 
     /* =====================================================
@@ -1666,8 +1651,8 @@ function stopp() {
         'top: 7% !important;' +
         'right: 8% !important;' +
 
-        'width: 100px !important;' +
-        'height: 100px !important;' +
+        'width: 90px !important;' +
+        'height: 90px !important;' +
 
         'pointer-events: none !important;' +
 
@@ -1675,6 +1660,9 @@ function stopp() {
         'visibility: visible !important;' +
         'opacity: 1 !important;' +
 
+        /*
+         * 月亮本体轻微漂浮
+         */
         'animation: moonFloat 12s ease-in-out infinite !important;';
 
 
@@ -1703,15 +1691,17 @@ function stopp() {
         'background: radial-gradient(' +
             'circle,' +
 
-            'rgba(175,200,255,0.055) 0%,' +
-            'rgba(165,195,255,0.035) 25%,' +
-            'rgba(155,185,250,0.018) 48%,' +
-            'rgba(145,175,245,0.006) 65%,' +
-            'rgba(145,175,245,0) 75%' +
+            'rgba(175,200,255,0.045) 0%,' +
+            'rgba(165,195,255,0.027) 28%,' +
+            'rgba(155,185,250,0.013) 48%,' +
+            'rgba(145,175,245,0) 72%' +
 
         ') !important;' +
 
-        'animation: moonAura 14s ease-in-out infinite !important;';
+        /*
+         * 外层月光呼吸
+         */
+        'animation: moonAura 16s ease-in-out infinite !important;';
 
 
     /* =====================================================
@@ -1739,19 +1729,21 @@ function stopp() {
         'background: radial-gradient(' +
             'circle,' +
 
-            'rgba(235,240,255,0.20) 0%,' +
-            'rgba(230,237,255,0.11) 22%,' +
-            'rgba(220,232,255,0.055) 42%,' +
-            'rgba(215,228,255,0.018) 60%,' +
-            'rgba(215,228,255,0) 75%' +
+            'rgba(240,243,255,0.17) 0%,' +
+            'rgba(235,240,255,0.09) 22%,' +
+            'rgba(225,235,255,0.04) 44%,' +
+            'rgba(215,228,255,0) 72%' +
 
         ') !important;' +
 
-        'animation: moonGlow 10s ease-in-out infinite !important;';
+        /*
+         * 中层月晕呼吸
+         */
+        'animation: moonGlow 11s ease-in-out infinite !important;';
 
 
     /* =====================================================
-     * 🌘 残月
+     * 🌘 残月本体
      * ===================================================== */
 
     var core =
@@ -1773,80 +1765,52 @@ function stopp() {
         'border-radius: 50% !important;' +
 
         /*
-         * 月牙本体
+         * 月亮本体
          */
         'background: radial-gradient(' +
-            'circle at 36% 30%,' +
+            'circle at 34% 28%,' +
 
             '#ffffff 0%,' +
-            '#fafbf5 35%,' +
-            '#f0f1e8 68%,' +
+            '#fafbf5 34%,' +
+            '#f1f2e9 65%,' +
             '#dedfd3 100%' +
 
         ') !important;' +
 
         /*
-         * 用伪元素制造缺口
-         */
-        'box-shadow:' +
-            '0 0 7px rgba(255,255,250,0.95),' +
-            '0 0 18px rgba(255,250,235,0.85),' +
-            '0 0 38px rgba(225,235,255,0.55),' +
-            '0 0 65px rgba(205,220,255,0.25)' +
-
-        '!important;';
-
-
-    /* =====================================================
-     * 🌘 用 CSS 制造月牙缺口
-     * ===================================================== */
-
-    var moonMask =
-        document.createElement('div');
-
-
-    moonMask.id =
-        'moon-mask';
-
-
-    moonMask.style.cssText =
-
-        'position: absolute !important;' +
-
-        /*
-         * 向右偏移
+         * 真正裁剪成残月
          *
-         * 左边留下亮月牙
+         * 月牙向左弯
          */
-        'left: 20px !important;' +
-        'top: -5px !important;' +
+        '-webkit-mask-image: radial-gradient(' +
+            'ellipse 67% 67% at 68% 50%,' +
+            'transparent 0%,' +
+            'transparent 50%,' +
+            '#000 51%,' +
+            '#000 100%' +
+        ') !important;' +
 
-        'width: 72px !important;' +
-        'height: 72px !important;' +
-
-        'border-radius: 50% !important;' +
+        'mask-image: radial-gradient(' +
+            'ellipse 67% 67% at 68% 50%,' +
+            'transparent 0%,' +
+            'transparent 50%,' +
+            '#000 51%,' +
+            '#000 100%' +
+        ') !important;' +
 
         /*
-         * 使用透明黑色遮住月亮
-         *
-         * 因为背景透明，所以实际上显示的是
-         * 背景原本的夜色
+         * 月牙本身的光
          */
-        'background: rgba(8,12,25,0.96) !important;' +
+        'filter:' +
+            'drop-shadow(0 0 5px rgba(255,255,250,0.95))' +
+            'drop-shadow(0 0 13px rgba(255,250,235,0.75))' +
+            'drop-shadow(0 0 28px rgba(225,235,255,0.45))' +
 
-        /*
-         * 给缺口一点点蓝色环境光
-         */
-        'box-shadow: inset 4px 0 10px rgba(40,55,100,0.08) !important;';
-
-
-    core.appendChild(moonMask);
+        ';';
 
 
     /* =====================================================
      * 🌑 月面细节
-     *
-     * 残月状态下仍然保留一点月面层次
      * ===================================================== */
 
     var craters =
@@ -1860,31 +1824,31 @@ function stopp() {
         'width:10px !important;' +
         'height:7px !important;' +
 
-        'left:18px !important;' +
+        'left:17px !important;' +
         'top:20px !important;' +
 
         'border-radius:50% !important;' +
 
-        'background:rgba(190,190,175,0.17) !important;' +
+        'background:rgba(185,185,170,0.17) !important;' +
 
-        'filter:blur(0.5px);';
+        'filter:blur(0.6px) !important;';
 
 
     craters[1].style.cssText =
 
         'position:absolute !important;' +
 
-        'width:14px !important;' +
-        'height:10px !important;' +
+        'width:13px !important;' +
+        'height:9px !important;' +
 
-        'right:13px !important;' +
-        'top:34px !important;' +
+        'right:15px !important;' +
+        'top:35px !important;' +
 
         'border-radius:50% !important;' +
 
         'background:rgba(185,185,170,0.13) !important;' +
 
-        'filter:blur(0.6px);';
+        'filter:blur(0.7px) !important;';
 
 
     craters[2].style.cssText =
@@ -1894,14 +1858,14 @@ function stopp() {
         'width:8px !important;' +
         'height:8px !important;' +
 
-        'left:29px !important;' +
+        'left:28px !important;' +
         'bottom:12px !important;' +
 
         'border-radius:50% !important;' +
 
         'background:rgba(185,185,170,0.12) !important;' +
 
-        'filter:blur(0.5px);';
+        'filter:blur(0.6px) !important;';
 
 
     /* =====================================================
@@ -1920,52 +1884,40 @@ function stopp() {
 
         /* =================================================
          * 🌊 夜空呼吸
+         *
+         * 不再缩放背景
+         * 只让光线慢慢变亮、变暗
          * ================================================= */
 
         @keyframes nightBreathing {
 
             0% {
 
-                opacity: 0.38 !important;
-
-                transform:
-                    scale(0.96);
+                opacity: 0.35 !important;
 
             }
 
             25% {
 
-                opacity: 0.52 !important;
-
-                transform:
-                    scale(1.00);
+                opacity: 0.46 !important;
 
             }
 
             50% {
 
-                opacity: 0.82 !important;
-
-                transform:
-                    scale(1.055);
+                opacity: 0.78 !important;
 
             }
 
             75% {
 
-                opacity: 0.52 !important;
-
-                transform:
-                    scale(1.00);
+                opacity: 0.46 !important;
 
             }
 
             100% {
 
-                opacity: 0.38 !important;
-
-                transform:
-                    scale(0.96);
+                opacity: 0.35 !important;
 
             }
 
@@ -1973,7 +1925,7 @@ function stopp() {
 
 
         /* =================================================
-         * 🌙 月亮上下漂浮
+         * 🌙 月亮轻微漂浮
          * ================================================= */
 
         @keyframes moonFloat {
@@ -1988,7 +1940,7 @@ function stopp() {
             50% {
 
                 transform:
-                    translateY(-5px);
+                    translateY(-4px);
 
             }
 
@@ -2003,24 +1955,26 @@ function stopp() {
 
 
         /* =================================================
-         * 🌫️ 月晕呼吸
+         * 🌫️ 中层月晕
+         *
+         * 亮度 + 范围同时变化
          * ================================================= */
 
         @keyframes moonGlow {
 
             0% {
 
-                opacity: 0.35;
+                opacity: 0.30;
 
                 transform:
                     translate(-50%, -50%)
-                    scale(0.88);
+                    scale(0.90);
 
             }
 
             50% {
 
-                opacity: 0.90;
+                opacity: 0.85;
 
                 transform:
                     translate(-50%, -50%)
@@ -2030,11 +1984,11 @@ function stopp() {
 
             100% {
 
-                opacity: 0.35;
+                opacity: 0.30;
 
                 transform:
                     translate(-50%, -50%)
-                    scale(0.88);
+                    scale(0.90);
 
             }
 
@@ -2049,31 +2003,31 @@ function stopp() {
 
             0% {
 
-                opacity: 0.28;
+                opacity: 0.25;
 
                 transform:
                     translate(-50%, -50%)
-                    scale(0.90);
+                    scale(0.92);
 
             }
 
             50% {
 
-                opacity: 0.72;
+                opacity: 0.68;
 
                 transform:
                     translate(-50%, -50%)
-                    scale(1.10);
+                    scale(1.08);
 
             }
 
             100% {
 
-                opacity: 0.28;
+                opacity: 0.25;
 
                 transform:
                     translate(-50%, -50%)
-                    scale(0.90);
+                    scale(0.92);
 
             }
 
@@ -2106,6 +2060,5 @@ function stopp() {
 
 
     document.head.appendChild(style);
-
 
 })();
