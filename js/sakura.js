@@ -4173,16 +4173,18 @@ function stopp() {
 (function () {
 
     /* =====================================================
-     * 🌫️ 夜间雨雾
+     * 🌫️ 夜间雨雾 · 流动薄雾版
      *
      * Dark Mode  → 显示
      * Light Mode → 隐藏
      *
      * 特点：
-     * 1. 很淡
-     * 2. 持续缓慢流动
-     * 3. 有轻微呼吸感
-     * 4. 只存在于夜晚
+     * 1. 不再是一团一团的雾
+     * 2. 改为连续、柔软的横向雾带
+     * 3. 极低透明度
+     * 4. 缓慢向侧上方漂移
+     * 5. 有轻微空气流动感
+     * 6. 只存在于夜间
      * ===================================================== */
 
 
@@ -4208,32 +4210,18 @@ function stopp() {
     canvas.id =
         'canvas_night_fog';
 
-
     canvas.style.cssText =
-
         'position:fixed !important;' +
-
         'left:0 !important;' +
         'top:0 !important;' +
-
         'width:100% !important;' +
         'height:100% !important;' +
-
         'pointer-events:none !important;' +
-
-        /*
-         * 雾气在最底层
-         */
         'z-index:9996 !important;' +
-
         'opacity:0 !important;' +
-
         'visibility:hidden !important;';
 
-
-    document.body.appendChild(
-        canvas
-    );
+    document.body.appendChild(canvas);
 
 
     var ctx =
@@ -4259,13 +4247,11 @@ function stopp() {
         height =
             window.innerHeight;
 
-
         canvas.width =
             width;
 
         canvas.height =
             height;
-
 
         createFog();
 
@@ -4282,68 +4268,68 @@ function stopp() {
 
 
     /* =====================================================
-     * 🌫️ 雾气数据
+     * 🌫️ 雾带
      * ===================================================== */
 
     var fogLayers = [];
 
 
     /*
-     * 创建一层雾
+     * 创建一层“连续雾带”
      */
 
     function createFogLayer(
-        y,
-        size,
+        baseY,
+        amplitude,
         speed,
         alpha,
+        scale,
         phase
     ) {
 
         return {
 
             /*
-             * 初始位置
+             * 基础高度
              */
-            x:
-                Math.random() *
-                width,
-
-            y:
-                y,
+            baseY:
+                baseY,
 
             /*
-             * 雾气大小
+             * 上下起伏幅度
              */
-            size:
-                size,
+            amplitude:
+                amplitude,
 
             /*
-             * 横向速度
-             *
-             * 非常慢
+             * 横向移动速度
              */
             speed:
                 speed,
 
             /*
-             * 最大透明度
+             * 透明度
              */
             alpha:
                 alpha,
 
             /*
-             * 呼吸相位
+             * 雾带宽度
+             */
+            scale:
+                scale,
+
+            /*
+             * 波形相位
              */
             phase:
                 phase,
 
             /*
-             * 时间
+             * 当前时间
              */
             time:
-                Math.random() *
-                1000
+                Math.random() * 1000
 
         };
 
@@ -4351,7 +4337,7 @@ function stopp() {
 
 
     /* =====================================================
-     * 创建三层雾
+     * 创建多层薄雾
      * ===================================================== */
 
     function createFog() {
@@ -4363,19 +4349,21 @@ function stopp() {
          * 第一层
          *
          * 最远
-         * 最淡
+         * 非常淡
          */
 
         fogLayers.push(
             createFogLayer(
 
-                height * 0.70,
+                height * 0.67,
 
-                height * 0.32,
+                height * 0.018,
 
-                0.035,
+                0.018,
 
-                0.075,
+                0.028,
+
+                1.0,
 
                 Math.random() *
                 Math.PI * 2
@@ -4393,13 +4381,15 @@ function stopp() {
         fogLayers.push(
             createFogLayer(
 
-                height * 0.80,
+                height * 0.75,
 
-                height * 0.38,
+                height * 0.022,
 
-                -0.025,
+                -0.012,
 
-                0.095,
+                0.036,
+
+                1.15,
 
                 Math.random() *
                 Math.PI * 2
@@ -4411,20 +4401,48 @@ function stopp() {
         /*
          * 第三层
          *
-         * 最近
-         * 稍微明显一点
+         * 靠近底部
          */
 
         fogLayers.push(
             createFogLayer(
 
-                height * 0.91,
+                height * 0.84,
 
-                height * 0.45,
+                height * 0.026,
 
-                0.018,
+                0.009,
 
-                0.11,
+                0.045,
+
+                1.30,
+
+                Math.random() *
+                Math.PI * 2
+
+            )
+        );
+
+
+        /*
+         * 第四层
+         *
+         * 非常靠近底部
+         * 最轻
+         */
+
+        fogLayers.push(
+            createFogLayer(
+
+                height * 0.92,
+
+                height * 0.020,
+
+                -0.007,
+
+                0.032,
+
+                1.45,
 
                 Math.random() *
                 Math.PI * 2
@@ -4439,7 +4457,7 @@ function stopp() {
 
 
     /* =====================================================
-     * 🌫️ 绘制雾
+     * 🌫️ 绘制一层连续雾带
      * ===================================================== */
 
     function drawFogLayer(
@@ -4448,172 +4466,118 @@ function stopp() {
     ) {
 
         /*
-         * =============================================
-         * 横向缓慢移动
-         * =============================================
+         * =================================================
+         * 空气缓慢向前流动
+         * =================================================
          */
 
-        fog.x +=
+        var offset =
+            time *
             fog.speed;
 
 
         /*
-         * 超出屏幕后从另一侧进入
+         * =================================================
+         * 雾气上下轻微摆动
+         *
+         * 注意：
+         * 幅度非常小
+         * 不让人感觉像云
+         * =================================================
          */
 
-        if (
-            fog.x >
-            width + fog.size * 2
-        ) {
-
-            fog.x =
-                -fog.size * 2;
-
-        }
-
-
-        if (
-            fog.x <
-            -fog.size * 2
-        ) {
-
-            fog.x =
-                width + fog.size * 2;
-
-        }
-
-
-        /*
-         * =============================================
-         * 上下呼吸
-         * =============================================
-         */
-
-        var breathingY =
-
+        var wave =
             Math.sin(
                 time * 0.00018 +
                 fog.phase
-            ) * 10;
+            ) *
+            fog.amplitude;
 
 
         /*
-         * =============================================
-         * 透明度呼吸
+         * =================================================
+         * 创建纵向渐变
          *
-         * 不会突然变浓
-         * =============================================
-         */
-
-        var breathingAlpha =
-
-            0.82 +
-
-            Math.sin(
-                time * 0.00025 +
-                fog.phase
-            ) * 0.18;
-
-
-        /*
-         * =============================================
-         * 创建渐变
-         * =============================================
+         * 让雾带没有明显上下边缘
+         * =================================================
          */
 
         var gradient =
-            ctx.createRadialGradient(
-
-                fog.x,
-                fog.y + breathingY,
+            ctx.createLinearGradient(
 
                 0,
+                fog.baseY -
+                height * 0.16,
 
-                fog.x,
-                fog.y + breathingY,
-
-                fog.size
+                0,
+                fog.baseY +
+                height * 0.16
 
             );
 
-
-        /*
-         * 中心
-         */
 
         gradient.addColorStop(
 
             0,
 
-            'rgba(205,225,240,' +
-
-            (
-                fog.alpha *
-                breathingAlpha
-
-            ) +
-
-            ')'
+            'rgba(190,215,230,0)'
 
         );
 
-
-        /*
-         * 中间
-         */
 
         gradient.addColorStop(
 
             0.28,
 
-            'rgba(195,218,235,' +
-
+            'rgba(195,220,235,' +
             (
-                fog.alpha *
-                breathingAlpha *
-                0.55
-
+                fog.alpha * 0.18
             ) +
-
             ')'
 
         );
 
-
-        /*
-         * 外围
-         */
 
         gradient.addColorStop(
 
-            0.58,
+            0.50,
 
-            'rgba(180,205,225,' +
-
+            'rgba(205,225,238,' +
             (
-                fog.alpha *
-                breathingAlpha *
-                0.20
-
+                fog.alpha
             ) +
-
             ')'
 
         );
 
 
-        /*
-         * 消失
-         */
+        gradient.addColorStop(
+
+            0.72,
+
+            'rgba(195,220,235,' +
+            (
+                fog.alpha * 0.22
+            ) +
+            ')'
+
+        );
+
 
         gradient.addColorStop(
 
             1,
 
-            'rgba(170,195,215,0)'
+            'rgba(185,210,225,0)'
 
         );
 
+
+        /*
+         * =================================================
+         * 开始绘制
+         * =================================================
+         */
 
         ctx.save();
 
@@ -4623,29 +4587,129 @@ function stopp() {
 
 
         /*
-         * 椭圆雾团
+         * =================================================
+         * 雾带主体
+         *
+         * 使用很多轻微波动的曲线
+         * 而不是 ellipse
+         * =================================================
          */
 
         ctx.beginPath();
 
 
-        ctx.ellipse(
+        var step =
+            90;
 
-            fog.x,
+        var startX =
+            -(width * 0.25) -
+            (
+                offset %
+                (width * 0.5)
+            );
 
-            fog.y + breathingY,
 
-            fog.size * 1.75,
+        /*
+         * 上边缘
+         */
 
-            fog.size * 0.30,
+        for (
+            var x = startX;
+            x <= width * 1.25;
+            x += step
+        ) {
 
-            0,
+            var localX =
+                x -
+                startX;
 
-            0,
+            var wave1 =
+                Math.sin(
+                    localX * 0.004 +
+                    fog.phase
+                ) *
+                fog.amplitude;
 
-            Math.PI * 2
+            var wave2 =
+                Math.sin(
+                    localX * 0.0018 +
+                    fog.phase * 1.7
+                ) *
+                fog.amplitude *
+                0.6;
 
-        );
+            var y =
+                fog.baseY +
+                wave +
+                wave1 +
+                wave2 -
+                height * 0.055;
+
+            if (x === startX) {
+
+                ctx.moveTo(
+                    x,
+                    y
+                );
+
+            } else {
+
+                ctx.lineTo(
+                    x,
+                    y
+                );
+
+            }
+
+        }
+
+
+        /*
+         * 下边缘
+         */
+
+        for (
+            var x2 = width * 1.25;
+            x2 >= startX;
+            x2 -= step
+        ) {
+
+            var localX2 =
+                x2 -
+                startX;
+
+            var wave3 =
+                Math.sin(
+                    localX2 * 0.004 +
+                    fog.phase +
+                    1.2
+                ) *
+                fog.amplitude;
+
+            var wave4 =
+                Math.sin(
+                    localX2 * 0.002 +
+                    fog.phase * 1.3
+                ) *
+                fog.amplitude *
+                0.5;
+
+            var y2 =
+                fog.baseY +
+                wave +
+                wave3 +
+                wave4 +
+                height * 0.055;
+
+            ctx.lineTo(
+                x2,
+                y2
+            );
+
+        }
+
+
+        ctx.closePath();
 
 
         ctx.fill();
@@ -4657,10 +4721,7 @@ function stopp() {
 
 
     /* =====================================================
-     * 🌫️ 底部空气雾
-     *
-     * 非常淡
-     * 让页面底部有湿润空气感
+     * 🌫️ 底部湿润空气
      * ===================================================== */
 
     function drawBottomFog(
@@ -4668,16 +4729,30 @@ function stopp() {
     ) {
 
         /*
-         * 轻微呼吸
+         * 非常轻微的呼吸
          */
 
         var alpha =
 
-            0.035 +
+            0.018 +
 
             Math.sin(
-                time * 0.0002
-            ) * 0.012;
+                time * 0.00015
+            ) *
+            0.006;
+
+
+        /*
+         * 横向轻微漂移
+         */
+
+        var drift =
+
+            Math.sin(
+                time * 0.00008
+            ) *
+            width *
+            0.03;
 
 
         var gradient =
@@ -4696,16 +4771,16 @@ function stopp() {
 
             0,
 
-            'rgba(175,205,225,0)'
+            'rgba(180,210,225,0)'
 
         );
 
 
         gradient.addColorStop(
 
-            0.45,
+            0.42,
 
-            'rgba(180,210,230,' +
+            'rgba(185,215,230,' +
             alpha +
             ')'
 
@@ -4714,11 +4789,11 @@ function stopp() {
 
         gradient.addColorStop(
 
-            0.75,
+            0.70,
 
             'rgba(195,220,235,' +
             (
-                alpha * 1.5
+                alpha * 1.25
             ) +
             ')'
 
@@ -4729,9 +4804,9 @@ function stopp() {
 
             1,
 
-            'rgba(205,225,240,' +
+            'rgba(205,225,238,' +
             (
-                alpha * 2
+                alpha * 1.5
             ) +
             ')'
 
@@ -4741,19 +4816,22 @@ function stopp() {
         ctx.save();
 
 
+        ctx.translate(
+            drift,
+            0
+        );
+
+
         ctx.fillStyle =
             gradient;
 
 
         ctx.fillRect(
 
-            0,
-
-            height * 0.55,
-
-            width,
-
-            height * 0.45
+            -width,
+            height * 0.58,
+            width * 3,
+            height * 0.42
 
         );
 
@@ -4770,7 +4848,6 @@ function stopp() {
     var fogRunning =
         false;
 
-
     var animationFrame =
         null;
 
@@ -4783,23 +4860,16 @@ function stopp() {
         time
     ) {
 
-        /*
-         * 如果不是夜晚
-         * 停止绘制
-         */
-
         if (!fogRunning) {
 
             animationFrame =
                 null;
 
             ctx.clearRect(
-
                 0,
                 0,
                 width,
                 height
-
             );
 
             return;
@@ -4808,21 +4878,19 @@ function stopp() {
 
 
         /*
-         * 清空上一帧
+         * 清除上一帧
          */
 
         ctx.clearRect(
-
             0,
             0,
             width,
             height
-
         );
 
 
         /*
-         * 底部空气
+         * 底部湿润空气
          */
 
         drawBottomFog(
@@ -4831,7 +4899,7 @@ function stopp() {
 
 
         /*
-         * 三层雾
+         * 多层流动薄雾
          */
 
         for (
@@ -4841,19 +4909,12 @@ function stopp() {
         ) {
 
             drawFogLayer(
-
                 fogLayers[i],
-
                 time
-
             );
 
         }
 
-
-        /*
-         * 下一帧
-         */
 
         animationFrame =
             requestAnimationFrame(
@@ -4864,7 +4925,7 @@ function stopp() {
 
 
     /* =====================================================
-     * 🌙 显示雾气
+     * 🌙 显示
      * ===================================================== */
 
     function showFog() {
@@ -4881,10 +4942,6 @@ function stopp() {
             '1';
 
 
-        /*
-         * 防止重复启动动画
-         */
-
         if (
             animationFrame === null
         ) {
@@ -4900,7 +4957,7 @@ function stopp() {
 
 
     /* =====================================================
-     * ☀️ 隐藏雾气
+     * ☀️ 隐藏
      * ===================================================== */
 
     function hideFog() {
@@ -4917,10 +4974,6 @@ function stopp() {
             'hidden';
 
 
-        /*
-         * 取消动画
-         */
-
         if (
             animationFrame !== null
         ) {
@@ -4936,19 +4989,17 @@ function stopp() {
 
 
         ctx.clearRect(
-
             0,
             0,
             width,
             height
-
         );
 
     }
 
 
     /* =====================================================
-     * 🌙☀️ 根据主题更新
+     * 🌙☀️ 根据主题判断
      * ===================================================== */
 
     function updateFog() {
@@ -4998,11 +5049,9 @@ function stopp() {
                 ) {
 
                     if (
-
                         mutations[i]
                             .attributeName ===
                         'data-theme'
-
                     ) {
 
                         updateFog();
@@ -5020,16 +5069,13 @@ function stopp() {
         document.documentElement,
 
         {
+            attributes: true,
 
-            attributes:true,
-
-            attributeFilter:[
+            attributeFilter: [
                 'data-theme'
             ]
-
         }
 
     );
-
 
 })();
