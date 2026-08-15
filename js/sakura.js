@@ -262,7 +262,7 @@ function stopp() {
          * 比之前慢很多
          */
 
-        var speed = meteorRandom(5, 8);
+        var speed = meteorRandom(3, 5);
 
 
         /*
@@ -310,8 +310,8 @@ function stopp() {
              * 巨大流星头
              */
             size: meteorRandom(
-                8,
-                13
+                15,
+                22
             ),
 
             /*
