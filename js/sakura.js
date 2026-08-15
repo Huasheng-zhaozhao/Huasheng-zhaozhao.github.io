@@ -150,3 +150,465 @@ function stopp() {
     }
 }
 
+/* =========================================================
+ * 流星特效
+ * 不修改原有樱花代码
+ * ========================================================= */
+
+(function () {
+
+    var meteorCanvas = document.createElement('canvas');
+    var meteorCtx = meteorCanvas.getContext('2d');
+
+    meteorCanvas.id = 'canvas_meteor';
+
+    meteorCanvas.setAttribute(
+        'style',
+        'position: fixed;' +
+        'left: 0;' +
+        'top: 0;' +
+        'width: 100%;' +
+        'height: 100%;' +
+        'pointer-events: none;' +
+        'z-index: 9999;'
+    );
+
+    document.body.appendChild(meteorCanvas);
+
+
+    /* =========================
+     * 基础参数
+     * ========================= */
+
+    var meteors = [];
+
+    // 最少多久出现一次流星
+    var meteorMinDelay = 5000;
+
+    // 最多多久出现一次流星
+    var meteorMaxDelay = 11000;
+
+    // 流星最大数量
+    var meteorMaxCount = 1;
+
+
+    /* =========================
+     * Canvas 尺寸
+     * ========================= */
+
+    function resizeMeteorCanvas() {
+        meteorCanvas.width = window.innerWidth;
+        meteorCanvas.height = window.innerHeight;
+    }
+
+    resizeMeteorCanvas();
+
+    window.addEventListener('resize', resizeMeteorCanvas);
+
+
+    /* =========================
+     * 随机数
+     * ========================= */
+
+    function meteorRandom(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+
+    /* =========================
+     * 创建流星
+     * ========================= */
+
+    function createMeteor() {
+
+        if (meteors.length >= meteorMaxCount) {
+            return;
+        }
+
+        var width = meteorCanvas.width;
+        var height = meteorCanvas.height;
+
+        /*
+         * 从屏幕右上方出现
+         *
+         *       ☄
+         *          \
+         *           \
+         *            \
+         *             \
+         */
+
+        var startX = meteorRandom(width * 0.55, width * 1.05);
+        var startY = meteorRandom(-50, height * 0.35);
+
+        // 流星速度
+        var speed = meteorRandom(9, 14);
+
+        // 流星角度
+        var angle = meteorRandom(Math.PI * 0.70, Math.PI * 0.82);
+
+        // 运动方向
+        var vx = Math.cos(angle) * speed;
+        var vy = Math.sin(angle) * speed;
+
+        var meteor = {
+
+            x: startX,
+            y: startY,
+
+            vx: vx,
+            vy: vy,
+
+            // 流星长度
+            length: meteorRandom(130, 230),
+
+            // 流星头部大小
+            size: meteorRandom(1.8, 3.2),
+
+            // 透明度
+            opacity: meteorRandom(0.75, 1),
+
+            // 生命周期
+            life: 0,
+
+            maxLife: meteorRandom(45, 75),
+
+            // 尾巴宽度
+            width: meteorRandom(1, 2.2)
+
+        };
+
+        meteors.push(meteor);
+    }
+
+
+    /* =========================
+     * 绘制流星
+     * ========================= */
+
+    function drawMeteor(meteor) {
+
+        var ctx = meteorCtx;
+
+        /*
+         * 根据速度方向计算尾巴方向
+         */
+        var speed = Math.sqrt(
+            meteor.vx * meteor.vx +
+            meteor.vy * meteor.vy
+        );
+
+        var directionX = meteor.vx / speed;
+        var directionY = meteor.vy / speed;
+
+
+        /*
+         * 尾巴终点
+         */
+        var tailX =
+            meteor.x -
+            directionX * meteor.length;
+
+        var tailY =
+            meteor.y -
+            directionY * meteor.length;
+
+
+        /* =========================
+         * 流星拖尾
+         * ========================= */
+
+        var gradient = ctx.createLinearGradient(
+            tailX,
+            tailY,
+            meteor.x,
+            meteor.y
+        );
+
+        /*
+         * 正常流星颜色：
+         *
+         * 尾部：透明
+         * 中间：淡淡的暖白色
+         * 头部：白色
+         */
+
+        gradient.addColorStop(0, 'rgba(255,255,255,0)');
+        gradient.addColorStop(0.45, 'rgba(255,245,220,0.08)');
+        gradient.addColorStop(0.75, 'rgba(255,248,235,0.35)');
+        gradient.addColorStop(1, 'rgba(255,255,255,0.95)');
+
+
+        ctx.save();
+
+        ctx.globalAlpha = meteor.opacity;
+
+        ctx.beginPath();
+
+        ctx.moveTo(tailX, tailY);
+
+        ctx.lineTo(meteor.x, meteor.y);
+
+        ctx.strokeStyle = gradient;
+
+        ctx.lineWidth = meteor.width;
+
+        ctx.lineCap = 'round';
+
+        ctx.shadowBlur = 10;
+
+        ctx.shadowColor = 'rgba(255,245,220,0.9)';
+
+        ctx.stroke();
+
+        ctx.restore();
+
+
+        /* =========================
+         * 流星第二层柔光
+         * ========================= */
+
+        var glowGradient = ctx.createRadialGradient(
+            meteor.x,
+            meteor.y,
+            0,
+            meteor.x,
+            meteor.y,
+            meteor.size * 8
+        );
+
+        glowGradient.addColorStop(
+            0,
+            'rgba(255,255,255,0.95)'
+        );
+
+        glowGradient.addColorStop(
+            0.25,
+            'rgba(255,250,235,0.45)'
+        );
+
+        glowGradient.addColorStop(
+            0.55,
+            'rgba(255,245,220,0.15)'
+        );
+
+        glowGradient.addColorStop(
+            1,
+            'rgba(255,245,220,0)'
+        );
+
+
+        ctx.save();
+
+        ctx.globalAlpha = meteor.opacity;
+
+        ctx.fillStyle = glowGradient;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            meteor.x,
+            meteor.y,
+            meteor.size * 8,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+        ctx.restore();
+
+
+        /* =========================
+         * 流星头部
+         * ========================= */
+
+        ctx.save();
+
+        ctx.globalAlpha = meteor.opacity;
+
+        ctx.shadowBlur = 18;
+
+        ctx.shadowColor = 'rgba(255,250,235,1)';
+
+        ctx.fillStyle = 'rgba(255,255,255,1)';
+
+        ctx.beginPath();
+
+        ctx.arc(
+            meteor.x,
+            meteor.y,
+            meteor.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+        ctx.restore();
+
+
+        /* =========================
+         * 流星十字星芒
+         * ========================= */
+
+        ctx.save();
+
+        ctx.globalAlpha = meteor.opacity * 0.75;
+
+        ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+
+        ctx.lineWidth = 0.7;
+
+        ctx.shadowBlur = 8;
+
+        ctx.shadowColor = 'rgba(255,255,255,0.9)';
+
+        var starSize = meteor.size * 4;
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            meteor.x - starSize,
+            meteor.y
+        );
+
+        ctx.lineTo(
+            meteor.x + starSize,
+            meteor.y
+        );
+
+        ctx.moveTo(
+            meteor.x,
+            meteor.y - starSize
+        );
+
+        ctx.lineTo(
+            meteor.x,
+            meteor.y + starSize
+        );
+
+        ctx.stroke();
+
+        ctx.restore();
+    }
+
+
+    /* =========================
+     * 更新流星
+     * ========================= */
+
+    function updateMeteor(meteor) {
+
+        meteor.x += meteor.vx;
+
+        meteor.y += meteor.vy;
+
+        meteor.life++;
+
+        /*
+         * 流星进入屏幕后逐渐淡出
+         */
+
+        if (meteor.life > meteor.maxLife * 0.65) {
+
+            var fade =
+                1 -
+                (
+                    meteor.life -
+                    meteor.maxLife * 0.65
+                ) /
+                (
+                    meteor.maxLife * 0.35
+                );
+
+            meteor.opacity =
+                Math.max(0, fade);
+        }
+    }
+
+
+    /* =========================
+     * 动画
+     * ========================= */
+
+    function meteorAnimation() {
+
+        meteorCtx.clearRect(
+            0,
+            0,
+            meteorCanvas.width,
+            meteorCanvas.height
+        );
+
+        for (
+            var i = meteors.length - 1;
+            i >= 0;
+            i--
+        ) {
+
+            var meteor = meteors[i];
+
+            updateMeteor(meteor);
+
+            drawMeteor(meteor);
+
+            /*
+             * 流星生命周期结束
+             */
+            if (
+                meteor.life >= meteor.maxLife ||
+                meteor.x < -300 ||
+                meteor.y > meteorCanvas.height + 300
+            ) {
+
+                meteors.splice(i, 1);
+            }
+        }
+
+        requestAnimationFrame(meteorAnimation);
+    }
+
+
+    /* =========================
+     * 随机生成时间
+     * ========================= */
+
+    function scheduleMeteor() {
+
+        var delay = meteorRandom(
+            meteorMinDelay,
+            meteorMaxDelay
+        );
+
+        setTimeout(function () {
+
+            createMeteor();
+
+            scheduleMeteor();
+
+        }, delay);
+    }
+
+
+    /* =========================
+     * 启动
+     * ========================= */
+
+    meteorAnimation();
+
+    /*
+     * 页面打开后不要立刻出现
+     * 先等待一段时间
+     */
+
+    setTimeout(function () {
+
+        createMeteor();
+
+        scheduleMeteor();
+
+    }, 2500);
+
+
+})();
