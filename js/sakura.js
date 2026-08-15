@@ -2904,42 +2904,126 @@ function stopp() {
         'click',
         function () {
 
-
             var theme =
                 document.documentElement
-                    .getAttribute(
-                        'data-theme'
-                    );
+                    .getAttribute('data-theme');
 
 
-            /* =============================================
-             * 🌙 → ☀️
-             *
-             * 当前是 Dark
-             * 点击后进入 Light
-             * ============================================= */
+            /* =================================================
+            * 🌙 → ☀️
+            * 夜晚切换到白天
+            * ================================================= */
 
             if (theme === 'dark') {
 
-                setTheme(
-                    'light'
-                );
+                document.documentElement
+                    .setAttribute(
+                        'data-theme',
+                        'light'
+                    );
 
+
+                moon.classList
+                    .remove('is-night');
+
+                moon.classList
+                    .add('is-day');
+
+
+                /*
+                * 强制让太阳出现
+                */
+
+                sun.style.opacity =
+                    '1';
+
+                sun.style.visibility =
+                    'visible';
+
+
+                /*
+                * 让月亮消失
+                */
+
+                moonCore.style.opacity =
+                    '0';
+
+                moonAura.style.opacity =
+                    '0';
+
+                moonAuraFar.style.opacity =
+                    '0';
+
+                moonGlow.style.opacity =
+                    '0';
 
             }
 
-            /* =============================================
-             * ☀️ → 🌙
-             *
-             * 当前是 Light
-             * 点击后进入 Dark
-             * ============================================= */
+
+            /* =================================================
+            * ☀️ → 🌙
+            * 白天切换到夜晚
+            * ================================================= */
 
             else {
 
-                setTheme(
-                    'dark'
+                document.documentElement
+                    .setAttribute(
+                        'data-theme',
+                        'dark'
+                    );
+
+
+                moon.classList
+                    .remove('is-day');
+
+                moon.classList
+                    .add('is-night');
+
+
+                /*
+                * 让太阳消失
+                */
+
+                sun.style.opacity =
+                    '0';
+
+                sun.style.visibility =
+                    'hidden';
+
+
+                /*
+                * 让月亮出现
+                */
+
+                moonCore.style.opacity =
+                    '1';
+
+                moonAura.style.opacity =
+                    '1';
+
+                moonAuraFar.style.opacity =
+                    '1';
+
+                moonGlow.style.opacity =
+                    '1';
+
+            }
+
+
+            /*
+            * 保存主题
+            */
+
+            try {
+
+                localStorage.setItem(
+                    'theme',
+                    document.documentElement
+                        .getAttribute('data-theme')
                 );
+
+            } catch (e) {
 
             }
 
