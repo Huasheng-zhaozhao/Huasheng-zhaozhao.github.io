@@ -262,7 +262,7 @@ function stopp() {
          * 比之前慢很多
          */
 
-        var speed = meteorRandom(5, 7);
+        var speed = meteorRandom(11, 13);
 
 
         /*
@@ -310,8 +310,8 @@ function stopp() {
              * 巨大流星头
              */
             size: meteorRandom(
-                13,
-                18
+                9,
+                11
             ),
 
             /*
@@ -775,7 +775,7 @@ function stopp() {
          * ================================================= */
 
         var glowRadius =
-            meteor.size * 11;
+            meteor.size * 9;
 
 
         var glowGradient =
@@ -876,7 +876,7 @@ function stopp() {
          * ================================================= */
 
         var starSize =
-            meteor.size * 3;
+            meteor.size * 2.5;
 
 
         ctx.save();
@@ -1119,6 +1119,323 @@ function stopp() {
             1500,
             3500
         )
+    );
+
+
+})();
+
+/* =========================================================
+ * 🌙 月亮 + 🌊 夜空呼吸光
+ * 不修改原有樱花和流星代码
+ * ========================================================= */
+
+(function () {
+
+    /* =====================================================
+     * 🌊 夜空呼吸光
+     * 独立图层，不影响文字、图片和页面内容
+     * ===================================================== */
+
+    var nightGlow = document.createElement('div');
+
+    nightGlow.id = 'night-breathing';
+
+    nightGlow.style.cssText =
+        'position: fixed;' +
+        'left: 0;' +
+        'top: 0;' +
+        'width: 100%;' +
+        'height: 100%;' +
+        'pointer-events: none;' +
+        'z-index: 1;' +
+        'background: radial-gradient(circle at 78% 12%, rgba(130,155,220,0.07), rgba(100,125,190,0.025) 28%, rgba(0,0,0,0) 55%);' +
+        'opacity: 0.75;' +
+        'animation: nightBreathing 14s ease-in-out infinite;';
+
+    document.body.insertBefore(
+        nightGlow,
+        document.body.firstChild
+    );
+
+
+    /* =====================================================
+     * 🌙 创建月亮
+     * ===================================================== */
+
+    var moon = document.createElement('div');
+
+    moon.id = 'sakura-moon';
+
+    moon.innerHTML =
+        '<div class="moon-glow"></div>' +
+        '<div class="moon-core"></div>';
+
+
+    moon.style.cssText =
+        'position: fixed;' +
+        'top: 7%;' +
+        'right: 7%;' +
+        'width: 62px;' +
+        'height: 62px;' +
+        'pointer-events: none;' +
+        'z-index: 90;' +
+        'opacity: 0.9;' +
+        'animation: moonFloat 10s ease-in-out infinite;';
+
+
+    document.body.appendChild(moon);
+
+
+    /* =====================================================
+     * 🌕 月亮本体
+     * ===================================================== */
+
+    var moonCore =
+        moon.querySelector('.moon-core');
+
+
+    moonCore.style.cssText =
+        'position: absolute;' +
+        'left: 50%;' +
+        'top: 50%;' +
+        'width: 62px;' +
+        'height: 62px;' +
+        'transform: translate(-50%, -50%);' +
+        'border-radius: 50%;' +
+
+        /*
+         * 月亮颜色
+         */
+        'background: radial-gradient(circle at 34% 30%, ' +
+        '#ffffff 0%, ' +
+        '#fafaf2 38%, ' +
+        '#efefe2 70%, ' +
+        '#ddddcf 100%);' +
+
+        /*
+         * 月亮自身的柔光
+         */
+        'box-shadow: ' +
+        '0 0 8px rgba(255,255,245,0.95),' +
+        '0 0 20px rgba(255,250,230,0.65),' +
+        '0 0 40px rgba(220,225,255,0.32),' +
+        '0 0 70px rgba(210,220,255,0.15);';
+
+
+    /* =====================================================
+     * 🌫️ 月晕
+     * ===================================================== */
+
+    var moonGlow =
+        moon.querySelector('.moon-glow');
+
+
+    moonGlow.style.cssText =
+        'position: absolute;' +
+        'left: 50%;' +
+        'top: 50%;' +
+        'width: 210px;' +
+        'height: 210px;' +
+        'transform: translate(-50%, -50%);' +
+        'border-radius: 50%;' +
+
+        /*
+         * 多层柔和月晕
+         */
+        'background: radial-gradient(circle, ' +
+        'rgba(230,235,255,0.20) 0%, ' +
+        'rgba(225,232,255,0.11) 22%, ' +
+        'rgba(220,228,255,0.055) 42%, ' +
+        'rgba(215,225,255,0.018) 62%, ' +
+        'rgba(215,225,255,0) 74%);' +
+
+        'animation: moonGlow 9s ease-in-out infinite;';
+
+
+    /* =====================================================
+     * ✨ 月亮周围第二层光晕
+     * ===================================================== */
+
+    var moonAura =
+        document.createElement('div');
+
+
+    moonAura.style.cssText =
+        'position: absolute;' +
+        'left: 50%;' +
+        'top: 50%;' +
+        'width: 310px;' +
+        'height: 310px;' +
+        'transform: translate(-50%, -50%);' +
+        'border-radius: 50%;' +
+        'background: radial-gradient(circle, rgba(180,200,255,0.035) 0%, rgba(180,200,255,0) 68%);' +
+        'animation: moonAura 12s ease-in-out infinite;';
+
+
+    moon.insertBefore(
+        moonAura,
+        moon.firstChild
+    );
+
+
+    /* =====================================================
+     * 🎨 CSS 动画
+     * ===================================================== */
+
+    var moonStyle =
+        document.createElement('style');
+
+
+    moonStyle.innerHTML = `
+
+        /* ================================================
+         * 🌊 夜空呼吸
+         * 非常缓慢，非常轻微
+         * ================================================ */
+
+        @keyframes nightBreathing {
+
+            0% {
+                opacity: 0.55;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.9;
+                transform: scale(1.025);
+            }
+
+            100% {
+                opacity: 0.55;
+                transform: scale(1);
+            }
+
+        }
+
+
+        /* ================================================
+         * 🌙 月亮轻微漂浮
+         * ================================================ */
+
+        @keyframes moonFloat {
+
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+
+        }
+
+
+        /* ================================================
+         * 🌫️ 月晕呼吸
+         * ================================================ */
+
+        @keyframes moonGlow {
+
+            0% {
+
+                opacity: 0.50;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.92);
+
+            }
+
+            50% {
+
+                opacity: 1;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1.08);
+
+            }
+
+            100% {
+
+                opacity: 0.50;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.92);
+
+            }
+
+        }
+
+
+        /* ================================================
+         * ✨ 外层月光
+         * ================================================ */
+
+        @keyframes moonAura {
+
+            0% {
+
+                opacity: 0.45;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.94);
+
+            }
+
+            50% {
+
+                opacity: 0.85;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1.06);
+
+            }
+
+            100% {
+
+                opacity: 0.45;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.94);
+
+            }
+
+        }
+
+
+        /* ================================================
+         * 📱 手机端
+         * ================================================ */
+
+        @media (max-width: 768px) {
+
+            #sakura-moon {
+
+                top: 8%;
+                right: 5%;
+
+                transform: scale(0.72);
+
+                transform-origin: center;
+
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        moonStyle
     );
 
 
