@@ -1550,11 +1550,13 @@ function stopp() {
      * 🌙 / ☀️ 夜昼主题切换
      *
      * 功能：
-     * 1. 夜间显示残月
-     * 2. 白天显示太阳
-     * 3. 点击月亮 → 切换白天
-     * 4. 点击太阳 → 切换 Dark Mode
-     * 5. 自动读取 data-theme
+     * 1. 页面加载立即显示月亮 / 太阳
+     * 2. 夜间显示残月
+     * 3. 白天显示太阳
+     * 4. 点击太阳 → Dark Mode + 月亮
+     * 5. 点击月亮 → Light Mode + 太阳
+     * 6. 刷新后记住上一次选择
+     * 7. 同步 Butterfly 自己的 Dark Mode
      * ===================================================== */
 
 
@@ -1563,17 +1565,26 @@ function stopp() {
      * ===================================================== */
 
     var oldAtmosphere =
-        document.getElementById('sakura-atmosphere');
+        document.getElementById(
+            'sakura-atmosphere'
+        );
 
     if (oldAtmosphere) {
+
         oldAtmosphere.remove();
+
     }
 
+
     var oldStyle =
-        document.getElementById('sakura-atmosphere-style');
+        document.getElementById(
+            'sakura-atmosphere-style'
+        );
 
     if (oldStyle) {
+
         oldStyle.remove();
+
     }
 
 
@@ -1583,6 +1594,7 @@ function stopp() {
 
     var atmosphere =
         document.createElement('div');
+
 
     atmosphere.id =
         'sakura-atmosphere';
@@ -1597,14 +1609,14 @@ function stopp() {
 
 
         /*
-         * 🌙 / ☀️ 月亮太阳
+         * 🌙 / ☀️
          */
         '<div id="night-moon">' +
 
 
-            /* =============================================
-             * 🌙 月亮部分
-             * ============================================= */
+            /* =================================================
+             * 🌙 月亮
+             * ================================================= */
 
             '<div id="moon-aura-far"></div>' +
 
@@ -1615,9 +1627,9 @@ function stopp() {
             '<div id="moon-core"></div>' +
 
 
-            /* =============================================
-             * ☀️ 太阳部分
-             * ============================================= */
+            /* =================================================
+             * ☀️ 太阳
+             * ================================================= */
 
             '<div id="day-sun">' +
 
@@ -1668,12 +1680,7 @@ function stopp() {
 
 
     /* =====================================================
-     * 🌌 夜空环境呼吸光
-     *
-     * 这个不是明显的渐变。
-     *
-     * 它会非常缓慢地扩大、收缩、移动，
-     * 让你感觉整个夜空在呼吸。
+     * 🌌 夜空呼吸光
      * ===================================================== */
 
     var breathing =
@@ -1701,7 +1708,6 @@ function stopp() {
                 'ellipse 50% 38% at 82% 14%,' +
 
                 'rgba(180,205,255,0.055) 0%,' +
-
                 'rgba(160,188,245,0.032) 25%,' +
                 'rgba(140,168,230,0.015) 45%,' +
                 'rgba(120,150,215,0.006) 62%,' +
@@ -1713,7 +1719,8 @@ function stopp() {
 
         'opacity:0.75 !important;' +
 
-        'animation:nightAtmosphere 25s ease-in-out infinite !important;';
+        'animation:' +
+            'nightAtmosphere 25s ease-in-out infinite !important;';
 
 
     /* =====================================================
@@ -1750,14 +1757,7 @@ function stopp() {
 
 
     /* =====================================================
-     * 🌙
-     * =====================================================
-     * 月亮
-     * ===================================================== */
-
-
-    /* =====================================================
-     * 🌫️ 月亮最远层光晕
+     * 🌙 月亮最远层光晕
      * ===================================================== */
 
     var moonAuraFar =
@@ -1845,7 +1845,7 @@ function stopp() {
 
 
     /* =====================================================
-     * ✨ 月牙附近柔光
+     * ✨ 月牙柔光
      * ===================================================== */
 
     var moonGlow =
@@ -1891,9 +1891,8 @@ function stopp() {
     /* =====================================================
      * 🌘 残月本体
      *
+     * 使用 mask
      * 不使用黑色圆形遮挡
-     *
-     * 使用 mask 做真正的透明月牙
      * ===================================================== */
 
     var moonCore =
@@ -1916,9 +1915,6 @@ function stopp() {
 
         'border-radius:50% !important;' +
 
-        /*
-         * 月亮本体
-         */
         'background:' +
 
             'radial-gradient(' +
@@ -1934,9 +1930,11 @@ function stopp() {
 
         '!important;' +
 
+
         /*
-         * 真正的新月
+         * 真正的透明残月
          */
+
         '-webkit-mask-image:' +
 
             'radial-gradient(' +
@@ -1955,6 +1953,7 @@ function stopp() {
             ')' +
 
         '!important;' +
+
 
         'mask-image:' +
 
@@ -1975,9 +1974,11 @@ function stopp() {
 
         '!important;' +
 
+
         /*
-         * 月牙非常轻的边缘光
+         * 月牙边缘柔光
          */
+
         'filter:' +
 
             'drop-shadow(' +
@@ -1996,9 +1997,7 @@ function stopp() {
 
 
     /* =====================================================
-     * ☀️
-     * =====================================================
-     * 太阳
+     * ☀️ 太阳整体
      * ===================================================== */
 
     var sun =
@@ -2115,7 +2114,7 @@ function stopp() {
 
 
     /* =====================================================
-     * ✨ 太阳光线
+     * ✨ 太阳柔光
      * ===================================================== */
 
     var sunRays =
@@ -2138,11 +2137,6 @@ function stopp() {
 
         'border-radius:50% !important;' +
 
-        /*
-        * 不再做明显的太阳线
-        *
-        * 改成非常淡的光晕
-        */
         'background:' +
 
             'radial-gradient(' +
@@ -2167,6 +2161,7 @@ function stopp() {
 
         'animation:sunRays 16s ease-in-out infinite !important;';
 
+
     /* =====================================================
      * ☀️ 太阳本体
      * ===================================================== */
@@ -2177,57 +2172,48 @@ function stopp() {
         );
 
 
-        sunCore.style.cssText =
+    sunCore.style.cssText =
 
-            'position:absolute !important;' +
+        'position:absolute !important;' +
 
-            'left:50% !important;' +
-            'top:50% !important;' +
+        'left:50% !important;' +
+        'top:50% !important;' +
 
-            'width:46px !important;' +
-            'height:46px !important;' +
+        'width:46px !important;' +
+        'height:46px !important;' +
 
-            'transform:translate(-50%,-50%) !important;' +
+        'transform:translate(-50%,-50%) !important;' +
 
-            'border-radius:50% !important;' +
+        'border-radius:50% !important;' +
 
-            /*
-            * 暖白色太阳
-            */
-            'background:' +
+        'background:' +
 
-                'radial-gradient(' +
+            'radial-gradient(' +
 
-                    'circle at 34% 30%,' +
+                'circle at 34% 30%,' +
 
-                    'rgba(255,255,249,1) 0%,' +
-                    'rgba(255,252,232,0.98) 32%,' +
-                    'rgba(255,241,195,0.96) 68%,' +
-                    'rgba(246,218,150,0.88) 100%' +
+                'rgba(255,255,249,1) 0%,' +
+                'rgba(255,252,232,0.98) 32%,' +
+                'rgba(255,241,195,0.96) 68%,' +
+                'rgba(246,218,150,0.88) 100%' +
 
-                ')' +
+            ')' +
 
-            '!important;' +
+        '!important;' +
 
-            /*
-            * 很柔的光
-            */
-            'box-shadow:' +
+        'box-shadow:' +
 
-                '0 0 5px rgba(255,255,245,0.95),' +
+            '0 0 5px rgba(255,255,245,0.95),' +
 
-                '0 0 13px rgba(255,244,205,0.75),' +
+            '0 0 13px rgba(255,244,205,0.75),' +
 
-                '0 0 27px rgba(255,229,170,0.42),' +
+            '0 0 27px rgba(255,229,170,0.42),' +
 
-                '0 0 52px rgba(255,220,160,0.16)' +
+            '0 0 52px rgba(255,220,160,0.16)' +
 
-            '!important;' +
+        '!important;' +
 
-            /*
-            * 轻微柔化
-            */
-            'filter:blur(0.15px) !important;';
+        'filter:blur(0.15px) !important;';
 
 
     /* =====================================================
@@ -2533,29 +2519,42 @@ function stopp() {
 
 
         /* =================================================
-         * ☀️ 太阳光线旋转
+         * ☀️ 太阳柔光呼吸
          * ================================================= */
 
         @keyframes sunRays {
 
-            from {
+            0% {
+
+                opacity:0.42;
 
                 transform:
                     translate(-50%,-50%)
-                    rotate(0deg);
+                    scale(0.96);
 
             }
 
-            to {
+            50% {
+
+                opacity:0.72;
 
                 transform:
                     translate(-50%,-50%)
-                    rotate(360deg);
+                    scale(1.08);
+
+            }
+
+            100% {
+
+                opacity:0.42;
+
+                transform:
+                    translate(-50%,-50%)
+                    scale(0.96);
 
             }
 
         }
-            
 
 
         /* =================================================
@@ -2608,8 +2607,6 @@ function stopp() {
             opacity:0 !important;
 
             visibility:hidden !important;
-
-            pointer-events:none !important;
 
         }
 
@@ -2665,8 +2662,6 @@ function stopp() {
 
             visibility:visible !important;
 
-            pointer-events:none !important;
-
         }
 
 
@@ -2690,9 +2685,6 @@ function stopp() {
 
         /* =================================================
          * 🖱️ Hover
-         *
-         * 非常轻
-         * 不做夸张放大
          * ================================================= */
 
         #night-moon:hover {
@@ -2734,12 +2726,8 @@ function stopp() {
 
 
     /* =====================================================
-     * 🌙 / ☀️ 当前主题
+     * 🌙 / ☀️ 获取当前主题
      * ===================================================== */
-
-    /* =====================================================
-    * 🌙 默认进入夜晚
-    * ===================================================== */
 
     var currentTheme =
         document.documentElement
@@ -2747,10 +2735,13 @@ function stopp() {
 
 
     /*
-    * 如果页面没有明确设置主题
-    *
-    * 默认使用 Dark Mode
-    */
+     * 如果 Butterfly 已经有主题
+     * 就直接使用。
+     *
+     * 如果没有主题，
+     * 默认使用 dark。
+     */
+
     if (
         currentTheme !== 'dark' &&
         currentTheme !== 'light'
@@ -2761,128 +2752,126 @@ function stopp() {
     }
 
 
-    /*
-    * 设置页面主题
-    */
-    document.documentElement
-        .setAttribute(
-            'data-theme',
-            currentTheme
-        );
-
     /* =====================================================
-    * 🌙 / ☀️ 页面加载时立即显示正确图标
-    * ===================================================== */
+     * 🌙 / ☀️ 更新月亮 / 太阳
+     * ===================================================== */
 
-    if (
-        currentTheme === 'dark'
-    ) {
+    function updateMoonSun(theme) {
 
-        /*
-        * 当前是夜晚
-        * 立即显示月亮
-        */
+        if (theme === 'dark') {
 
-        moon.classList.remove(
-            'is-day'
-        );
+            /*
+             * 🌙 夜晚
+             */
 
-        moon.classList.add(
-            'is-night'
-        );
+            moon.classList.remove(
+                'is-day'
+            );
 
-
-        moonCore.style.opacity =
-            '1';
-
-        moonCore.style.visibility =
-            'visible';
-
-        moonAura.style.opacity =
-            '1';
-
-        moonAura.style.visibility =
-            'visible';
-
-        moonAuraFar.style.opacity =
-            '1';
-
-        moonAuraFar.style.visibility =
-            'visible';
-
-        moonGlow.style.opacity =
-            '1';
-
-        moonGlow.style.visibility =
-            'visible';
+            moon.classList.add(
+                'is-night'
+            );
 
 
-        sun.style.opacity =
-            '0';
+            moonCore.style.opacity =
+                '1';
 
-        sun.style.visibility =
-            'hidden';
-
-
-    } else {
-
-        /*
-        * 当前是白天
-        * 立即显示太阳
-        */
-
-        moon.classList.remove(
-            'is-night'
-        );
-
-        moon.classList.add(
-            'is-day'
-        );
+            moonCore.style.visibility =
+                'visible';
 
 
-        moonCore.style.opacity =
-            '0';
+            moonAura.style.opacity =
+                '1';
 
-        moonCore.style.visibility =
-            'hidden';
-
-        moonAura.style.opacity =
-            '0';
-
-        moonAura.style.visibility =
-            'hidden';
-
-        moonAuraFar.style.opacity =
-            '0';
-
-        moonAuraFar.style.visibility =
-            'hidden';
-
-        moonGlow.style.opacity =
-            '0';
-
-        moonGlow.style.visibility =
-            'hidden';
+            moonAura.style.visibility =
+                'visible';
 
 
-        sun.style.opacity =
-            '1';
+            moonAuraFar.style.opacity =
+                '1';
 
-        sun.style.visibility =
-            'visible';
+            moonAuraFar.style.visibility =
+                'visible';
+
+
+            moonGlow.style.opacity =
+                '1';
+
+            moonGlow.style.visibility =
+                'visible';
+
+
+            sun.style.opacity =
+                '0';
+
+            sun.style.visibility =
+                'hidden';
+
+
+        } else {
+
+            /*
+             * ☀️ 白天
+             */
+
+            moon.classList.remove(
+                'is-night'
+            );
+
+            moon.classList.add(
+                'is-day'
+            );
+
+
+            moonCore.style.opacity =
+                '0';
+
+            moonCore.style.visibility =
+                'hidden';
+
+
+            moonAura.style.opacity =
+                '0';
+
+            moonAura.style.visibility =
+                'hidden';
+
+
+            moonAuraFar.style.opacity =
+                '0';
+
+            moonAuraFar.style.visibility =
+                'hidden';
+
+
+            moonGlow.style.opacity =
+                '0';
+
+            moonGlow.style.visibility =
+                'hidden';
+
+
+            sun.style.opacity =
+                '1';
+
+            sun.style.visibility =
+                'visible';
+
+        }
 
     }
 
 
     /* =====================================================
-     * 🌙 / ☀️ 设置页面主题
+     * 🌗 设置主题
      * ===================================================== */
 
     function setTheme(theme) {
 
         /*
-         * 设置 HTML 的 data-theme
+         * 修改 Butterfly 主题
          */
+
         document.documentElement
             .setAttribute(
                 'data-theme',
@@ -2892,9 +2881,8 @@ function stopp() {
 
         /*
          * 保存主题
-         *
-         * 刷新页面以后不会丢失
          */
+
         try {
 
             localStorage.setItem(
@@ -2910,14 +2898,16 @@ function stopp() {
         /*
          * 更新月亮 / 太阳
          */
+
         updateMoonSun(
             theme
         );
 
 
         /*
-         * 通知其他主题脚本
+         * 通知其他脚本
          */
+
         try {
 
             window.dispatchEvent(
@@ -2925,7 +2915,7 @@ function stopp() {
                     'themechange',
                     {
                         detail: {
-                            theme: theme
+                            theme:theme
                         }
                     }
                 )
@@ -2939,7 +2929,12 @@ function stopp() {
 
 
     /* =====================================================
-     * 🌙 / ☀️ 初始化
+     * 🌙 / ☀️ 页面第一次加载
+     *
+     * 这里非常重要：
+     *
+     * 不需要点击以后才显示。
+     * 页面加载完成以后立即显示。
      * ===================================================== */
 
     updateMoonSun(
@@ -2950,199 +2945,61 @@ function stopp() {
     /* =====================================================
      * 🖱️ 点击月亮 / 太阳
      *
-     * 月亮 → 太阳
-     * Dark → Light
-     *
-     * 太阳 → 月亮
-     * Light → Dark
+     * ☀️ → 🌙
+     * 🌙 → ☀️
      * ===================================================== */
-
-/* =====================================================
- * 🌙 / ☀️ 点击切换
- * ===================================================== */
 
     moon.addEventListener(
         'click',
-        function () {
+        function (event) {
+
+            /*
+             * 防止事件继续冒泡
+             */
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
 
             var current =
                 document.documentElement
-                    .getAttribute('data-theme');
-
-
-            /* =================================================
-            * ☀️ 白天 → 🌙 夜晚
-            * ================================================= */
-
-            if (current !== 'dark') {
-
-                /*
-                * 页面切换到 Dark Mode
-                */
-
-                document.documentElement
-                    .setAttribute(
-                        'data-theme',
-                        'dark'
+                    .getAttribute(
+                        'data-theme'
                     );
 
 
-                /*
-                * 太阳消失
-                */
+            /*
+             * ☀️ 白天 → 🌙 夜晚
+             */
 
-                sun.style.opacity =
-                    '0';
+            if (
+                current !== 'dark'
+            ) {
 
-                sun.style.visibility =
-                    'hidden';
-
-
-                /*
-                * 月亮出现
-                */
-
-                moonCore.style.opacity =
-                    '1';
-
-                moonCore.style.visibility =
-                    'visible';
-
-                moonAura.style.opacity =
-                    '1';
-
-                moonAura.style.visibility =
-                    'visible';
-
-                moonAuraFar.style.opacity =
-                    '1';
-
-                moonAuraFar.style.visibility =
-                    'visible';
-
-                moonGlow.style.opacity =
-                    '1';
-
-                moonGlow.style.visibility =
-                    'visible';
-
-
-                /*
-                * 状态
-                */
-
-                moon.classList.remove(
-                    'is-day'
+                setTheme(
+                    'dark'
                 );
 
-                moon.classList.add(
-                    'is-night'
-                );
-
-
-                /*
-                * 保存
-                */
-
-                try {
-
-                    localStorage.setItem(
-                        'theme',
-                        'dark'
-                    );
-
-                } catch (e) {}
 
             }
 
 
-            /* =================================================
-            * 🌙 夜晚 → ☀️ 白天
-            * ================================================= */
+            /*
+             * 🌙 夜晚 → ☀️ 白天
+             */
 
             else {
 
-                /*
-                * 页面切换到 Light Mode
-                */
-
-                document.documentElement
-                    .setAttribute(
-                        'data-theme',
-                        'light'
-                    );
-
-
-                /*
-                * 月亮消失
-                */
-
-                moonCore.style.opacity =
-                    '0';
-
-                moonCore.style.visibility =
-                    'hidden';
-
-                moonAura.style.opacity =
-                    '0';
-
-                moonAura.style.visibility =
-                    'hidden';
-
-                moonAuraFar.style.opacity =
-                    '0';
-
-                moonAuraFar.style.visibility =
-                    'hidden';
-
-                moonGlow.style.opacity =
-                    '0';
-
-                moonGlow.style.visibility =
-                    'hidden';
-
-
-                /*
-                * 太阳出现
-                */
-
-                sun.style.opacity =
-                    '1';
-
-                sun.style.visibility =
-                    'visible';
-
-
-                /*
-                * 状态
-                */
-
-                moon.classList.remove(
-                    'is-night'
+                setTheme(
+                    'light'
                 );
-
-                moon.classList.add(
-                    'is-day'
-                );
-
-
-                /*
-                * 保存
-                */
-
-                try {
-
-                    localStorage.setItem(
-                        'theme',
-                        'light'
-                    );
-
-                } catch (e) {}
 
             }
 
         }
     );
+
 
     /* =====================================================
      * 🖱️ 防止点击穿透
@@ -3159,60 +3016,70 @@ function stopp() {
 
 
     /* =====================================================
-     * 🌗 监听其他地方的主题变化
+     * 🌗 监听 Butterfly 的主题变化
      *
-     * 比如 Butterfly 自己的 Dark Mode 按钮
+     * 比如：
      *
-     * 如果用户从其他地方切换主题，
-     * 月亮 / 太阳也会跟着变化。
+     * Butterfly 自己的 Dark Mode 按钮
+     *
+     * 点击以后：
+     *
+     * data-theme
+     *
+     * 改变
+     *
+     * 我们的月亮 / 太阳
+     * 也会同步。
      * ===================================================== */
 
-    // var themeObserver =
-    //     new MutationObserver(
-    //         function (mutations) {
+    var themeObserver =
+        new MutationObserver(
+            function (mutations) {
 
-    //             mutations.forEach(
-    //                 function (mutation) {
+                mutations.forEach(
+                    function (mutation) {
 
-    //                     if (
-    //                         mutation.attributeName ===
-    //                         'data-theme'
-    //                     ) {
+                        if (
+                            mutation.attributeName ===
+                            'data-theme'
+                        ) {
 
-    //                         var theme =
-    //                             document.documentElement
-    //                                 .getAttribute(
-    //                                     'data-theme'
-    //                                 );
+                            var theme =
+                                document.documentElement
+                                    .getAttribute(
+                                        'data-theme'
+                                    );
 
 
-    //                         if (
-    //                             theme === 'dark' ||
-    //                             theme === 'light'
-    //                         ) {
+                            if (
+                                theme === 'dark' ||
+                                theme === 'light'
+                            ) {
 
-    //                             updateMoonSun(
-    //                                 theme
-    //                             );
+                                updateMoonSun(
+                                    theme
+                                );
 
-    //                         }
+                            }
 
-    //                     }
+                        }
 
-    //                 }
-    //             );
+                    }
+                );
 
-    //         }
-    //     );
+            }
+        );
 
 
     themeObserver.observe(
         document.documentElement,
         {
             attributes:true,
+
             attributeFilter:[
                 'data-theme'
             ]
+
         }
     );
 
