@@ -2957,72 +2957,28 @@ function stopp() {
      * Light → Dark
      * ===================================================== */
 
+/* =====================================================
+ * 🌙 / ☀️ 点击切换
+ * ===================================================== */
+
     moon.addEventListener(
         'click',
         function () {
 
-            var theme =
+            var current =
                 document.documentElement
                     .getAttribute('data-theme');
 
 
             /* =================================================
-            * 🌙 → ☀️
-            * 夜晚切换到白天
+            * ☀️ 白天 → 🌙 夜晚
             * ================================================= */
 
-            if (theme === 'dark') {
-
-                document.documentElement
-                    .setAttribute(
-                        'data-theme',
-                        'light'
-                    );
-
-
-                moon.classList
-                    .remove('is-night');
-
-                moon.classList
-                    .add('is-day');
-
+            if (current !== 'dark') {
 
                 /*
-                * 强制让太阳出现
+                * 页面切换到 Dark Mode
                 */
-
-                sun.style.opacity =
-                    '1';
-
-                sun.style.visibility =
-                    'visible';
-
-
-                /*
-                * 让月亮消失
-                */
-
-                moonCore.style.opacity =
-                    '0';
-
-                moonAura.style.opacity =
-                    '0';
-
-                moonAuraFar.style.opacity =
-                    '0';
-
-                moonGlow.style.opacity =
-                    '0';
-
-            }
-
-
-            /* =================================================
-            * ☀️ → 🌙
-            * 白天切换到夜晚
-            * ================================================= */
-
-            else {
 
                 document.documentElement
                     .setAttribute(
@@ -3031,15 +2987,8 @@ function stopp() {
                     );
 
 
-                moon.classList
-                    .remove('is-day');
-
-                moon.classList
-                    .add('is-night');
-
-
                 /*
-                * 让太阳消失
+                * 太阳消失
                 */
 
                 sun.style.opacity =
@@ -3050,43 +2999,150 @@ function stopp() {
 
 
                 /*
-                * 让月亮出现
+                * 月亮出现
                 */
 
                 moonCore.style.opacity =
                     '1';
 
+                moonCore.style.visibility =
+                    'visible';
+
                 moonAura.style.opacity =
                     '1';
+
+                moonAura.style.visibility =
+                    'visible';
 
                 moonAuraFar.style.opacity =
                     '1';
 
+                moonAuraFar.style.visibility =
+                    'visible';
+
                 moonGlow.style.opacity =
                     '1';
+
+                moonGlow.style.visibility =
+                    'visible';
+
+
+                /*
+                * 状态
+                */
+
+                moon.classList.remove(
+                    'is-day'
+                );
+
+                moon.classList.add(
+                    'is-night'
+                );
+
+
+                /*
+                * 保存
+                */
+
+                try {
+
+                    localStorage.setItem(
+                        'theme',
+                        'dark'
+                    );
+
+                } catch (e) {}
 
             }
 
 
-            /*
-            * 保存主题
-            */
+            /* =================================================
+            * 🌙 夜晚 → ☀️ 白天
+            * ================================================= */
 
-            try {
+            else {
 
-                localStorage.setItem(
-                    'theme',
-                    document.documentElement
-                        .getAttribute('data-theme')
+                /*
+                * 页面切换到 Light Mode
+                */
+
+                document.documentElement
+                    .setAttribute(
+                        'data-theme',
+                        'light'
+                    );
+
+
+                /*
+                * 月亮消失
+                */
+
+                moonCore.style.opacity =
+                    '0';
+
+                moonCore.style.visibility =
+                    'hidden';
+
+                moonAura.style.opacity =
+                    '0';
+
+                moonAura.style.visibility =
+                    'hidden';
+
+                moonAuraFar.style.opacity =
+                    '0';
+
+                moonAuraFar.style.visibility =
+                    'hidden';
+
+                moonGlow.style.opacity =
+                    '0';
+
+                moonGlow.style.visibility =
+                    'hidden';
+
+
+                /*
+                * 太阳出现
+                */
+
+                sun.style.opacity =
+                    '1';
+
+                sun.style.visibility =
+                    'visible';
+
+
+                /*
+                * 状态
+                */
+
+                moon.classList.remove(
+                    'is-night'
                 );
 
-            } catch (e) {
+                moon.classList.add(
+                    'is-day'
+                );
+
+
+                /*
+                * 保存
+                */
+
+                try {
+
+                    localStorage.setItem(
+                        'theme',
+                        'light'
+                    );
+
+                } catch (e) {}
 
             }
 
         }
     );
-
 
     /* =====================================================
      * 🖱️ 防止点击穿透
@@ -3111,43 +3167,43 @@ function stopp() {
      * 月亮 / 太阳也会跟着变化。
      * ===================================================== */
 
-    var themeObserver =
-        new MutationObserver(
-            function (mutations) {
+    // var themeObserver =
+    //     new MutationObserver(
+    //         function (mutations) {
 
-                mutations.forEach(
-                    function (mutation) {
+    //             mutations.forEach(
+    //                 function (mutation) {
 
-                        if (
-                            mutation.attributeName ===
-                            'data-theme'
-                        ) {
+    //                     if (
+    //                         mutation.attributeName ===
+    //                         'data-theme'
+    //                     ) {
 
-                            var theme =
-                                document.documentElement
-                                    .getAttribute(
-                                        'data-theme'
-                                    );
+    //                         var theme =
+    //                             document.documentElement
+    //                                 .getAttribute(
+    //                                     'data-theme'
+    //                                 );
 
 
-                            if (
-                                theme === 'dark' ||
-                                theme === 'light'
-                            ) {
+    //                         if (
+    //                             theme === 'dark' ||
+    //                             theme === 'light'
+    //                         ) {
 
-                                updateMoonSun(
-                                    theme
-                                );
+    //                             updateMoonSun(
+    //                                 theme
+    //                             );
 
-                            }
+    //                         }
 
-                        }
+    //                     }
 
-                    }
-                );
+    //                 }
+    //             );
 
-            }
-        );
+    //         }
+    //     );
 
 
     themeObserver.observe(
