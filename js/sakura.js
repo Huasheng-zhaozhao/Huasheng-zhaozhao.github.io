@@ -1557,21 +1557,21 @@ function stopp() {
 
     atmosphere.innerHTML =
 
+        /*
+         * 夜空呼吸光
+         */
         '<div id="night-breathing"></div>' +
 
+        /*
+         * 月亮
+         */
         '<div id="night-moon">' +
 
             '<div id="moon-aura-outer"></div>' +
 
             '<div id="moon-aura"></div>' +
 
-            '<div id="moon-core">' +
-
-                '<div class="moon-crater crater-1"></div>' +
-                '<div class="moon-crater crater-2"></div>' +
-                '<div class="moon-crater crater-3"></div>' +
-
-            '</div>' +
+            '<div id="moon-core"></div>' +
 
         '</div>';
 
@@ -1613,25 +1613,23 @@ function stopp() {
         'pointer-events: none !important;' +
 
         /*
-         * 非常大的蓝白色夜光
-         *
-         * 光源集中在右上方月亮附近
+         * 大范围蓝白夜光
          */
         'background: radial-gradient(' +
             'ellipse at 76% 17%,' +
 
-            'rgba(155,180,245,0.13) 0%,' +
+            'rgba(155,180,245,0.14) 0%,' +
             'rgba(140,170,240,0.075) 18%,' +
-            'rgba(120,150,225,0.04) 34%,' +
-            'rgba(100,130,210,0.018) 50%,' +
+            'rgba(120,150,225,0.038) 34%,' +
+            'rgba(100,130,210,0.016) 50%,' +
             'rgba(70,100,180,0) 72%' +
 
         ') !important;' +
 
-        'opacity: 0.48 !important;' +
+        'opacity: 0.40 !important;' +
 
         /*
-         * 只改变亮度，不缩放整个背景
+         * 夜空缓慢呼吸
          */
         'animation: nightBreathing 18s ease-in-out infinite !important;';
 
@@ -1661,9 +1659,9 @@ function stopp() {
         'opacity: 1 !important;' +
 
         /*
-         * 月亮本体轻微漂浮
+         * 月亮本身只做非常轻微的漂浮
          */
-        'animation: moonFloat 12s ease-in-out infinite !important;';
+        'animation: moonFloat 13s ease-in-out infinite !important;';
 
 
     /* =====================================================
@@ -1681,27 +1679,30 @@ function stopp() {
         'left: 50% !important;' +
         'top: 50% !important;' +
 
-        'width: 360px !important;' +
-        'height: 360px !important;' +
+        'width: 380px !important;' +
+        'height: 380px !important;' +
 
         'transform: translate(-50%, -50%) !important;' +
 
         'border-radius: 50% !important;' +
 
+        /*
+         * 很淡的外层月光
+         */
         'background: radial-gradient(' +
             'circle,' +
 
-            'rgba(175,200,255,0.045) 0%,' +
-            'rgba(165,195,255,0.027) 28%,' +
-            'rgba(155,185,250,0.013) 48%,' +
+            'rgba(175,200,255,0.048) 0%,' +
+            'rgba(165,195,255,0.028) 26%,' +
+            'rgba(155,185,250,0.014) 46%,' +
             'rgba(145,175,245,0) 72%' +
 
         ') !important;' +
 
         /*
-         * 外层月光呼吸
+         * 外层光晕慢呼吸
          */
-        'animation: moonAura 16s ease-in-out infinite !important;';
+        'animation: moonAura 17s ease-in-out infinite !important;';
 
 
     /* =====================================================
@@ -1719,31 +1720,34 @@ function stopp() {
         'left: 50% !important;' +
         'top: 50% !important;' +
 
-        'width: 230px !important;' +
-        'height: 230px !important;' +
+        'width: 240px !important;' +
+        'height: 240px !important;' +
 
         'transform: translate(-50%, -50%) !important;' +
 
         'border-radius: 50% !important;' +
 
+        /*
+         * 月亮附近更明显的柔光
+         */
         'background: radial-gradient(' +
             'circle,' +
 
-            'rgba(240,243,255,0.17) 0%,' +
-            'rgba(235,240,255,0.09) 22%,' +
-            'rgba(225,235,255,0.04) 44%,' +
-            'rgba(215,228,255,0) 72%' +
+            'rgba(242,245,255,0.20) 0%,' +
+            'rgba(235,241,255,0.105) 22%,' +
+            'rgba(225,235,255,0.045) 43%,' +
+            'rgba(215,228,255,0) 73%' +
 
         ') !important;' +
 
         /*
-         * 中层月晕呼吸
+         * 中层光晕呼吸
          */
         'animation: moonGlow 11s ease-in-out infinite !important;';
 
 
     /* =====================================================
-     * 🌘 残月本体
+     * 🌘 真正的残月
      * ===================================================== */
 
     var core =
@@ -1757,115 +1761,127 @@ function stopp() {
         'left: 50% !important;' +
         'top: 50% !important;' +
 
-        'width: 72px !important;' +
-        'height: 72px !important;' +
+        'width: 76px !important;' +
+        'height: 76px !important;' +
 
         'transform: translate(-50%, -50%) !important;' +
 
         'border-radius: 50% !important;' +
 
         /*
-         * 月亮本体
+         * 月亮本体渐变
+         *
+         * 左上更亮
+         * 右下稍微偏灰
          */
         'background: radial-gradient(' +
-            'circle at 34% 28%,' +
+            'circle at 31% 27%,' +
 
             '#ffffff 0%,' +
-            '#fafbf5 34%,' +
-            '#f1f2e9 65%,' +
-            '#dedfd3 100%' +
+            '#fcfcf7 28%,' +
+            '#f4f5ec 53%,' +
+            '#e8e9df 76%,' +
+            '#d9dbd0 100%' +
 
         ') !important;' +
 
         /*
-         * 真正裁剪成残月
+         * =================================================
+         * 真正的月牙形状
          *
-         * 月牙向左弯
+         * 使用 mask，而不是黑色圆形遮罩
+         * =================================================
          */
+
         '-webkit-mask-image: radial-gradient(' +
-            'ellipse 67% 67% at 68% 50%,' +
+            'ellipse 68% 68% at 70% 50%,' +
             'transparent 0%,' +
             'transparent 50%,' +
-            '#000 51%,' +
-            '#000 100%' +
+            'black 51%,' +
+            'black 100%' +
         ') !important;' +
 
         'mask-image: radial-gradient(' +
-            'ellipse 67% 67% at 68% 50%,' +
+            'ellipse 68% 68% at 70% 50%,' +
             'transparent 0%,' +
             'transparent 50%,' +
-            '#000 51%,' +
-            '#000 100%' +
+            'black 51%,' +
+            'black 100%' +
         ') !important;' +
 
         /*
-         * 月牙本身的光
+         * 月牙边缘柔光
          */
         'filter:' +
-            'drop-shadow(0 0 5px rgba(255,255,250,0.95))' +
-            'drop-shadow(0 0 13px rgba(255,250,235,0.75))' +
-            'drop-shadow(0 0 28px rgba(225,235,255,0.45))' +
-
-        ';';
+            'drop-shadow(0 0 4px rgba(255,255,252,0.95))' +
+            'drop-shadow(0 0 10px rgba(255,251,235,0.82))' +
+            'drop-shadow(0 0 22px rgba(230,238,255,0.55))' +
+            'drop-shadow(0 0 38px rgba(210,225,255,0.25));';
 
 
     /* =====================================================
-     * 🌑 月面细节
+     * 🌙 月牙内部的柔和层次
+     *
+     * 不使用月面坑洼
+     * 改成非常淡的光影
      * ===================================================== */
 
-    var craters =
-        core.querySelectorAll('.moon-crater');
+    var moonLight =
+        document.createElement('div');
 
 
-    craters[0].style.cssText =
-
-        'position:absolute !important;' +
-
-        'width:10px !important;' +
-        'height:7px !important;' +
-
-        'left:17px !important;' +
-        'top:20px !important;' +
-
-        'border-radius:50% !important;' +
-
-        'background:rgba(185,185,170,0.17) !important;' +
-
-        'filter:blur(0.6px) !important;';
+    moonLight.id =
+        'moon-inner-light';
 
 
-    craters[1].style.cssText =
+    moonLight.style.cssText =
 
-        'position:absolute !important;' +
+        'position: absolute !important;' +
 
-        'width:13px !important;' +
-        'height:9px !important;' +
+        'left: 0 !important;' +
+        'top: 0 !important;' +
 
-        'right:15px !important;' +
-        'top:35px !important;' +
+        'width: 76px !important;' +
+        'height: 76px !important;' +
 
-        'border-radius:50% !important;' +
+        'border-radius: 50% !important;' +
 
-        'background:rgba(185,185,170,0.13) !important;' +
+        /*
+         * 非常淡的月面光影
+         */
+        'background: radial-gradient(' +
+            'ellipse at 30% 25%,' +
 
-        'filter:blur(0.7px) !important;';
+            'rgba(255,255,255,0.30) 0%,' +
+            'rgba(255,255,255,0.10) 28%,' +
+            'rgba(210,215,205,0.035) 58%,' +
+            'rgba(170,175,165,0) 78%' +
+
+        ') !important;' +
+
+        /*
+         * 和月牙保持一致的 mask
+         */
+        '-webkit-mask-image: radial-gradient(' +
+            'ellipse 68% 68% at 70% 50%,' +
+            'transparent 0%,' +
+            'transparent 50%,' +
+            'black 51%,' +
+            'black 100%' +
+        ') !important;' +
+
+        'mask-image: radial-gradient(' +
+            'ellipse 68% 68% at 70% 50%,' +
+            'transparent 0%,' +
+            'transparent 50%,' +
+            'black 51%,' +
+            'black 100%' +
+        ') !important;' +
+
+        'pointer-events: none !important;';
 
 
-    craters[2].style.cssText =
-
-        'position:absolute !important;' +
-
-        'width:8px !important;' +
-        'height:8px !important;' +
-
-        'left:28px !important;' +
-        'bottom:12px !important;' +
-
-        'border-radius:50% !important;' +
-
-        'background:rgba(185,185,170,0.12) !important;' +
-
-        'filter:blur(0.6px) !important;';
+    core.appendChild(moonLight);
 
 
     /* =====================================================
@@ -1885,39 +1901,39 @@ function stopp() {
         /* =================================================
          * 🌊 夜空呼吸
          *
-         * 不再缩放背景
-         * 只让光线慢慢变亮、变暗
+         * 18 秒
+         * 非常缓慢
          * ================================================= */
 
         @keyframes nightBreathing {
 
             0% {
 
-                opacity: 0.35 !important;
+                opacity: 0.32 !important;
 
             }
 
-            25% {
+            20% {
 
-                opacity: 0.46 !important;
+                opacity: 0.40 !important;
 
             }
 
             50% {
 
-                opacity: 0.78 !important;
+                opacity: 0.72 !important;
 
             }
 
-            75% {
+            80% {
 
-                opacity: 0.46 !important;
+                opacity: 0.42 !important;
 
             }
 
             100% {
 
-                opacity: 0.35 !important;
+                opacity: 0.32 !important;
 
             }
 
@@ -1957,24 +1973,34 @@ function stopp() {
         /* =================================================
          * 🌫️ 中层月晕
          *
-         * 亮度 + 范围同时变化
+         * 11 秒
          * ================================================= */
 
         @keyframes moonGlow {
 
             0% {
 
-                opacity: 0.30;
+                opacity: 0.28;
 
                 transform:
                     translate(-50%, -50%)
-                    scale(0.90);
+                    scale(0.88);
+
+            }
+
+            25% {
+
+                opacity: 0.48;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.96);
 
             }
 
             50% {
 
-                opacity: 0.85;
+                opacity: 0.88;
 
                 transform:
                     translate(-50%, -50%)
@@ -1982,13 +2008,23 @@ function stopp() {
 
             }
 
-            100% {
+            75% {
 
-                opacity: 0.30;
+                opacity: 0.48;
 
                 transform:
                     translate(-50%, -50%)
-                    scale(0.90);
+                    scale(0.98);
+
+            }
+
+            100% {
+
+                opacity: 0.28;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.88);
 
             }
 
@@ -1997,17 +2033,29 @@ function stopp() {
 
         /* =================================================
          * ✨ 外层月光
+         *
+         * 17 秒
          * ================================================= */
 
         @keyframes moonAura {
 
             0% {
 
-                opacity: 0.25;
+                opacity: 0.22;
 
                 transform:
                     translate(-50%, -50%)
-                    scale(0.92);
+                    scale(0.90);
+
+            }
+
+            25% {
+
+                opacity: 0.34;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.96);
 
             }
 
@@ -2017,17 +2065,27 @@ function stopp() {
 
                 transform:
                     translate(-50%, -50%)
-                    scale(1.08);
+                    scale(1.10);
+
+            }
+
+            75% {
+
+                opacity: 0.36;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1.02);
 
             }
 
             100% {
 
-                opacity: 0.25;
+                opacity: 0.22;
 
                 transform:
                     translate(-50%, -50%)
-                    scale(0.92);
+                    scale(0.90);
 
             }
 
@@ -2035,7 +2093,7 @@ function stopp() {
 
 
         /* =================================================
-         * 📱 手机
+         * 📱 手机适配
          * ================================================= */
 
         @media (max-width: 768px) {
@@ -2060,5 +2118,6 @@ function stopp() {
 
 
     document.head.appendChild(style);
+
 
 })();
