@@ -1544,22 +1544,67 @@ function stopp() {
  * 独立视觉层
  * 不修改樱花和流星
  * ========================================================= */
-
 (function () {
 
     /* =====================================================
-     * 🌙 月光氛围层
+     * 🌙 / ☀️ 夜昼主题切换
+     *
+     * 功能：
+     * 1. 夜间显示残月
+     * 2. 白天显示太阳
+     * 3. 点击月亮 → 切换白天
+     * 4. 点击太阳 → 切换 Dark Mode
+     * 5. 自动读取 data-theme
      * ===================================================== */
 
-    var atmosphere = document.createElement('div');
 
-    atmosphere.id = 'sakura-atmosphere';
+    /* =====================================================
+     * 防止重复创建
+     * ===================================================== */
+
+    var oldAtmosphere =
+        document.getElementById('sakura-atmosphere');
+
+    if (oldAtmosphere) {
+        oldAtmosphere.remove();
+    }
+
+    var oldStyle =
+        document.getElementById('sakura-atmosphere-style');
+
+    if (oldStyle) {
+        oldStyle.remove();
+    }
+
+
+    /* =====================================================
+     * 🌙 / ☀️ 整体容器
+     * ===================================================== */
+
+    var atmosphere =
+        document.createElement('div');
+
+    atmosphere.id =
+        'sakura-atmosphere';
+
 
     atmosphere.innerHTML =
 
+        /*
+         * 🌌 夜空呼吸
+         */
         '<div id="night-breathing"></div>' +
 
+
+        /*
+         * 🌙 / ☀️ 月亮太阳
+         */
         '<div id="night-moon">' +
+
+
+            /* =============================================
+             * 🌙 月亮部分
+             * ============================================= */
 
             '<div id="moon-aura-far"></div>' +
 
@@ -1569,30 +1614,72 @@ function stopp() {
 
             '<div id="moon-core"></div>' +
 
+
+            /* =============================================
+             * ☀️ 太阳部分
+             * ============================================= */
+
+            '<div id="day-sun">' +
+
+                '<div id="sun-aura-far"></div>' +
+
+                '<div id="sun-aura"></div>' +
+
+                '<div id="sun-rays"></div>' +
+
+                '<div id="sun-core"></div>' +
+
+            '</div>' +
+
+
         '</div>';
 
 
+    /* =====================================================
+     * 🌌 整体氛围层
+     * ===================================================== */
+
     atmosphere.style.cssText =
-        'position: fixed !important;' +
-        'left: 0 !important;' +
-        'top: 0 !important;' +
-        'width: 100vw !important;' +
-        'height: 100vh !important;' +
-        'pointer-events: none !important;' +
-        'z-index: 9998 !important;' +
-        'overflow: hidden !important;' +
-        'opacity: 1 !important;';
+
+        'position:fixed !important;' +
+
+        'left:0 !important;' +
+        'top:0 !important;' +
+
+        'width:100vw !important;' +
+        'height:100vh !important;' +
+
+        'pointer-events:none !important;' +
+
+        'z-index:9998 !important;' +
+
+        'overflow:hidden !important;' +
+
+        'display:block !important;' +
+
+        'visibility:visible !important;' +
+
+        'opacity:1 !important;';
 
 
-    document.body.appendChild(atmosphere);
+    document.body.appendChild(
+        atmosphere
+    );
 
 
     /* =====================================================
-     * 🌌 夜空环境光
+     * 🌌 夜空环境呼吸光
+     *
+     * 这个不是明显的渐变。
+     *
+     * 它会非常缓慢地扩大、收缩、移动，
+     * 让你感觉整个夜空在呼吸。
      * ===================================================== */
 
     var breathing =
-        document.getElementById('night-breathing');
+        document.getElementById(
+            'night-breathing'
+        );
 
 
     breathing.style.cssText =
@@ -1607,21 +1694,19 @@ function stopp() {
 
         'pointer-events:none !important;' +
 
-        /*
-         * 很大的月光环境
-         *
-         * 注意：
-         * 这里不是一个明显的圆形光圈
-         */
         'background:' +
+
             'radial-gradient(' +
+
                 'ellipse 50% 38% at 82% 14%,' +
 
                 'rgba(180,205,255,0.055) 0%,' +
+
                 'rgba(160,188,245,0.032) 25%,' +
                 'rgba(140,168,230,0.015) 45%,' +
                 'rgba(120,150,215,0.006) 62%,' +
                 'rgba(100,130,200,0) 78%' +
+
             ')' +
 
         '!important;' +
@@ -1632,51 +1717,56 @@ function stopp() {
 
 
     /* =====================================================
-     * 🌙 月亮整体
+     * 🌙 / ☀️ 主容器
      * ===================================================== */
 
     var moon =
-        document.getElementById('night-moon');
+        document.getElementById(
+            'night-moon'
+        );
 
 
     moon.style.cssText =
 
         'position:absolute !important;' +
 
-        /*
-         * 右上角
-         */
         'top:7.5% !important;' +
         'right:8.5% !important;' +
 
-        /*
-         * 比之前小
-         */
         'width:68px !important;' +
         'height:68px !important;' +
 
-        'pointer-events:none !important;' +
+        'pointer-events:auto !important;' +
 
-        'opacity:0.92 !important;' +
+        'cursor:pointer !important;' +
 
-        /*
-         * 不再上下明显漂浮
-         */
+        'display:block !important;' +
+
+        'visibility:visible !important;' +
+
+        'z-index:9999 !important;' +
+
         'animation:moonPresence 18s ease-in-out infinite !important;';
 
 
     /* =====================================================
-     * 🌫️ 最远层月光
-     *
-     * 几乎感觉不到
-     * 负责空间感
+     * 🌙
+     * =====================================================
+     * 月亮
      * ===================================================== */
 
-    var far =
-        document.getElementById('moon-aura-far');
+
+    /* =====================================================
+     * 🌫️ 月亮最远层光晕
+     * ===================================================== */
+
+    var moonAuraFar =
+        document.getElementById(
+            'moon-aura-far'
+        );
 
 
-    far.style.cssText =
+    moonAuraFar.style.cssText =
 
         'position:absolute !important;' +
 
@@ -1691,13 +1781,16 @@ function stopp() {
         'border-radius:50% !important;' +
 
         'background:' +
+
             'radial-gradient(' +
+
                 'ellipse at 52% 47%,' +
 
                 'rgba(180,205,255,0.022) 0%,' +
                 'rgba(165,195,250,0.015) 30%,' +
                 'rgba(150,180,240,0.007) 52%,' +
                 'rgba(140,170,230,0) 74%' +
+
             ')' +
 
         '!important;' +
@@ -1708,14 +1801,16 @@ function stopp() {
 
 
     /* =====================================================
-     * 🌫️ 中远层月晕
+     * 🌫️ 月亮中层光晕
      * ===================================================== */
 
-    var aura =
-        document.getElementById('moon-aura');
+    var moonAura =
+        document.getElementById(
+            'moon-aura'
+        );
 
 
-    aura.style.cssText =
+    moonAura.style.cssText =
 
         'position:absolute !important;' +
 
@@ -1730,13 +1825,16 @@ function stopp() {
         'border-radius:50% !important;' +
 
         'background:' +
+
             'radial-gradient(' +
+
                 'ellipse at 46% 44%,' +
 
                 'rgba(225,235,255,0.075) 0%,' +
                 'rgba(215,228,255,0.038) 22%,' +
                 'rgba(200,218,250,0.016) 42%,' +
                 'rgba(190,210,245,0) 70%' +
+
             ')' +
 
         '!important;' +
@@ -1747,14 +1845,16 @@ function stopp() {
 
 
     /* =====================================================
-     * ✨ 月牙附近的柔光
+     * ✨ 月牙附近柔光
      * ===================================================== */
 
-    var glow =
-        document.getElementById('moon-glow');
+    var moonGlow =
+        document.getElementById(
+            'moon-glow'
+        );
 
 
-    glow.style.cssText =
+    moonGlow.style.cssText =
 
         'position:absolute !important;' +
 
@@ -1769,13 +1869,16 @@ function stopp() {
         'border-radius:50% !important;' +
 
         'background:' +
+
             'radial-gradient(' +
+
                 'circle,' +
 
                 'rgba(250,252,255,0.13) 0%,' +
                 'rgba(240,245,255,0.055) 28%,' +
                 'rgba(225,235,255,0.018) 48%,' +
                 'rgba(215,230,255,0) 70%' +
+
             ')' +
 
         '!important;' +
@@ -1786,14 +1889,20 @@ function stopp() {
 
 
     /* =====================================================
-     * 🌘 真正的细新月
+     * 🌘 残月本体
+     *
+     * 不使用黑色圆形遮挡
+     *
+     * 使用 mask 做真正的透明月牙
      * ===================================================== */
 
-    var core =
-        document.getElementById('moon-core');
+    var moonCore =
+        document.getElementById(
+            'moon-core'
+        );
 
 
-    core.style.cssText =
+    moonCore.style.cssText =
 
         'position:absolute !important;' +
 
@@ -1808,64 +1917,333 @@ function stopp() {
         'border-radius:50% !important;' +
 
         /*
-         * 冷白色，不使用纯白
+         * 月亮本体
          */
         'background:' +
+
             'radial-gradient(' +
+
                 'circle at 31% 27%,' +
 
                 '#f9faf7 0%,' +
                 '#eef1ed 38%,' +
                 '#dfe5e3 70%,' +
                 '#ccd5d8 100%' +
+
             ')' +
 
         '!important;' +
 
         /*
-         * =================================================
-         * 细新月
-         *
-         * 月牙非常薄
-         * =================================================
+         * 真正的新月
          */
         '-webkit-mask-image:' +
+
             'radial-gradient(' +
+
                 'ellipse 73% 73% at 73% 50%,' +
+
                 'transparent 0%,' +
                 'transparent 54%,' +
+
                 'rgba(0,0,0,0.15) 55%,' +
                 'rgba(0,0,0,0.70) 57%,' +
+
                 '#000 60%,' +
                 '#000 100%' +
+
             ')' +
 
         '!important;' +
 
         'mask-image:' +
+
             'radial-gradient(' +
+
                 'ellipse 73% 73% at 73% 50%,' +
+
                 'transparent 0%,' +
                 'transparent 54%,' +
+
                 'rgba(0,0,0,0.15) 55%,' +
                 'rgba(0,0,0,0.70) 57%,' +
+
                 '#000 60%,' +
                 '#000 100%' +
+
             ')' +
 
         '!important;' +
 
         /*
-         * 很轻的边缘光
+         * 月牙非常轻的边缘光
          */
         'filter:' +
-            'drop-shadow(0 0 2px rgba(255,255,255,0.85))' +
-            'drop-shadow(0 0 6px rgba(235,242,255,0.55))' +
-            'drop-shadow(0 0 15px rgba(215,228,255,0.25));';
+
+            'drop-shadow(' +
+                '0 0 2px rgba(255,255,255,0.85)' +
+            ')' +
+
+            'drop-shadow(' +
+                '0 0 6px rgba(235,242,255,0.55)' +
+            ')' +
+
+            'drop-shadow(' +
+                '0 0 15px rgba(215,228,255,0.25)' +
+            ')' +
+
+        '!important;';
 
 
     /* =====================================================
-     * 🎨 动画
+     * ☀️
+     * =====================================================
+     * 太阳
+     * ===================================================== */
+
+    var sun =
+        document.getElementById(
+            'day-sun'
+        );
+
+
+    sun.style.cssText =
+
+        'position:absolute !important;' +
+
+        'left:50% !important;' +
+        'top:50% !important;' +
+
+        'width:68px !important;' +
+        'height:68px !important;' +
+
+        'transform:translate(-50%,-50%) !important;' +
+
+        'pointer-events:none !important;' +
+
+        'opacity:0 !important;' +
+
+        'visibility:hidden !important;';
+
+
+    /* =====================================================
+     * 🌤️ 太阳最远光晕
+     * ===================================================== */
+
+    var sunAuraFar =
+        document.getElementById(
+            'sun-aura-far'
+        );
+
+
+    sunAuraFar.style.cssText =
+
+        'position:absolute !important;' +
+
+        'left:50% !important;' +
+        'top:50% !important;' +
+
+        'width:460px !important;' +
+        'height:460px !important;' +
+
+        'transform:translate(-50%,-50%) !important;' +
+
+        'border-radius:50% !important;' +
+
+        'background:' +
+
+            'radial-gradient(' +
+
+                'ellipse at 50% 48%,' +
+
+                'rgba(255,225,160,0.018) 0%,' +
+                'rgba(255,220,150,0.010) 32%,' +
+                'rgba(255,210,140,0.004) 52%,' +
+                'rgba(255,200,130,0) 75%' +
+
+            ')' +
+
+        '!important;' +
+
+        'filter:blur(5px) !important;' +
+
+        'animation:sunAuraFar 24s ease-in-out infinite !important;';
+
+
+    /* =====================================================
+     * 🌤️ 太阳中层光晕
+     * ===================================================== */
+
+    var sunAura =
+        document.getElementById(
+            'sun-aura'
+        );
+
+
+    sunAura.style.cssText =
+
+        'position:absolute !important;' +
+
+        'left:50% !important;' +
+        'top:50% !important;' +
+
+        'width:260px !important;' +
+        'height:260px !important;' +
+
+        'transform:translate(-50%,-50%) !important;' +
+
+        'border-radius:50% !important;' +
+
+        'background:' +
+
+            'radial-gradient(' +
+
+                'circle,' +
+
+                'rgba(255,245,215,0.10) 0%,' +
+                'rgba(255,238,195,0.045) 25%,' +
+                'rgba(255,225,170,0.015) 48%,' +
+                'rgba(255,220,160,0) 72%' +
+
+            ')' +
+
+        '!important;' +
+
+        'filter:blur(2px) !important;' +
+
+        'animation:sunAura 11s ease-in-out infinite !important;';
+
+
+    /* =====================================================
+     * ✨ 太阳光线
+     * ===================================================== */
+
+    var sunRays =
+        document.getElementById(
+            'sun-rays'
+        );
+
+
+    sunRays.style.cssText =
+
+        'position:absolute !important;' +
+
+        'left:50% !important;' +
+        'top:50% !important;' +
+
+        'width:92px !important;' +
+        'height:92px !important;' +
+
+        'transform:translate(-50%,-50%) !important;' +
+
+        'border-radius:50% !important;' +
+
+        'background:' +
+
+            'conic-gradient(' +
+
+                'from 0deg,' +
+
+                'transparent 0deg,' +
+                'rgba(255,230,170,0.18) 7deg,' +
+                'transparent 14deg,' +
+
+                'transparent 45deg,' +
+                'rgba(255,230,170,0.13) 52deg,' +
+                'transparent 59deg,' +
+
+                'transparent 90deg,' +
+                'rgba(255,230,170,0.16) 97deg,' +
+                'transparent 104deg,' +
+
+                'transparent 135deg,' +
+                'rgba(255,230,170,0.13) 142deg,' +
+                'transparent 149deg,' +
+
+                'transparent 180deg,' +
+                'rgba(255,230,170,0.16) 187deg,' +
+                'transparent 194deg,' +
+
+                'transparent 225deg,' +
+                'rgba(255,230,170,0.13) 232deg,' +
+                'transparent 239deg,' +
+
+                'transparent 270deg,' +
+                'rgba(255,230,170,0.16) 277deg,' +
+                'transparent 284deg,' +
+
+                'transparent 315deg,' +
+                'rgba(255,230,170,0.13) 322deg,' +
+                'transparent 329deg,' +
+
+                'transparent 360deg' +
+
+            ')' +
+
+        '!important;' +
+
+        'filter:blur(0.8px) !important;' +
+
+        'animation:sunRays 24s linear infinite !important;';
+
+
+    /* =====================================================
+     * ☀️ 太阳本体
+     * ===================================================== */
+
+    var sunCore =
+        document.getElementById(
+            'sun-core'
+        );
+
+
+    sunCore.style.cssText =
+
+        'position:absolute !important;' +
+
+        'left:50% !important;' +
+        'top:50% !important;' +
+
+        'width:50px !important;' +
+        'height:50px !important;' +
+
+        'transform:translate(-50%,-50%) !important;' +
+
+        'border-radius:50% !important;' +
+
+        /*
+         * 不使用鲜艳黄色
+         *
+         * 使用暖白 + 淡金
+         */
+        'background:' +
+
+            'radial-gradient(' +
+
+                'circle at 35% 30%,' +
+
+                '#fffef5 0%,' +
+                '#fff9df 35%,' +
+                '#ffeab0 70%,' +
+                '#f5d47c 100%' +
+
+            ')' +
+
+        '!important;' +
+
+        'box-shadow:' +
+
+            '0 0 7px rgba(255,250,220,0.95),' +
+
+            '0 0 18px rgba(255,235,175,0.70),' +
+
+            '0 0 38px rgba(255,220,145,0.34)' +
+
+        '!important;';
+
+
+    /* =====================================================
+     * 🎨 CSS 动画
      * ===================================================== */
 
     var style =
@@ -1878,8 +2256,9 @@ function stopp() {
 
     style.innerHTML = `
 
+
         /* =================================================
-         * 🌌 夜空环境呼吸
+         * 🌌 夜空呼吸
          * ================================================= */
 
         @keyframes nightAtmosphere {
@@ -1896,7 +2275,7 @@ function stopp() {
 
             35% {
 
-                opacity:0.64;
+                opacity:0.62;
 
                 transform:
                     translate3d(-0.4%,0.2%,0)
@@ -1906,7 +2285,7 @@ function stopp() {
 
             50% {
 
-                opacity:0.78;
+                opacity:0.76;
 
                 transform:
                     translate3d(0.5%,-0.25%,0)
@@ -1916,7 +2295,7 @@ function stopp() {
 
             70% {
 
-                opacity:0.60;
+                opacity:0.59;
 
                 transform:
                     translate3d(-0.2%,0.15%,0)
@@ -1938,7 +2317,7 @@ function stopp() {
 
 
         /* =================================================
-         * 🌙 月亮存在感
+         * 🌙 月亮整体存在感
          * ================================================= */
 
         @keyframes moonPresence {
@@ -1951,13 +2330,13 @@ function stopp() {
 
             45% {
 
-                opacity:0.91;
+                opacity:0.90;
 
             }
 
             60% {
 
-                opacity:0.95;
+                opacity:0.94;
 
             }
 
@@ -1971,14 +2350,14 @@ function stopp() {
 
 
         /* =================================================
-         * 🌫️ 最远月光
+         * 🌫️ 月亮最远光
          * ================================================= */
 
         @keyframes farMoonLight {
 
             0% {
 
-                opacity:0.22;
+                opacity:0.20;
 
                 transform:
                     translate(-50%,-50%)
@@ -1988,7 +2367,7 @@ function stopp() {
 
             50% {
 
-                opacity:0.52;
+                opacity:0.48;
 
                 transform:
                     translate(-50%,-50%)
@@ -1998,7 +2377,7 @@ function stopp() {
 
             100% {
 
-                opacity:0.22;
+                opacity:0.20;
 
                 transform:
                     translate(-50%,-50%)
@@ -2010,7 +2389,7 @@ function stopp() {
 
 
         /* =================================================
-         * 🌫️ 中层月晕
+         * 🌫️ 月亮中层光
          * ================================================= */
 
         @keyframes moonAuraSoft {
@@ -2049,14 +2428,92 @@ function stopp() {
 
 
         /* =================================================
-         * ✨ 月牙附近柔光
+         * ✨ 月牙柔光
          * ================================================= */
 
         @keyframes moonGlowSoft {
 
             0% {
 
-                opacity:0.32;
+                opacity:0.30;
+
+                transform:
+                    translate(-50%,-50%)
+                    scale(0.92);
+
+            }
+
+            50% {
+
+                opacity:0.66;
+
+                transform:
+                    translate(-50%,-50%)
+                    scale(1.05);
+
+            }
+
+            100% {
+
+                opacity:0.30;
+
+                transform:
+                    translate(-50%,-50%)
+                    scale(0.92);
+
+            }
+
+        }
+
+
+        /* =================================================
+         * ☀️ 太阳最远光
+         * ================================================= */
+
+        @keyframes sunAuraFar {
+
+            0% {
+
+                opacity:0.18;
+
+                transform:
+                    translate(-50%,-50%)
+                    scale(0.96);
+
+            }
+
+            50% {
+
+                opacity:0.38;
+
+                transform:
+                    translate(-50%,-50%)
+                    scale(1.05);
+
+            }
+
+            100% {
+
+                opacity:0.18;
+
+                transform:
+                    translate(-50%,-50%)
+                    scale(0.96);
+
+            }
+
+        }
+
+
+        /* =================================================
+         * ☀️ 太阳光晕
+         * ================================================= */
+
+        @keyframes sunAura {
+
+            0% {
+
+                opacity:0.30;
 
                 transform:
                     translate(-50%,-50%)
@@ -2070,19 +2527,189 @@ function stopp() {
 
                 transform:
                     translate(-50%,-50%)
-                    scale(1.05);
+                    scale(1.08);
 
             }
 
             100% {
 
-                opacity:0.32;
+                opacity:0.30;
 
                 transform:
                     translate(-50%,-50%)
                     scale(0.92);
 
             }
+
+        }
+
+
+        /* =================================================
+         * ☀️ 太阳光线旋转
+         * ================================================= */
+
+        @keyframes sunRays {
+
+            from {
+
+                transform:
+                    translate(-50%,-50%)
+                    rotate(0deg);
+
+            }
+
+            to {
+
+                transform:
+                    translate(-50%,-50%)
+                    rotate(360deg);
+
+            }
+
+        }
+
+
+        /* =================================================
+         * 🌙 月亮状态
+         * ================================================= */
+
+        #night-moon.is-night
+        #moon-core {
+
+            opacity:1 !important;
+
+            visibility:visible !important;
+
+        }
+
+
+        #night-moon.is-night
+        #moon-aura {
+
+            opacity:1 !important;
+
+            visibility:visible !important;
+
+        }
+
+
+        #night-moon.is-night
+        #moon-aura-far {
+
+            opacity:1 !important;
+
+            visibility:visible !important;
+
+        }
+
+
+        #night-moon.is-night
+        #moon-glow {
+
+            opacity:1 !important;
+
+            visibility:visible !important;
+
+        }
+
+
+        #night-moon.is-night
+        #day-sun {
+
+            opacity:0 !important;
+
+            visibility:hidden !important;
+
+            pointer-events:none !important;
+
+        }
+
+
+        /* =================================================
+         * ☀️ 太阳状态
+         * ================================================= */
+
+        #night-moon.is-day
+        #moon-core {
+
+            opacity:0 !important;
+
+            visibility:hidden !important;
+
+        }
+
+
+        #night-moon.is-day
+        #moon-aura {
+
+            opacity:0 !important;
+
+            visibility:hidden !important;
+
+        }
+
+
+        #night-moon.is-day
+        #moon-aura-far {
+
+            opacity:0 !important;
+
+            visibility:hidden !important;
+
+        }
+
+
+        #night-moon.is-day
+        #moon-glow {
+
+            opacity:0 !important;
+
+            visibility:hidden !important;
+
+        }
+
+
+        #night-moon.is-day
+        #day-sun {
+
+            opacity:1 !important;
+
+            visibility:visible !important;
+
+            pointer-events:none !important;
+
+        }
+
+
+        /* =================================================
+         * 🌙 / ☀️ 切换过渡
+         * ================================================= */
+
+        #moon-core,
+        #moon-aura,
+        #moon-aura-far,
+        #moon-glow,
+        #day-sun {
+
+            transition:
+
+                opacity 1.2s ease,
+                filter 1.2s ease;
+
+        }
+
+
+        /* =================================================
+         * 🖱️ Hover
+         *
+         * 非常轻
+         * 不做夸张放大
+         * ================================================= */
+
+        #night-moon:hover {
+
+            filter:
+                brightness(1.04);
 
         }
 
@@ -2112,6 +2739,285 @@ function stopp() {
     `;
 
 
-    document.head.appendChild(style);
+    document.head.appendChild(
+        style
+    );
+
+
+    /* =====================================================
+     * 🌙 / ☀️ 当前主题
+     * ===================================================== */
+
+    var currentTheme =
+        document.documentElement
+            .getAttribute('data-theme');
+
+
+    /*
+     * 如果没有 data-theme
+     *
+     * 根据系统主题判断
+     */
+    if (!currentTheme) {
+
+        var prefersDark =
+            window.matchMedia &&
+            window.matchMedia(
+                '(prefers-color-scheme: dark)'
+            ).matches;
+
+
+        currentTheme =
+            prefersDark
+                ? 'dark'
+                : 'light';
+
+    }
+
+
+    /* =====================================================
+     * 🌙 / ☀️ 设置图标状态
+     * ===================================================== */
+
+    function updateMoonSun(theme) {
+
+        if (theme === 'dark') {
+
+            /*
+             * 夜晚
+             *
+             * 显示月亮
+             */
+            moon.classList.remove(
+                'is-day'
+            );
+
+            moon.classList.add(
+                'is-night'
+            );
+
+
+        } else {
+
+            /*
+             * 白天
+             *
+             * 显示太阳
+             */
+            moon.classList.remove(
+                'is-night'
+            );
+
+            moon.classList.add(
+                'is-day'
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+     * 🌙 / ☀️ 设置页面主题
+     * ===================================================== */
+
+    function setTheme(theme) {
+
+        /*
+         * 设置 HTML 的 data-theme
+         */
+        document.documentElement
+            .setAttribute(
+                'data-theme',
+                theme
+            );
+
+
+        /*
+         * 保存主题
+         *
+         * 刷新页面以后不会丢失
+         */
+        try {
+
+            localStorage.setItem(
+                'theme',
+                theme
+            );
+
+        } catch (e) {
+
+        }
+
+
+        /*
+         * 更新月亮 / 太阳
+         */
+        updateMoonSun(
+            theme
+        );
+
+
+        /*
+         * 通知其他主题脚本
+         */
+        try {
+
+            window.dispatchEvent(
+                new CustomEvent(
+                    'themechange',
+                    {
+                        detail: {
+                            theme: theme
+                        }
+                    }
+                )
+            );
+
+        } catch (e) {
+
+        }
+
+    }
+
+
+    /* =====================================================
+     * 🌙 / ☀️ 初始化
+     * ===================================================== */
+
+    updateMoonSun(
+        currentTheme
+    );
+
+
+    /* =====================================================
+     * 🖱️ 点击月亮 / 太阳
+     *
+     * 月亮 → 太阳
+     * Dark → Light
+     *
+     * 太阳 → 月亮
+     * Light → Dark
+     * ===================================================== */
+
+    moon.addEventListener(
+        'click',
+        function () {
+
+
+            var theme =
+                document.documentElement
+                    .getAttribute(
+                        'data-theme'
+                    );
+
+
+            /* =============================================
+             * 🌙 → ☀️
+             *
+             * 当前是 Dark
+             * 点击后进入 Light
+             * ============================================= */
+
+            if (theme === 'dark') {
+
+                setTheme(
+                    'light'
+                );
+
+
+            }
+
+            /* =============================================
+             * ☀️ → 🌙
+             *
+             * 当前是 Light
+             * 点击后进入 Dark
+             * ============================================= */
+
+            else {
+
+                setTheme(
+                    'dark'
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+     * 🖱️ 防止点击穿透
+     * ===================================================== */
+
+    moon.addEventListener(
+        'mousedown',
+        function (event) {
+
+            event.stopPropagation();
+
+        }
+    );
+
+
+    /* =====================================================
+     * 🌗 监听其他地方的主题变化
+     *
+     * 比如 Butterfly 自己的 Dark Mode 按钮
+     *
+     * 如果用户从其他地方切换主题，
+     * 月亮 / 太阳也会跟着变化。
+     * ===================================================== */
+
+    var themeObserver =
+        new MutationObserver(
+            function (mutations) {
+
+                mutations.forEach(
+                    function (mutation) {
+
+                        if (
+                            mutation.attributeName ===
+                            'data-theme'
+                        ) {
+
+                            var theme =
+                                document.documentElement
+                                    .getAttribute(
+                                        'data-theme'
+                                    );
+
+
+                            if (
+                                theme === 'dark' ||
+                                theme === 'light'
+                            ) {
+
+                                updateMoonSun(
+                                    theme
+                                );
+
+                            }
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+    themeObserver.observe(
+        document.documentElement,
+        {
+            attributes:true,
+            attributeFilter:[
+                'data-theme'
+            ]
+        }
+    );
+
 
 })();
