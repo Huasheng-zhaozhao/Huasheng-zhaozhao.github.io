@@ -7168,7 +7168,7 @@ blockquote.pullquote.right {
   margin-top: -20px;
 }
 [data-theme='dark'] {
-  --global-bg: #0d0d0d;
+  --global-bg: linear-gradient(60deg, #2c0c16 0%, #043749 100%);
   --font-color: rgba(255,255,255,0.7);
   --hr-border: rgba(255,255,255,0.4);
   --hr-before-color: rgba(255,255,255,0.7);
@@ -7256,7 +7256,7 @@ blockquote.pullquote.right {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.6);
   content: '';
 }
 [data-theme='dark'] .container code {
