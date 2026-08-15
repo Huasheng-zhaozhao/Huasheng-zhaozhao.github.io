@@ -4175,13 +4175,8 @@ function stopp() {
     /* =====================================================
      * 🌫️ 夜间雨雾
      *
-     * 只在 Dark Mode 出现
-     *
-     * Light Mode：
-     * 自动隐藏
-     *
-     * Dark Mode：
-     * 慢慢出现
+     * Dark Mode  → 显示
+     * Light Mode → 隐藏
      * ===================================================== */
 
 
@@ -4196,9 +4191,16 @@ function stopp() {
         oldFog.remove();
     }
 
+    var oldStyle =
+        document.getElementById('night-rain-fog-style');
+
+    if (oldStyle) {
+        oldStyle.remove();
+    }
+
 
     /* =====================================================
-     * 创建雾气
+     * 创建雾气总容器
      * ===================================================== */
 
     var fog =
@@ -4208,135 +4210,107 @@ function stopp() {
         'night-rain-fog';
 
 
-    fog.setAttribute(
-        'style',
+    fog.style.cssText =
+
         'position:fixed !important;' +
-        'left:-10% !important;' +
-        'top:-10% !important;' +
-        'width:120% !important;' +
-        'height:120% !important;' +
+
+        'left:0 !important;' +
+        'top:0 !important;' +
+
+        'width:100vw !important;' +
+        'height:100vh !important;' +
+
         'pointer-events:none !important;' +
-        'z-index:99 !important;' +
+
+        /*
+         * 必须在雨的下面
+         * 但不能被页面背景盖住
+         */
+        'z-index:9997 !important;' +
+
+        'overflow:hidden !important;' +
+
         'opacity:0 !important;' +
-        'visibility:hidden !important;' +
-        'overflow:hidden !important;'
-    );
+
+        'visibility:hidden !important;';
 
 
     /* =====================================================
-     * 第一层：底层雾
+     * 🌫️ 第一层
      *
-     * 覆盖整个页面
+     * 整个页面下半部分的冷雾
      * ===================================================== */
 
-    var fogLayer1 =
+    var fog1 =
         document.createElement('div');
 
-    fogLayer1.style.cssText =
+    fog1.style.cssText =
 
         'position:absolute !important;' +
 
-        'left:-10% !important;' +
-        'top:35% !important;' +
+        'left:-20% !important;' +
+        'bottom:-10% !important;' +
 
-        'width:120% !important;' +
+        'width:140% !important;' +
         'height:65% !important;' +
 
         'background:' +
 
             'radial-gradient(' +
 
-                'ellipse 70% 45% at 50% 100%,' +
+                'ellipse at 50% 100%,' +
 
-                'rgba(190,215,235,0.12) 0%,' +
-                'rgba(175,205,230,0.075) 25%,' +
-                'rgba(160,195,225,0.045) 45%,' +
-                'rgba(145,185,215,0.018) 65%,' +
-                'rgba(130,175,205,0) 82%' +
+                'rgba(205,225,245,0.28) 0%,' +
 
-            ')' +
+                'rgba(190,215,238,0.18) 20%,' +
 
-        '!important;' +
+                'rgba(175,205,232,0.11) 40%,' +
 
-        'filter:blur(18px) !important;' +
+                'rgba(160,195,225,0.055) 58%,' +
 
-        'transform:translateX(-3%) !important;' +
-
-        'animation:' +
-            'rainFogMove1 18s ease-in-out infinite' +
-        ' !important;';
-
-
-    /* =====================================================
-     * 第二层：中层雾
-     *
-     * 让雾气更加容易看见
-     * ===================================================== */
-
-    var fogLayer2 =
-        document.createElement('div');
-
-    fogLayer2.style.cssText =
-
-        'position:absolute !important;' +
-
-        'left:-15% !important;' +
-        'top:48% !important;' +
-
-        'width:130% !important;' +
-        'height:52% !important;' +
-
-        'background:' +
-
-            'radial-gradient(' +
-
-                'ellipse 60% 38% at 25% 100%,' +
-
-                'rgba(205,225,240,0.095) 0%,' +
-                'rgba(190,215,235,0.065) 28%,' +
-                'rgba(175,205,230,0.035) 48%,' +
-                'rgba(160,195,220,0) 75%' +
+                'rgba(150,185,215,0) 78%' +
 
             ')' +
 
         '!important;' +
 
-        'filter:blur(22px) !important;' +
+        'filter:blur(20px) !important;' +
 
-        'animation:' +
-            'rainFogMove2 24s ease-in-out infinite' +
-        ' !important;';
+        'animation:nightFogMove1 18s ease-in-out infinite !important;';
 
 
     /* =====================================================
-     * 第三层：远处薄雾
+     * 🌫️ 第二层
      *
-     * 从页面底部往上飘
+     * 横向漂浮的雾带
      * ===================================================== */
 
-    var fogLayer3 =
+    var fog2 =
         document.createElement('div');
 
-    fogLayer3.style.cssText =
+    fog2.style.cssText =
 
         'position:absolute !important;' +
 
-        'left:-20% !important;' +
-        'bottom:-8% !important;' +
+        'left:-30% !important;' +
+        'top:52% !important;' +
 
-        'width:140% !important;' +
-        'height:38% !important;' +
+        'width:160% !important;' +
+        'height:28% !important;' +
 
         'background:' +
 
             'radial-gradient(' +
 
-                'ellipse 75% 55% at 50% 100%,' +
+                'ellipse at 50% 50%,' +
 
-                'rgba(215,230,240,0.085) 0%,' +
-                'rgba(195,220,235,0.055) 30%,' +
-                'rgba(175,205,225,0.025) 52%,' +
-                'rgba(155,190,215,0) 78%' +
+                'rgba(215,230,245,0.20) 0%,' +
+
+                'rgba(195,218,238,0.12) 28%,' +
+
+                'rgba(175,205,230,0.055) 48%,' +
+
+                'rgba(155,190,215,0) 72%' +
 
             ')' +
 
@@ -4344,31 +4318,61 @@ function stopp() {
 
         'filter:blur(25px) !important;' +
 
-        'animation:' +
-            'rainFogRise 20s ease-in-out infinite' +
-        ' !important;';
-
-
-    fog.appendChild(
-        fogLayer1
-    );
-
-    fog.appendChild(
-        fogLayer2
-    );
-
-    fog.appendChild(
-        fogLayer3
-    );
-
-
-    document.body.appendChild(
-        fog
-    );
+        'animation:nightFogMove2 25s ease-in-out infinite !important;';
 
 
     /* =====================================================
-     * 🌫️ CSS 动画
+     * 🌫️ 第三层
+     *
+     * 靠近底部的雾
+     * ===================================================== */
+
+    var fog3 =
+        document.createElement('div');
+
+    fog3.style.cssText =
+
+        'position:absolute !important;' +
+
+        'left:-25% !important;' +
+        'bottom:-5% !important;' +
+
+        'width:150% !important;' +
+        'height:30% !important;' +
+
+        'background:' +
+
+            'radial-gradient(' +
+
+                'ellipse at 50% 100%,' +
+
+                'rgba(225,235,245,0.24) 0%,' +
+
+                'rgba(205,225,240,0.15) 25%,' +
+
+                'rgba(185,210,232,0.075) 45%,' +
+
+                'rgba(165,195,220,0) 75%' +
+
+            ')' +
+
+        '!important;' +
+
+        'filter:blur(28px) !important;' +
+
+        'animation:nightFogMove3 20s ease-in-out infinite !important;';
+
+
+    fog.appendChild(fog1);
+    fog.appendChild(fog2);
+    fog.appendChild(fog3);
+
+
+    document.body.appendChild(fog);
+
+
+    /* =====================================================
+     * 🎨 CSS
      * ===================================================== */
 
     var style =
@@ -4382,17 +4386,16 @@ function stopp() {
 
 
         /* =================================================
-         * 第一层雾
-         * 左右缓慢移动
+         * 🌫️ 第一层雾
          * ================================================= */
 
-        @keyframes rainFogMove1 {
+        @keyframes nightFogMove1 {
 
             0% {
 
                 transform:
                     translateX(-4%)
-                    translateY(2%)
+                    translateY(3%)
                     scale(1);
 
             }
@@ -4401,8 +4404,8 @@ function stopp() {
 
                 transform:
                     translateX(4%)
-                    translateY(-1%)
-                    scale(1.06);
+                    translateY(-2%)
+                    scale(1.08);
 
             }
 
@@ -4410,7 +4413,7 @@ function stopp() {
 
                 transform:
                     translateX(-4%)
-                    translateY(2%)
+                    translateY(3%)
                     scale(1);
 
             }
@@ -4419,71 +4422,68 @@ function stopp() {
 
 
         /* =================================================
-         * 第二层雾
+         * 🌫️ 第二层雾
          * ================================================= */
 
-        @keyframes rainFogMove2 {
+        @keyframes nightFogMove2 {
 
             0% {
 
                 transform:
-                    translateX(5%)
+                    translateX(6%)
                     scale(1);
 
             }
 
             50% {
+
+                transform:
+                    translateX(-6%)
+                    scale(1.12);
+
+            }
+
+            100% {
+
+                transform:
+                    translateX(6%)
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =================================================
+         * 🌫️ 第三层雾
+         * ================================================= */
+
+        @keyframes nightFogMove3 {
+
+            0% {
 
                 transform:
                     translateX(-5%)
-                    scale(1.08);
-
-            }
-
-            100% {
-
-                transform:
-                    translateX(5%)
+                    translateY(5%)
                     scale(1);
-
-            }
-
-        }
-
-
-        /* =================================================
-         * 底部雾气缓慢上升
-         * ================================================= */
-
-        @keyframes rainFogRise {
-
-            0% {
-
-                transform:
-                    translateY(8%)
-                    scale(1);
-
-                opacity:0.55;
 
             }
 
             50% {
 
                 transform:
-                    translateY(-5%)
-                    scale(1.08);
-
-                opacity:1;
+                    translateX(5%)
+                    translateY(-3%)
+                    scale(1.10);
 
             }
 
             100% {
 
                 transform:
-                    translateY(8%)
+                    translateX(-5%)
+                    translateY(5%)
                     scale(1);
-
-                opacity:0.55;
 
             }
 
@@ -4491,7 +4491,7 @@ function stopp() {
 
 
         /* =================================================
-         * 🌙 夜晚
+         * 🌙 Dark Mode
          * ================================================= */
 
         html[data-theme="dark"]
@@ -4509,7 +4509,7 @@ function stopp() {
 
 
         /* =================================================
-         * ☀️ 白天
+         * ☀️ Light Mode
          * ================================================= */
 
         html[data-theme="light"]
