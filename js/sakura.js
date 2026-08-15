@@ -775,7 +775,7 @@ function stopp() {
          * ================================================= */
 
         var glowRadius =
-            meteor.size * 14;
+            meteor.size * 11;
 
 
         var glowGradient =
