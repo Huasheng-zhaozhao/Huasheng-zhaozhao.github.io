@@ -2737,32 +2737,38 @@ function stopp() {
      * 🌙 / ☀️ 当前主题
      * ===================================================== */
 
+    /* =====================================================
+    * 🌙 默认进入夜晚
+    * ===================================================== */
+
     var currentTheme =
         document.documentElement
             .getAttribute('data-theme');
 
 
     /*
-     * 如果没有 data-theme
-     *
-     * 根据系统主题判断
-     */
-    if (!currentTheme) {
+    * 如果页面没有明确设置主题
+    *
+    * 默认使用 Dark Mode
+    */
+    if (
+        currentTheme !== 'dark' &&
+        currentTheme !== 'light'
+    ) {
 
-        var prefersDark =
-            window.matchMedia &&
-            window.matchMedia(
-                '(prefers-color-scheme: dark)'
-            ).matches;
-
-
-        currentTheme =
-            prefersDark
-                ? 'dark'
-                : 'light';
+        currentTheme = 'dark';
 
     }
 
+
+    /*
+    * 设置页面主题
+    */
+    document.documentElement
+        .setAttribute(
+            'data-theme',
+            currentTheme
+        );
 
     /* =====================================================
      * 🌙 / ☀️ 设置图标状态
