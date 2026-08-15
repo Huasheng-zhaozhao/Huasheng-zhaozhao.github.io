@@ -4168,3 +4168,493 @@ function stopp() {
 
 
 })();
+
+
+(function () {
+
+    /* =====================================================
+     * 🌫️ 夜间雨雾
+     *
+     * 只负责增加夜雨的空间感
+     *
+     * 不修改：
+     * 🌙 月亮
+     * ☀️ 太阳
+     * ☄️ 流星
+     * 🌧️ 原有雨滴
+     * ===================================================== */
+
+
+    /* =====================================================
+     * 防止重复创建
+     * ===================================================== */
+
+    var oldMist =
+        document.getElementById(
+            'night-rain-mist'
+        );
+
+
+    if (oldMist) {
+
+        oldMist.remove();
+
+    }
+
+
+    var oldMistStyle =
+        document.getElementById(
+            'night-rain-mist-style'
+        );
+
+
+    if (oldMistStyle) {
+
+        oldMistStyle.remove();
+
+    }
+
+
+    /* =====================================================
+     * 创建雨雾 Canvas
+     * ===================================================== */
+
+    var mistCanvas =
+        document.createElement(
+            'canvas'
+        );
+
+
+    mistCanvas.id =
+        'night-rain-mist';
+
+
+    mistCanvas.style.cssText =
+
+        'position:fixed;' +
+
+        'left:0;' +
+        'top:0;' +
+
+        'width:100%;' +
+        'height:100%;' +
+
+        'pointer-events:none;' +
+
+        /*
+         * 放在雨滴下面
+         */
+        'z-index:99;' +
+
+        'opacity:0;' +
+
+        'visibility:hidden;' +
+
+        'transition:' +
+            'opacity 2.5s ease,' +
+            'visibility 2.5s ease;';
+
+
+    document.body.appendChild(
+        mistCanvas
+    );
+
+
+    var mistCtx =
+        mistCanvas.getContext(
+            '2d'
+        );
+
+
+    /* =====================================================
+     * Canvas 尺寸
+     * ===================================================== */
+
+    function resizeMist() {
+
+        mistCanvas.width =
+            window.innerWidth;
+
+        mistCanvas.height =
+            window.innerHeight;
+
+    }
+
+
+    resizeMist();
+
+
+    window.addEventListener(
+        'resize',
+        resizeMist
+    );
+
+
+    /* =====================================================
+     * 雾气参数
+     * ===================================================== */
+
+    var mistParticles = [];
+
+
+    /*
+     * 雾气数量
+     *
+     * 不需要太多
+     *
+     * 我们追求的是：
+     *
+     * “感觉得到，但看不出来”
+     */
+
+    var mistCount =
+        window.innerWidth < 768
+            ? 10
+            : 16;
+
+
+    /* =====================================================
+     * 创建雾
+     * ===================================================== */
+
+    function createMist() {
+
+        return {
+
+            x:
+                Math.random() *
+                mistCanvas.width,
+
+            y:
+                mistCanvas.height *
+                (
+                    0.45 +
+                    Math.random() * 0.5
+                ),
+
+            width:
+                180 +
+                Math.random() * 280,
+
+            height:
+                45 +
+                Math.random() * 90,
+
+            speed:
+                0.08 +
+                Math.random() * 0.18,
+
+            opacity:
+                0.018 +
+                Math.random() * 0.028,
+
+            phase:
+                Math.random() *
+                Math.PI *
+                2,
+
+            phaseSpeed:
+                0.002 +
+                Math.random() *
+                0.003
+
+        };
+
+    }
+
+
+    /* =====================================================
+     * 初始化雾
+     * ===================================================== */
+
+    for (
+        var i = 0;
+        i < mistCount;
+        i++
+    ) {
+
+        mistParticles.push(
+            createMist()
+        );
+
+    }
+
+
+    /* =====================================================
+     * 绘制雨雾
+     * ===================================================== */
+
+    function drawMist() {
+
+        mistCtx.clearRect(
+            0,
+            0,
+            mistCanvas.width,
+            mistCanvas.height
+        );
+
+
+        for (
+            var i = 0;
+            i < mistParticles.length;
+            i++
+        ) {
+
+            var mist =
+                mistParticles[i];
+
+
+            /*
+             * 雾缓慢向右移动
+             */
+
+            mist.x +=
+                mist.speed;
+
+
+            /*
+             * 呼吸效果
+             */
+
+            mist.phase +=
+                mist.phaseSpeed;
+
+
+            var breathing =
+                0.85 +
+                Math.sin(
+                    mist.phase
+                ) * 0.15;
+
+
+            /*
+             * 如果雾飘出右侧
+             * 从左侧重新出现
+             */
+
+            if (
+                mist.x -
+                mist.width >
+                mistCanvas.width
+            ) {
+
+                mist.x =
+                    -mist.width;
+
+            }
+
+
+            /*
+             * 雾的渐变
+             */
+
+            var gradient =
+                mistCtx.createRadialGradient(
+
+                    mist.x,
+                    mist.y,
+
+                    0,
+
+                    mist.x,
+                    mist.y,
+
+                    mist.width
+
+                );
+
+
+            gradient.addColorStop(
+
+                0,
+
+                'rgba(165,185,215,' +
+                (
+                    mist.opacity *
+                    breathing
+                ) +
+                ')'
+
+            );
+
+
+            gradient.addColorStop(
+
+                0.35,
+
+                'rgba(145,170,205,' +
+                (
+                    mist.opacity *
+                    breathing *
+                    0.55
+                ) +
+                ')'
+
+            );
+
+
+            gradient.addColorStop(
+
+                0.7,
+
+                'rgba(125,150,190,' +
+                (
+                    mist.opacity *
+                    breathing *
+                    0.20
+                ) +
+                ')'
+
+            );
+
+
+            gradient.addColorStop(
+
+                1,
+
+                'rgba(110,140,180,0)'
+
+            );
+
+
+            mistCtx.save();
+
+
+            mistCtx.translate(
+                mist.x,
+                mist.y
+            );
+
+
+            /*
+             * 雾不是完全圆形
+             *
+             * 稍微拉长
+             */
+
+            mistCtx.scale(
+                1,
+                mist.height /
+                mist.width
+            );
+
+
+            mistCtx.fillStyle =
+                gradient;
+
+
+            mistCtx.beginPath();
+
+
+            mistCtx.arc(
+                0,
+                0,
+                mist.width,
+                0,
+                Math.PI * 2
+            );
+
+
+            mistCtx.fill();
+
+
+            mistCtx.restore();
+
+        }
+
+
+        requestAnimationFrame(
+            drawMist
+        );
+
+    }
+
+
+    drawMist();
+
+
+    /* =====================================================
+     * 🌙 / ☀️ 根据主题显示
+     * ===================================================== */
+
+    function updateMist() {
+
+        var theme =
+            document.documentElement
+                .getAttribute(
+                    'data-theme'
+                );
+
+
+        /*
+         * 夜晚
+         */
+
+        if (
+            theme === 'dark'
+        ) {
+
+            mistCanvas.style.opacity =
+                '1';
+
+            mistCanvas.style.visibility =
+                'visible';
+
+        }
+
+
+        /*
+         * 白天
+         */
+
+        else {
+
+            mistCanvas.style.opacity =
+                '0';
+
+            mistCanvas.style.visibility =
+                'hidden';
+
+        }
+
+    }
+
+
+    /* =====================================================
+     * 初始化
+     * ===================================================== */
+
+    updateMist();
+
+
+    /* =====================================================
+     * 监听 Dark Mode
+     *
+     * 月亮 / 太阳切换的时候
+     * 雨雾自动跟着变化
+     * ===================================================== */
+
+    var themeObserver =
+        new MutationObserver(
+            function () {
+
+                updateMist();
+
+            }
+        );
+
+
+    themeObserver.observe(
+        document.documentElement,
+        {
+            attributes:true,
+
+            attributeFilter:[
+                'data-theme'
+            ]
+
+        }
+    );
+
+
+})();
