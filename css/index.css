@@ -7256,7 +7256,7 @@ blockquote.pullquote.right {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.25);
+  background-color: rgba(0,0,0,0.15);
   content: '';
 }
 [data-theme='dark'] .container code {
