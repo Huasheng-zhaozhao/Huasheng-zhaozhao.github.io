@@ -4175,13 +4175,13 @@ function stopp() {
     /* =====================================================
      * 🌫️ 夜间雨雾
      *
-     * 只负责增加夜雨的空间感
+     * 只在 Dark Mode 出现
      *
-     * 不修改：
-     * 🌙 月亮
-     * ☀️ 太阳
-     * ☄️ 流星
-     * 🌧️ 原有雨滴
+     * Light Mode：
+     * 自动隐藏
+     *
+     * Dark Mode：
+     * 慢慢出现
      * ===================================================== */
 
 
@@ -4189,471 +4189,348 @@ function stopp() {
      * 防止重复创建
      * ===================================================== */
 
-    var oldMist =
-        document.getElementById(
-            'night-rain-mist'
-        );
+    var oldFog =
+        document.getElementById('night-rain-fog');
 
-
-    if (oldMist) {
-
-        oldMist.remove();
-
-    }
-
-
-    var oldMistStyle =
-        document.getElementById(
-            'night-rain-mist-style'
-        );
-
-
-    if (oldMistStyle) {
-
-        oldMistStyle.remove();
-
+    if (oldFog) {
+        oldFog.remove();
     }
 
 
     /* =====================================================
-     * 创建雨雾 Canvas
+     * 创建雾气
      * ===================================================== */
 
-    var mistCanvas =
-        document.createElement(
-            'canvas'
-        );
+    var fog =
+        document.createElement('div');
+
+    fog.id =
+        'night-rain-fog';
 
 
-    mistCanvas.id =
-        'night-rain-mist';
+    fog.setAttribute(
+        'style',
+        'position:fixed !important;' +
+        'left:-10% !important;' +
+        'top:-10% !important;' +
+        'width:120% !important;' +
+        'height:120% !important;' +
+        'pointer-events:none !important;' +
+        'z-index:99 !important;' +
+        'opacity:0 !important;' +
+        'visibility:hidden !important;' +
+        'overflow:hidden !important;'
+    );
 
 
-    mistCanvas.style.cssText =
+    /* =====================================================
+     * 第一层：底层雾
+     *
+     * 覆盖整个页面
+     * ===================================================== */
 
-        'position:fixed;' +
+    var fogLayer1 =
+        document.createElement('div');
 
-        'left:0;' +
-        'top:0;' +
+    fogLayer1.style.cssText =
 
-        'width:100%;' +
-        'height:100%;' +
+        'position:absolute !important;' +
 
-        'pointer-events:none;' +
+        'left:-10% !important;' +
+        'top:35% !important;' +
 
-        /*
-         * 放在雨滴下面
-         */
-        'z-index:99;' +
+        'width:120% !important;' +
+        'height:65% !important;' +
 
-        'opacity:0;' +
+        'background:' +
 
-        'visibility:hidden;' +
+            'radial-gradient(' +
 
-        'transition:' +
-            'opacity 2.5s ease,' +
-            'visibility 2.5s ease;';
+                'ellipse 70% 45% at 50% 100%,' +
+
+                'rgba(190,215,235,0.12) 0%,' +
+                'rgba(175,205,230,0.075) 25%,' +
+                'rgba(160,195,225,0.045) 45%,' +
+                'rgba(145,185,215,0.018) 65%,' +
+                'rgba(130,175,205,0) 82%' +
+
+            ')' +
+
+        '!important;' +
+
+        'filter:blur(18px) !important;' +
+
+        'transform:translateX(-3%) !important;' +
+
+        'animation:' +
+            'rainFogMove1 18s ease-in-out infinite' +
+        ' !important;';
+
+
+    /* =====================================================
+     * 第二层：中层雾
+     *
+     * 让雾气更加容易看见
+     * ===================================================== */
+
+    var fogLayer2 =
+        document.createElement('div');
+
+    fogLayer2.style.cssText =
+
+        'position:absolute !important;' +
+
+        'left:-15% !important;' +
+        'top:48% !important;' +
+
+        'width:130% !important;' +
+        'height:52% !important;' +
+
+        'background:' +
+
+            'radial-gradient(' +
+
+                'ellipse 60% 38% at 25% 100%,' +
+
+                'rgba(205,225,240,0.095) 0%,' +
+                'rgba(190,215,235,0.065) 28%,' +
+                'rgba(175,205,230,0.035) 48%,' +
+                'rgba(160,195,220,0) 75%' +
+
+            ')' +
+
+        '!important;' +
+
+        'filter:blur(22px) !important;' +
+
+        'animation:' +
+            'rainFogMove2 24s ease-in-out infinite' +
+        ' !important;';
+
+
+    /* =====================================================
+     * 第三层：远处薄雾
+     *
+     * 从页面底部往上飘
+     * ===================================================== */
+
+    var fogLayer3 =
+        document.createElement('div');
+
+    fogLayer3.style.cssText =
+
+        'position:absolute !important;' +
+
+        'left:-20% !important;' +
+        'bottom:-8% !important;' +
+
+        'width:140% !important;' +
+        'height:38% !important;' +
+
+        'background:' +
+
+            'radial-gradient(' +
+
+                'ellipse 75% 55% at 50% 100%,' +
+
+                'rgba(215,230,240,0.085) 0%,' +
+                'rgba(195,220,235,0.055) 30%,' +
+                'rgba(175,205,225,0.025) 52%,' +
+                'rgba(155,190,215,0) 78%' +
+
+            ')' +
+
+        '!important;' +
+
+        'filter:blur(25px) !important;' +
+
+        'animation:' +
+            'rainFogRise 20s ease-in-out infinite' +
+        ' !important;';
+
+
+    fog.appendChild(
+        fogLayer1
+    );
+
+    fog.appendChild(
+        fogLayer2
+    );
+
+    fog.appendChild(
+        fogLayer3
+    );
 
 
     document.body.appendChild(
-        mistCanvas
-    );
-
-
-    var mistCtx =
-        mistCanvas.getContext(
-            '2d'
-        );
-
-
-    /* =====================================================
-     * Canvas 尺寸
-     * ===================================================== */
-
-    function resizeMist() {
-
-        mistCanvas.width =
-            window.innerWidth;
-
-        mistCanvas.height =
-            window.innerHeight;
-
-    }
-
-
-    resizeMist();
-
-
-    window.addEventListener(
-        'resize',
-        resizeMist
+        fog
     );
 
 
     /* =====================================================
-     * 雾气参数
+     * 🌫️ CSS 动画
      * ===================================================== */
 
-    var mistParticles = [];
+    var style =
+        document.createElement('style');
+
+    style.id =
+        'night-rain-fog-style';
 
 
-    /*
-     * 雾气数量
-     *
-     * 不需要太多
-     *
-     * 我们追求的是：
-     *
-     * “感觉得到，但看不出来”
-     */
-
-    var mistCount =
-        window.innerWidth < 768
-            ? 10
-            : 16;
+    style.innerHTML = `
 
 
-    /* =====================================================
-     * 创建雾
-     * ===================================================== */
+        /* =================================================
+         * 第一层雾
+         * 左右缓慢移动
+         * ================================================= */
 
-    function createMist() {
+        @keyframes rainFogMove1 {
 
-        return {
+            0% {
 
-            x:
-                Math.random() *
-                mistCanvas.width,
-
-            y:
-                mistCanvas.height *
-                (
-                    0.45 +
-                    Math.random() * 0.5
-                ),
-
-            width:
-                180 +
-                Math.random() * 280,
-
-            height:
-                45 +
-                Math.random() * 90,
-
-            speed:
-                0.08 +
-                Math.random() * 0.18,
-
-            opacity:
-                0.018 +
-                Math.random() * 0.028,
-
-            phase:
-                Math.random() *
-                Math.PI *
-                2,
-
-            phaseSpeed:
-                0.002 +
-                Math.random() *
-                0.003
-
-        };
-
-    }
-
-
-    /* =====================================================
-     * 初始化雾
-     * ===================================================== */
-
-    for (
-        var i = 0;
-        i < mistCount;
-        i++
-    ) {
-
-        mistParticles.push(
-            createMist()
-        );
-
-    }
-
-
-    /* =====================================================
-     * 绘制雨雾
-     * ===================================================== */
-
-    function drawMist() {
-
-        mistCtx.clearRect(
-            0,
-            0,
-            mistCanvas.width,
-            mistCanvas.height
-        );
-
-
-        for (
-            var i = 0;
-            i < mistParticles.length;
-            i++
-        ) {
-
-            var mist =
-                mistParticles[i];
-
-
-            /*
-             * 雾缓慢向右移动
-             */
-
-            mist.x +=
-                mist.speed;
-
-
-            /*
-             * 呼吸效果
-             */
-
-            mist.phase +=
-                mist.phaseSpeed;
-
-
-            var breathing =
-                0.85 +
-                Math.sin(
-                    mist.phase
-                ) * 0.15;
-
-
-            /*
-             * 如果雾飘出右侧
-             * 从左侧重新出现
-             */
-
-            if (
-                mist.x -
-                mist.width >
-                mistCanvas.width
-            ) {
-
-                mist.x =
-                    -mist.width;
+                transform:
+                    translateX(-4%)
+                    translateY(2%)
+                    scale(1);
 
             }
 
-
-            /*
-             * 雾的渐变
-             */
-
-            var gradient =
-                mistCtx.createRadialGradient(
-
-                    mist.x,
-                    mist.y,
-
-                    0,
-
-                    mist.x,
-                    mist.y,
-
-                    mist.width
-
-                );
-
-
-            gradient.addColorStop(
-
-                0,
-
-                'rgba(165,185,215,' +
-                (
-                    mist.opacity *
-                    breathing
-                ) +
-                ')'
-
-            );
-
-
-            gradient.addColorStop(
-
-                0.35,
-
-                'rgba(145,170,205,' +
-                (
-                    mist.opacity *
-                    breathing *
-                    0.55
-                ) +
-                ')'
-
-            );
-
-
-            gradient.addColorStop(
-
-                0.7,
-
-                'rgba(125,150,190,' +
-                (
-                    mist.opacity *
-                    breathing *
-                    0.20
-                ) +
-                ')'
-
-            );
-
-
-            gradient.addColorStop(
-
-                1,
-
-                'rgba(110,140,180,0)'
-
-            );
-
-
-            mistCtx.save();
-
-
-            mistCtx.translate(
-                mist.x,
-                mist.y
-            );
-
-
-            /*
-             * 雾不是完全圆形
-             *
-             * 稍微拉长
-             */
-
-            mistCtx.scale(
-                1,
-                mist.height /
-                mist.width
-            );
-
-
-            mistCtx.fillStyle =
-                gradient;
-
-
-            mistCtx.beginPath();
-
-
-            mistCtx.arc(
-                0,
-                0,
-                mist.width,
-                0,
-                Math.PI * 2
-            );
-
-
-            mistCtx.fill();
-
-
-            mistCtx.restore();
-
-        }
-
-
-        requestAnimationFrame(
-            drawMist
-        );
-
-    }
-
-
-    drawMist();
-
-
-    /* =====================================================
-     * 🌙 / ☀️ 根据主题显示
-     * ===================================================== */
-
-    function updateMist() {
-
-        var theme =
-            document.documentElement
-                .getAttribute(
-                    'data-theme'
-                );
-
-
-        /*
-         * 夜晚
-         */
-
-        if (
-            theme === 'dark'
-        ) {
-
-            mistCanvas.style.opacity =
-                '1';
-
-            mistCanvas.style.visibility =
-                'visible';
-
-        }
-
-
-        /*
-         * 白天
-         */
-
-        else {
-
-            mistCanvas.style.opacity =
-                '0';
-
-            mistCanvas.style.visibility =
-                'hidden';
-
-        }
-
-    }
-
-
-    /* =====================================================
-     * 初始化
-     * ===================================================== */
-
-    updateMist();
-
-
-    /* =====================================================
-     * 监听 Dark Mode
-     *
-     * 月亮 / 太阳切换的时候
-     * 雨雾自动跟着变化
-     * ===================================================== */
-
-    var themeObserver =
-        new MutationObserver(
-            function () {
-
-                updateMist();
+            50% {
+
+                transform:
+                    translateX(4%)
+                    translateY(-1%)
+                    scale(1.06);
 
             }
-        );
 
+            100% {
 
-    themeObserver.observe(
-        document.documentElement,
-        {
-            attributes:true,
+                transform:
+                    translateX(-4%)
+                    translateY(2%)
+                    scale(1);
 
-            attributeFilter:[
-                'data-theme'
-            ]
+            }
 
         }
+
+
+        /* =================================================
+         * 第二层雾
+         * ================================================= */
+
+        @keyframes rainFogMove2 {
+
+            0% {
+
+                transform:
+                    translateX(5%)
+                    scale(1);
+
+            }
+
+            50% {
+
+                transform:
+                    translateX(-5%)
+                    scale(1.08);
+
+            }
+
+            100% {
+
+                transform:
+                    translateX(5%)
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =================================================
+         * 底部雾气缓慢上升
+         * ================================================= */
+
+        @keyframes rainFogRise {
+
+            0% {
+
+                transform:
+                    translateY(8%)
+                    scale(1);
+
+                opacity:0.55;
+
+            }
+
+            50% {
+
+                transform:
+                    translateY(-5%)
+                    scale(1.08);
+
+                opacity:1;
+
+            }
+
+            100% {
+
+                transform:
+                    translateY(8%)
+                    scale(1);
+
+                opacity:0.55;
+
+            }
+
+        }
+
+
+        /* =================================================
+         * 🌙 夜晚
+         * ================================================= */
+
+        html[data-theme="dark"]
+        #night-rain-fog {
+
+            opacity:1 !important;
+
+            visibility:visible !important;
+
+            transition:
+                opacity 2.5s ease,
+                visibility 2.5s ease;
+
+        }
+
+
+        /* =================================================
+         * ☀️ 白天
+         * ================================================= */
+
+        html[data-theme="light"]
+        #night-rain-fog {
+
+            opacity:0 !important;
+
+            visibility:hidden !important;
+
+            transition:
+                opacity 2s ease,
+                visibility 2s ease;
+
+        }
+
+
+    `;
+
+
+    document.head.appendChild(
+        style
     );
 
 
