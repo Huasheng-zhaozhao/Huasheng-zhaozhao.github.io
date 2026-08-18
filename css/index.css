@@ -8442,29 +8442,95 @@ div#category {
 [data-theme="dark"] .search-dialog {
   background: rgba(40,44,52,0.769);
 }
-/*侧边栏标签美化*/
+/* =========================================================
+ * 🏷️ 侧边栏标签美化
+ * ========================================================= */
 #aside-content .card-tag-cloud a {
   font-size: 0.3rem;
-  border-radius: 6px;
-  border-style: dashed;
-  border-width: 1px;
-  margin: 3px;
-}
-/* 标签页加新样式 */
-#aside-content .card-tag-cloud a {
-  border: 1px solid;
   line-height: 1.5;
+  border: 1px solid rgba(145,165,200,0.48) !important;
   border-radius: 6px;
   margin: 3px;
   padding: 0 5px;
+/*
+   * 月光柔光
+   */
+  -webkit-box-shadow: 0 0 5px rgba(145,165,200,0.14), 0 0 12px rgba(145,165,200,0.08);
+  box-shadow: 0 0 5px rgba(145,165,200,0.14), 0 0 12px rgba(145,165,200,0.08);
+  -webkit-transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  -moz-transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  -o-transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  -ms-transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
+/* =========================================================
+ * ☀️ 侧边栏标签 · Light Mode
+ * ========================================================= */
+[data-theme="light"] #aside-content .card-tag-cloud a {
+  border-color: rgba(125,150,185,0.55) !important;
+  -webkit-box-shadow: 0 0 5px rgba(125,150,185,0.18), 0 0 13px rgba(125,150,185,0.09);
+  box-shadow: 0 0 5px rgba(125,150,185,0.18), 0 0 13px rgba(125,150,185,0.09);
+}
+/* =========================================================
+ * 🌙 侧边栏标签 · Dark Mode
+ * ========================================================= */
+[data-theme="dark"] #aside-content .card-tag-cloud a {
+  border-color: rgba(175,195,230,0.55) !important;
+  -webkit-box-shadow: 0 0 6px rgba(175,195,230,0.2), 0 0 15px rgba(165,190,230,0.11);
+  box-shadow: 0 0 6px rgba(175,195,230,0.2), 0 0 15px rgba(165,190,230,0.11);
+}
+/* =========================================================
+ * ✨ 侧边栏标签 Hover
+ * ========================================================= */
+#aside-content .card-tag-cloud a:hover {
+  border-color: rgba(165,190,225,0.8) !important;
+  -webkit-box-shadow: 0 0 7px rgba(155,185,225,0.28), 0 0 17px rgba(155,185,225,0.15);
+  box-shadow: 0 0 7px rgba(155,185,225,0.28), 0 0 17px rgba(155,185,225,0.15);
+}
+/* =========================================================
+ * 🏷️ 独立标签页
+ * ========================================================= */
 .tag-cloud-list a {
-  border: 1px solid;
+  border: 1px solid rgba(145,165,200,0.48) !important;
   line-height: 1.5;
   border-radius: 6px;
   padding: 5px 15px;
   font-size: 1.2rem;
   margin: 5px;
+/*
+   * 月光柔光
+   */
+  -webkit-box-shadow: 0 0 6px rgba(145,165,200,0.14), 0 0 15px rgba(145,165,200,0.08);
+  box-shadow: 0 0 6px rgba(145,165,200,0.14), 0 0 15px rgba(145,165,200,0.08);
+  -webkit-transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  -moz-transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  -o-transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  -ms-transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+/* =========================================================
+ * ☀️ 独立标签页 · Light Mode
+ * ========================================================= */
+[data-theme="light"] .tag-cloud-list a {
+  border-color: rgba(125,150,185,0.55) !important;
+  -webkit-box-shadow: 0 0 6px rgba(125,150,185,0.18), 0 0 15px rgba(125,150,185,0.09);
+  box-shadow: 0 0 6px rgba(125,150,185,0.18), 0 0 15px rgba(125,150,185,0.09);
+}
+/* =========================================================
+ * 🌙 独立标签页 · Dark Mode
+ * ========================================================= */
+[data-theme="dark"] .tag-cloud-list a {
+  border-color: rgba(175,195,230,0.55) !important;
+  -webkit-box-shadow: 0 0 7px rgba(175,195,230,0.2), 0 0 17px rgba(165,190,230,0.11);
+  box-shadow: 0 0 7px rgba(175,195,230,0.2), 0 0 17px rgba(165,190,230,0.11);
+}
+/* =========================================================
+ * ✨ 独立标签页 Hover
+ * ========================================================= */
+.tag-cloud-list a:hover {
+  border-color: rgba(165,190,225,0.8) !important;
+  -webkit-box-shadow: 0 0 8px rgba(155,185,225,0.28), 0 0 19px rgba(155,185,225,0.15);
+  box-shadow: 0 0 8px rgba(155,185,225,0.28), 0 0 19px rgba(155,185,225,0.15);
 }
 /*文章分页卡片美化*/
 .relatedPosts > .relatedPosts-list > div {
@@ -8478,17 +8544,66 @@ div#category {
   height: 200px;
   border-radius: 20px;
 }
-/*文章相关推荐卡片美化*/
-.relatedPosts > .relatedPosts-list > div {
-  border-radius: 20px;
-  border-style: dashed;
-  border-width: 1px;
-  margin: 1px;
+/* =====================================================
+ * 文章相关推荐卡片
+ * 月光玻璃边框
+ * ===================================================== */
+#content-inner .relatedPosts .pagination-related {
+  position: relative !important;
+/* 极细月光边框 */
+  border: 1px solid rgba(145,165,200,0.48) !important;
+  border-radius: 20px !important;
+/* 柔和月光 */
+  -webkit-box-shadow: 0 0 6px rgba(145,165,200,0.16), 0 0 16px rgba(145,165,200,0.1), 0 0 30px rgba(145,165,200,0.06) !important;
+  box-shadow: 0 0 6px rgba(145,165,200,0.16), 0 0 16px rgba(145,165,200,0.1), 0 0 30px rgba(145,165,200,0.06) !important;
+  -webkit-transition: -webkit-transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+  -moz-transition: -moz-transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+  -o-transition: -o-transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+  -ms-transition: -ms-transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
 }
-/* 文章目录 */
+/* =====================================================
+ * 鼠标悬停
+ * ===================================================== */
+#content-inner .relatedPosts .pagination-related:hover {
+  -webkit-transform: translateY(-3px) !important;
+  -moz-transform: translateY(-3px) !important;
+  -o-transform: translateY(-3px) !important;
+  -ms-transform: translateY(-3px) !important;
+  transform: translateY(-3px) !important;
+  border-color: rgba(165,190,225,0.78) !important;
+  -webkit-box-shadow: 0 0 8px rgba(155,185,225,0.28), 0 0 20px rgba(155,185,225,0.18), 0 0 38px rgba(155,185,225,0.1) !important;
+  box-shadow: 0 0 8px rgba(155,185,225,0.28), 0 0 20px rgba(155,185,225,0.18), 0 0 38px rgba(155,185,225,0.1) !important;
+}
+/* =====================================================
+ * 夜间模式
+ * ===================================================== */
+[data-theme="dark"] #content-inner .relatedPosts .pagination-related {
+  border-color: rgba(175,195,230,0.52) !important;
+  -webkit-box-shadow: 0 0 7px rgba(175,195,230,0.2), 0 0 18px rgba(165,190,230,0.13), 0 0 34px rgba(150,180,225,0.08) !important;
+  box-shadow: 0 0 7px rgba(175,195,230,0.2), 0 0 18px rgba(165,190,230,0.13), 0 0 34px rgba(150,180,225,0.08) !important;
+}
+/* =====================================================
+ * 夜间悬停
+ * ===================================================== */
+[data-theme="dark"] #content-inner .relatedPosts .pagination-related:hover {
+  border-color: rgba(205,220,245,0.82) !important;
+  -webkit-box-shadow: 0 0 10px rgba(190,210,245,0.32), 0 0 24px rgba(175,200,240,0.22), 0 0 42px rgba(155,185,230,0.12) !important;
+  box-shadow: 0 0 10px rgba(190,210,245,0.32), 0 0 24px rgba(175,200,240,0.22), 0 0 42px rgba(155,185,230,0.12) !important;
+}
+/* =========================================================
+ * 🌙 文章目录 · 月光效果
+ * 只修改目录视觉，不修改目录位置和结构
+ * ========================================================= */
+/* ---------------------------------------------------------
+ * 目录整体
+ * --------------------------------------------------------- */
 #aside-content #card-toc .toc-content {
   margin: 10px -18px;
 }
+/* ---------------------------------------------------------
+ * 🌙 当前正在阅读的目录
+ * --------------------------------------------------------- */
 #aside-content #card-toc .toc-content .toc-link.active {
   line-height: 1.2;
   border-radius: 12px;
@@ -8497,16 +8612,42 @@ div#category {
   color: var(--heo-lighttext);
   font-weight: bold;
   font-size: 20px;
+/*
+   * 月光主体
+   */
+  -webkit-box-shadow: 0 0 8px rgba(220,235,255,0.1), 0 0 18px rgba(210,228,255,0.08), 0 0 32px rgba(200,220,255,0.045);
+  box-shadow: 0 0 8px rgba(220,235,255,0.1), 0 0 18px rgba(210,228,255,0.08), 0 0 32px rgba(200,220,255,0.045);
+/*
+   * 很轻的过渡
+   */
+  -webkit-transition: color 0.5s ease, background-color 0.5s ease, box-shadow 0.8s ease;
+  -moz-transition: color 0.5s ease, background-color 0.5s ease, box-shadow 0.8s ease;
+  -o-transition: color 0.5s ease, background-color 0.5s ease, box-shadow 0.8s ease;
+  -ms-transition: color 0.5s ease, background-color 0.5s ease, box-shadow 0.8s ease;
+  transition: color 0.5s ease, background-color 0.5s ease, box-shadow 0.8s ease;
 }
+/* ---------------------------------------------------------
+ * 🌙 当前目录文字
+ * --------------------------------------------------------- */
 [data-theme=dark].toc .toc-item.active .toc-link .toc-text {
   color: var(--heo-white);
+/*
+   * 月光文字
+   */
+  text-shadow: 0 0 6px rgba(220,235,255,0.25), 0 0 14px rgba(210,230,255,0.12);
 }
+/* ---------------------------------------------------------
+ * 当前目录保持原本透明度
+ * --------------------------------------------------------- */
 #aside-content #card-toc .toc-content .toc-item.active .toc-link {
   opacity: 1;
   -ms-filter: none;
   filter: none;
   border-radius: 8px;
 }
+/* ---------------------------------------------------------
+ * 📖 普通目录
+ * --------------------------------------------------------- */
 #aside-content #card-toc .toc-content .toc-link {
   line-height: 1.2;
   padding: 8px;
@@ -8514,27 +8655,303 @@ div#category {
   border-radius: 12px;
   color: var(--heo-secondtext);
   cursor: default;
+/*
+   * 让月光过渡更自然
+   */
+  -webkit-transition: color 0.45s ease, opacity 0.45s ease, text-shadow 0.45s ease, background-color 0.45s ease;
+  -moz-transition: color 0.45s ease, opacity 0.45s ease, text-shadow 0.45s ease, background-color 0.45s ease;
+  -o-transition: color 0.45s ease, opacity 0.45s ease, text-shadow 0.45s ease, background-color 0.45s ease;
+  -ms-transition: color 0.45s ease, opacity 0.45s ease, text-shadow 0.45s ease, background-color 0.45s ease;
+  transition: color 0.45s ease, opacity 0.45s ease, text-shadow 0.45s ease, background-color 0.45s ease;
 }
+/* ---------------------------------------------------------
+ * 🌫️ 普通目录
+ *
+ * 保留你原来的轻微模糊
+ * --------------------------------------------------------- */
 #aside-content #card-toc .toc-content .toc-link:not(.active) span {
   opacity: 0.6;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
   filter: alpha(opacity=60);
   cursor: pointer;
   filter: blur(1px);
-  -webkit-transition: 0.3s;
-  -moz-transition: 0.3s;
-  -o-transition: 0.3s;
-  -ms-transition: 0.3s;
-  transition: 0.3s;
+  -webkit-transition: filter 0.5s ease, opacity 0.5s ease, color 0.5s ease, text-shadow 0.5s ease;
+  -moz-transition: filter 0.5s ease, opacity 0.5s ease, color 0.5s ease, text-shadow 0.5s ease;
+  -o-transition: filter 0.5s ease, opacity 0.5s ease, color 0.5s ease, text-shadow 0.5s ease;
+  -ms-transition: filter 0.5s ease, opacity 0.5s ease, color 0.5s ease, text-shadow 0.5s ease;
+  transition: filter 0.5s ease, opacity 0.5s ease, color 0.5s ease, text-shadow 0.5s ease;
 }
+/* ---------------------------------------------------------
+ * 🌙 鼠标进入目录
+ *
+ * 普通目录从雾里慢慢清晰
+ * --------------------------------------------------------- */
 #aside-content #card-toc:hover .toc-content .toc-link:not(.active) span {
   filter: blur(0px);
   opacity: 1;
   -ms-filter: none;
   filter: none;
 }
+/* ---------------------------------------------------------
+ * ✨ 鼠标移动到某一项
+ *
+ * 像月光扫过文字
+ * --------------------------------------------------------- */
 #aside-content #card-toc .toc-content .toc-link:not(.active) span:hover {
   color: var(--heo-lighttext);
+/*
+   * 很轻的月光
+   */
+  text-shadow: 0 0 5px rgba(225,238,255,0.3), 0 0 12px rgba(215,232,255,0.16);
+}
+/* =========================================================
+ * 🌙 当前目录 Hover
+ * ========================================================= */
+#aside-content #card-toc .toc-content .toc-link.active:hover {
+  -webkit-box-shadow: 0 0 10px rgba(225,238,255,0.15), 0 0 22px rgba(215,232,255,0.11), 0 0 40px rgba(200,220,255,0.06);
+  box-shadow: 0 0 10px rgba(225,238,255,0.15), 0 0 22px rgba(215,232,255,0.11), 0 0 40px rgba(200,220,255,0.06);
+}
+/* =========================================================
+ * 🌌 Dark Mode
+ *
+ * 冷色月光
+ * ========================================================= */
+[data-theme="dark"],
+#aside-content,
+#card-toc,
+.toc-content,
+.toc-link.active {
+  -webkit-box-shadow: 0 0 8px rgba(205,225,255,0.13), 0 0 20px rgba(190,215,255,0.09), 0 0 38px rgba(180,205,255,0.055);
+  box-shadow: 0 0 8px rgba(205,225,255,0.13), 0 0 20px rgba(190,215,255,0.09), 0 0 38px rgba(180,205,255,0.055);
+}
+/* ---------------------------------------------------------
+ * 🌙 Dark Mode 当前文字
+ * --------------------------------------------------------- */
+[data-theme="dark"],
+#aside-content,
+#card-toc,
+.toc-content,
+.toc-link.active,
+.toc-text {
+  text-shadow: 0 0 7px rgba(220,235,255,0.28), 0 0 16px rgba(200,225,255,0.13);
+}
+/* =========================================================
+ * ☀️ Light Mode
+ *
+ * 白天不要出现明显蓝色光
+ * 只保留一点银白色柔光
+ * ========================================================= */
+[data-theme="light"],
+#aside-content,
+#card-toc,
+.toc-content,
+.toc-link.active {
+  -webkit-box-shadow: 0 0 7px rgba(210,220,235,0.12), 0 0 18px rgba(205,215,230,0.07);
+  box-shadow: 0 0 7px rgba(210,220,235,0.12), 0 0 18px rgba(205,215,230,0.07);
+}
+/* ---------------------------------------------------------
+ * ☀️ Light Mode 当前文字
+ * --------------------------------------------------------- */
+[data-theme="light"],
+#aside-content,
+#card-toc,
+.toc-content,
+.toc-link.active,
+.toc-text {
+  text-shadow: 0 0 5px rgba(210,220,235,0.18);
+}
+/* =========================================================
+ * 🌙 页脚网站运行时间
+ * 月光边框 + 光晕
+ *
+ * 不改变原本页面背景
+ * ========================================================= */
+div#runtime {
+  width: fit-content;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  margin: auto;
+  padding: 0 10px;
+  border-radius: 10px;
+/*
+     * 默认文字颜色
+     */
+  color: rgba(105,125,155,0.82);
+/*
+     * 不设置 background-color
+     * 保留原本页面背景
+     */
+/*
+     * 月光边框
+     */
+  border: 1px solid rgba(145,165,195,0.28);
+/*
+     * 很淡的月光光晕
+     */
+  -webkit-box-shadow: 0 0 5px rgba(145,165,195,0.1), 0 0 12px rgba(145,165,195,0.05);
+  box-shadow: 0 0 5px rgba(145,165,195,0.1), 0 0 12px rgba(145,165,195,0.05);
+  -webkit-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  -moz-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  -o-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  -ms-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+/* =========================================================
+ * ☀️ Light Mode · 网站运行时间
+ *
+ * 不改变白天原本背景
+ * ========================================================= */
+[data-theme="light"],
+div#runtime {
+  color: rgba(100,120,150,0.82);
+/*
+     * 不设置 background-color
+     */
+  border-color: rgba(135,155,185,0.3);
+  -webkit-box-shadow: 0 0 5px rgba(135,155,185,0.12), 0 0 13px rgba(135,155,185,0.06);
+  box-shadow: 0 0 5px rgba(135,155,185,0.12), 0 0 13px rgba(135,155,185,0.06);
+}
+/* =========================================================
+ * 🌙 Dark Mode · 网站运行时间
+ *
+ * 不改变原本夜间背景
+ * ========================================================= */
+[data-theme="dark"],
+div#runtime {
+  color: rgba(190,210,235,0.78);
+/*
+     * 不设置 background-color
+     */
+  border-color: rgba(175,195,230,0.32);
+  -webkit-box-shadow: 0 0 6px rgba(175,195,230,0.16), 0 0 15px rgba(165,190,230,0.08);
+  box-shadow: 0 0 6px rgba(175,195,230,0.16), 0 0 15px rgba(165,190,230,0.08);
+}
+/* =========================================================
+ * ✨ Hover
+ * ========================================================= */
+#runtime:hover {
+  color: rgba(95,115,145,0.95);
+/*
+     * 不改变背景
+     */
+  border-color: rgba(135,160,195,0.45);
+  -webkit-box-shadow: 0 0 7px rgba(145,170,205,0.18), 0 0 17px rgba(145,170,205,0.1);
+  box-shadow: 0 0 7px rgba(145,170,205,0.18), 0 0 17px rgba(145,170,205,0.1);
+}
+/* =========================================================
+ * 🌙 Dark Mode Hover
+ * ========================================================= */
+[data-theme="dark"],
+#runtime:hover {
+  color: rgba(215,225,245,0.95);
+/*
+     * 不改变背景
+     */
+  border-color: rgba(195,215,245,0.48);
+  -webkit-box-shadow: 0 0 8px rgba(185,210,240,0.2), 0 0 20px rgba(175,200,235,0.1);
+  box-shadow: 0 0 8px rgba(185,210,240,0.2), 0 0 20px rgba(175,200,235,0.1);
+}
+/* =========================================================
+ * 🌙 页脚版权 · © 2026 By 华生
+ *
+ * 边框只包住文字
+ * 不改变原本页脚背景
+ * ========================================================= */
+#footer .footer-copyright .copyright {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 10px;
+/*
+     * 与 runtime 保持一致
+     */
+  color: rgba(105,125,155,0.82) !important;
+/*
+     * 防止 Butterfly 原本透明度影响文字
+     */
+  opacity: 1 !important;
+  -ms-filter: none !important;
+  filter: none !important;
+/*
+     * 不设置 background-color
+     * 保留页面原本背景
+     */
+/*
+     * 月光边框
+     */
+  border: 1px solid rgba(145,165,195,0.28);
+/*
+     * 月光光晕
+     */
+  -webkit-box-shadow: 0 0 5px rgba(145,165,195,0.1), 0 0 12px rgba(145,165,195,0.05);
+  box-shadow: 0 0 5px rgba(145,165,195,0.1), 0 0 12px rgba(145,165,195,0.05);
+  -webkit-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  -moz-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  -o-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  -ms-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+/* =========================================================
+ * ☀️ Light Mode · © 2026 By 华生
+ *
+ * 不改变白天原本背景
+ * ========================================================= */
+[data-theme="light"],
+#footer .footer-copyright .copyright {
+  color: rgba(100,120,150,0.82) !important;
+  opacity: 1 !important;
+  -ms-filter: none !important;
+  filter: none !important;
+/*
+     * 不设置 background-color
+     */
+  border-color: rgba(135,155,185,0.3);
+  -webkit-box-shadow: 0 0 5px rgba(135,155,185,0.12), 0 0 13px rgba(135,155,185,0.06);
+  box-shadow: 0 0 5px rgba(135,155,185,0.12), 0 0 13px rgba(135,155,185,0.06);
+}
+/* =========================================================
+ * 🌙 Dark Mode · © 2026 By 华生
+ * ========================================================= */
+[data-theme="dark"],
+#footer .footer-copyright .copyright {
+  color: rgba(190,210,235,0.78) !important;
+  opacity: 1 !important;
+  -ms-filter: none !important;
+  filter: none !important;
+/*
+     * 不改变原本夜间背景
+     */
+  border-color: rgba(175,195,230,0.32);
+  -webkit-box-shadow: 0 0 6px rgba(175,195,230,0.16), 0 0 15px rgba(165,190,230,0.08);
+  box-shadow: 0 0 6px rgba(175,195,230,0.16), 0 0 15px rgba(165,190,230,0.08);
+}
+/* =========================================================
+ * ✨ Hover
+ * ========================================================= */
+#footer .footer-copyright .copyright:hover {
+  color: rgba(95,115,145,0.95) !important;
+/*
+     * 不改变背景
+     */
+  border-color: rgba(135,160,195,0.45);
+  -webkit-box-shadow: 0 0 7px rgba(145,170,205,0.18), 0 0 17px rgba(145,170,205,0.1);
+  box-shadow: 0 0 7px rgba(145,170,205,0.18), 0 0 17px rgba(145,170,205,0.1);
+}
+/* =========================================================
+ * 🌙 Dark Mode Hover
+ * ========================================================= */
+[data-theme="dark"],
+#footer .footer-copyright .copyright:hover {
+  color: rgba(215,225,245,0.95) !important;
+/*
+     * 不改变背景
+     */
+  border-color: rgba(195,215,245,0.48);
+  -webkit-box-shadow: 0 0 8px rgba(185,210,240,0.2), 0 0 18px rgba(175,200,235,0.1);
+  box-shadow: 0 0 8px rgba(185,210,240,0.2), 0 0 18px rgba(175,200,235,0.1);
 }
 @-moz-keyframes move-forever {
   0% {
