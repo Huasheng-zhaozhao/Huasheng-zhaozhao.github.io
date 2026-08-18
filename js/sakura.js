@@ -4170,3 +4170,60 @@ function stopp() {
 })();
 
 
+
+// 自定页数跳转
+var icattoPage = {
+  toPage: function() {
+      console.log("执行跳转");
+      var pageElements = document.querySelectorAll(".page-number");
+      var totalPages = parseInt(pageElements[pageElements.length - 1].innerHTML);
+      var inputElement = document.getElementById("toPageText");
+      var targetPage = parseInt(inputElement.value);
+      
+      // 验证输入有效性
+      if (!isNaN(targetPage) && targetPage > 0 && targetPage <= totalPages) {
+          var urlPath = targetPage === 1 ? "/" : "/page/" + targetPage + "/#content-inner";
+          window.location.href = urlPath; // 直接修改location实现跳转
+          return true; // 返回true允许表单提交（如果有form包裹）
+      } else {
+          alert("请输入有效的页码（1-" + totalPages + "）");
+          inputElement.focus();
+          return false; // 阻止默认行为
+      }
+  },
+  
+  listenToPageInputPress: function() {
+      var inputElement = document.getElementById("toPageText");
+      var buttonElement = document.getElementById("toPageButton");
+      
+      if (inputElement) {
+          // 回车键监听
+          inputElement.addEventListener("keydown", (e) => {
+              if (e.keyCode === 13) { // 回车键
+                  e.preventDefault(); // 阻止form的默认提交行为[3]
+                  icattoPage.toPage();
+              }
+          });
+          
+          // 输入验证
+          inputElement.addEventListener("input", function() {
+              var pageElements = document.querySelectorAll(".page-number");
+              var maxPage = parseInt(pageElements[pageElements.length - 1].innerHTML);
+              var currentValue = parseInt(this.value) || 0;
+              
+              // 按钮状态控制
+              buttonElement.classList.toggle("haveValue", this.value.length > 0 && this.value !== "0");
+              
+              // 自动修正超出范围的页码
+              if (currentValue > maxPage) {
+                  this.value = maxPage;
+              }
+          });
+      }
+  }
+};
+
+// 初始化监听
+document.addEventListener("DOMContentLoaded", function() {
+    icattoPage.listenToPageInputPress();
+});
