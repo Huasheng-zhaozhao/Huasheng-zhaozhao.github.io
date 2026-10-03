@@ -3137,141 +3137,62 @@ figure.highlight pre .javascript .function {
 }
 .tag-cloud-list a {
   position: relative;
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-box;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  gap: 6px;
   margin: 6px;
-  padding: 8px 20px 9px;
+  padding: 4px 6px;
   line-height: 1.5;
   font-weight: 600;
   letter-spacing: 0.3px;
-  border-radius: 999px;
-  overflow: hidden;
-  color: #fff;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
-  -webkit-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  -moz-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  -o-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  -ms-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  -webkit-transform: translateY(0) scale(1);
-  -moz-transform: translateY(0) scale(1);
-  -o-transform: translateY(0) scale(1);
-  -ms-transform: translateY(0) scale(1);
-  transform: translateY(0) scale(1);
-  will-change: transform, box-shadow, filter;
-/* 果冻质感：三阶渐变（上浅-主色-下深）+ 纯色兜底 */
-  background: var(--tagc);
-  background: -webkit-linear-gradient(270deg, color-mix(in srgb, var(--tagc) 62%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 82%, #000) 100%);
-  background: -moz-linear-gradient(270deg, color-mix(in srgb, var(--tagc) 62%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 82%, #000) 100%);
-  background: -o-linear-gradient(270deg, color-mix(in srgb, var(--tagc) 62%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 82%, #000) 100%);
-  background: -ms-linear-gradient(270deg, color-mix(in srgb, var(--tagc) 62%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 82%, #000) 100%);
-  background: linear-gradient(180deg, color-mix(in srgb, var(--tagc) 62%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 82%, #000) 100%);
-/* 果冻：顶部内高光 + 底部内阴影 + 细白描边 + 彩色投影 */
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 0 0 1px rgba(255, 255, 255, .22), inset 0 -4px 8px rgba(0, 0, 0, .15), 0 5px 14px color-mix(in srgb, var(--tagc) 45%, transparent), 0 1px 3px rgba(0, 0, 0, .18);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 0 0 1px rgba(255, 255, 255, .22), inset 0 -4px 8px rgba(0, 0, 0, .15), 0 5px 14px color-mix(in srgb, var(--tagc) 45%, transparent), 0 1px 3px rgba(0, 0, 0, .18);
-/* 糖果顶部高光（弧形亮光） */
-/* 扫光 */
-}
-.tag-cloud-list a::after {
-  position: absolute;
-  left: 16%;
-  right: 16%;
-  top: 3px;
-  height: 38%;
-  border-radius: 50%;
-  background: -webkit-linear-gradient(270deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  background: -moz-linear-gradient(270deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  background: -o-linear-gradient(270deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  background: -ms-linear-gradient(270deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  content: '';
-  pointer-events: none;
-  -webkit-transition: opacity 0.3s ease;
-  -moz-transition: opacity 0.3s ease;
-  -o-transition: opacity 0.3s ease;
-  -ms-transition: opacity 0.3s ease;
-  transition: opacity 0.3s ease;
+  color: color-mix(in srgb, var(--tagc) 55%, #333);
+  -webkit-transition: color 0.25s ease;
+  -moz-transition: color 0.25s ease;
+  -o-transition: color 0.25s ease;
+  -ms-transition: color 0.25s ease;
+  transition: color 0.25s ease;
+/* 清新圆点 */
 }
 .tag-cloud-list a::before {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  background: -webkit-linear-gradient(0deg, transparent, rgba(255,255,255,0.22), transparent);
-  background: -moz-linear-gradient(0deg, transparent, rgba(255,255,255,0.22), transparent);
-  background: -o-linear-gradient(0deg, transparent, rgba(255,255,255,0.22), transparent);
-  background: -ms-linear-gradient(0deg, transparent, rgba(255,255,255,0.22), transparent);
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
   content: '';
-  -webkit-transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  -moz-transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  -o-transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  -ms-transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--tagc);
+  -webkit-box-shadow: 0 0 0 3px color-mix(in srgb, var(--tagc) 28%, #fff);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--tagc) 28%, #fff);
+  -webkit-transition: -webkit-transform 0.25s ease, box-shadow 0.25s ease;
+  -moz-transition: -moz-transform 0.25s ease, box-shadow 0.25s ease;
+  -o-transition: -o-transform 0.25s ease, box-shadow 0.25s ease;
+  -ms-transition: -ms-transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .tag-cloud-list a:hover {
-  background: var(--tagc);
-  background: -webkit-linear-gradient(270deg, color-mix(in srgb, var(--tagc) 72%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 88%, #000) 100%);
-  background: -moz-linear-gradient(270deg, color-mix(in srgb, var(--tagc) 72%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 88%, #000) 100%);
-  background: -o-linear-gradient(270deg, color-mix(in srgb, var(--tagc) 72%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 88%, #000) 100%);
-  background: -ms-linear-gradient(270deg, color-mix(in srgb, var(--tagc) 72%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 88%, #000) 100%);
-  background: linear-gradient(180deg, color-mix(in srgb, var(--tagc) 72%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 88%, #000) 100%);
-  -webkit-transform: translateY(-4px) scale(1.05);
-  -moz-transform: translateY(-4px) scale(1.05);
-  -o-transform: translateY(-4px) scale(1.05);
-  -ms-transform: translateY(-4px) scale(1.05);
-  transform: translateY(-4px) scale(1.05);
-  filter: brightness(1.05);
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .65), inset 0 0 0 1px rgba(255, 255, 255, .3), inset 0 -4px 8px rgba(0, 0, 0, .12), 0 12px 26px color-mix(in srgb, var(--tagc) 50%, transparent), 0 4px 8px rgba(0, 0, 0, .18);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .65), inset 0 0 0 1px rgba(255, 255, 255, .3), inset 0 -4px 8px rgba(0, 0, 0, .12), 0 12px 26px color-mix(in srgb, var(--tagc) 50%, transparent), 0 4px 8px rgba(0, 0, 0, .18);
-}
-.tag-cloud-list a:hover::after {
-  opacity: 0.9;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
-  filter: alpha(opacity=90);
+  color: color-mix(in srgb, var(--tagc) 72%, #000);
 }
 .tag-cloud-list a:hover::before {
-  left: 100%;
-}
-.tag-cloud-list a:active {
-  -webkit-transform: translateY(0) scale(0.97);
-  -moz-transform: translateY(0) scale(0.97);
-  -o-transform: translateY(0) scale(0.97);
-  -ms-transform: translateY(0) scale(0.97);
-  transform: translateY(0) scale(0.97);
-  background: var(--tagc);
-  background: -webkit-linear-gradient(270deg, var(--tagc), color-mix(in srgb, var(--tagc) 88%, #000));
-  background: -moz-linear-gradient(270deg, var(--tagc), color-mix(in srgb, var(--tagc) 88%, #000));
-  background: -o-linear-gradient(270deg, var(--tagc), color-mix(in srgb, var(--tagc) 88%, #000));
-  background: -ms-linear-gradient(270deg, var(--tagc), color-mix(in srgb, var(--tagc) 88%, #000));
-  background: linear-gradient(180deg, var(--tagc), color-mix(in srgb, var(--tagc) 88%, #000));
-  -webkit-box-shadow: inset 0 3px 6px rgba(0, 0, 0, .28), inset 0 -1px 0 rgba(255, 255, 255, .18), 0 1px 2px rgba(0, 0, 0, .18);
-  box-shadow: inset 0 3px 6px rgba(0, 0, 0, .28), inset 0 -1px 0 rgba(255, 255, 255, .18), 0 1px 2px rgba(0, 0, 0, .18);
-  -webkit-transition: all 0.12s ease;
-  -moz-transition: all 0.12s ease;
-  -o-transition: all 0.12s ease;
-  -ms-transition: all 0.12s ease;
-  transition: all 0.12s ease;
+  -webkit-transform: scale(1.4);
+  -moz-transform: scale(1.4);
+  -o-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  transform: scale(1.4);
+  -webkit-box-shadow: 0 0 0 5px color-mix(in srgb, var(--tagc) 34%, #fff);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--tagc) 34%, #fff);
 }
 @media screen and (max-width: 768px) {
   .tag-cloud-list a {
     zoom: 0.88;
-    padding: 7px 16px 8px;
-  }
-  .tag-cloud-list a:hover {
-    -webkit-transform: translateY(-2px) scale(1.01);
-    -moz-transform: translateY(-2px) scale(1.01);
-    -o-transform: translateY(-2px) scale(1.01);
-    -ms-transform: translateY(-2px) scale(1.01);
-    transform: translateY(-2px) scale(1.01);
-  }
-  .tag-cloud-list a:active {
-    -webkit-transform: translateY(0) scale(0.97);
-    -moz-transform: translateY(0) scale(0.97);
-    -o-transform: translateY(0) scale(0.97);
-    -ms-transform: translateY(0) scale(0.97);
-    transform: translateY(0) scale(0.97);
+    padding: 3px 4px;
   }
   .tag-cloud-list a::before {
     display: none;
@@ -8495,486 +8416,780 @@ div#category {
   background: rgba(40,44,52,0.769);
 }
 /* =========================================================
- * 🍬 侧边栏标签 · 糖果果冻胶囊（与标签页统一）
+ * 🍬 标签/分类/归档 · 清新圆点 + 文字
  * ========================================================= */
+/* ---------- 侧边栏标签（圆点 · 用 --tagc） ---------- */
 #aside-content .card-tag-cloud a {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-box;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  gap: 5px;
   position: relative;
-  display: inline-block;
-  margin: 3px;
-  padding: 3px 10px 4px;
-  line-height: 1.5;
-  font-size: 0.82em;
-  zoom: 0.75;
+  margin: 3px 4px;
+  padding: 3px 4px;
+  font-size: 0.85em !important;
   font-weight: 600;
+  text-decoration: none;
+  color: color-mix(in srgb, var(--tagc) 55%, #333);
+  -webkit-transition: color 0.25s ease;
+  -moz-transition: color 0.25s ease;
+  -o-transition: color 0.25s ease;
+  -ms-transition: color 0.25s ease;
+  transition: color 0.25s ease;
+}
+#aside-content .card-tag-cloud a::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--tagc);
+  -webkit-box-shadow: 0 0 0 2px color-mix(in srgb, var(--tagc) 28%, #fff);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--tagc) 28%, #fff);
+  -webkit-transition: -webkit-transform 0.25s ease;
+  -moz-transition: -moz-transform 0.25s ease;
+  -o-transition: -o-transform 0.25s ease;
+  -ms-transition: -ms-transform 0.25s ease;
+  transition: transform 0.25s ease;
+}
+#aside-content .card-tag-cloud a:hover {
+  color: color-mix(in srgb, var(--tagc) 72%, #000);
+}
+#aside-content .card-tag-cloud a:hover::before {
+  -webkit-transform: scale(1.4);
+  -moz-transform: scale(1.4);
+  -o-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  transform: scale(1.4);
+}
+/* ---------- 首页侧边栏分类（圆点） ---------- */
+#aside-content .card-category-list .card-category-list-item {
+  display: inline-block;
+  margin: 4px 6px 4px 0;
+  position: relative;
+}
+#aside-content .card-category-list .card-category-list-item a.card-category-list-link {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-box;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  padding: 3px 4px;
+  font-size: 0.9em;
+  font-weight: 600;
+  text-decoration: none;
+  color: #c74e6f;
+  -webkit-transition: color 0.25s ease;
+  -moz-transition: color 0.25s ease;
+  -o-transition: color 0.25s ease;
+  -ms-transition: color 0.25s ease;
+  transition: color 0.25s ease;
+}
+#aside-content .card-category-list .card-category-list-item a.card-category-list-link::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff9db6;
+  -webkit-box-shadow: 0 0 0 3px rgba(255,157,182,0.25);
+  box-shadow: 0 0 0 3px rgba(255,157,182,0.25);
+  -webkit-transition: -webkit-transform 0.25s ease;
+  -moz-transition: -moz-transform 0.25s ease;
+  -o-transition: -o-transform 0.25s ease;
+  -ms-transition: -ms-transform 0.25s ease;
+  transition: transform 0.25s ease;
+}
+#aside-content .card-category-list .card-category-list-item a.card-category-list-link:hover {
+  filter: brightness(0.95);
+}
+#aside-content .card-category-list .card-category-list-item a.card-category-list-link:hover::before {
+  -webkit-transform: scale(1.4);
+  -moz-transform: scale(1.4);
+  -o-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  transform: scale(1.4);
+}
+/* ---------- categories 页面（圆点） ---------- */
+.category-list .category-list-item {
+  display: inline-block;
+  margin: 8px 10px 8px 0;
+  position: relative;
+}
+.category-list .category-list-item a.category-list-link {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-box;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  padding: 4px 4px;
+  font-size: 1.02em;
+  font-weight: 600;
+  text-decoration: none;
+  color: #c74e6f;
+  -webkit-transition: color 0.25s ease;
+  -moz-transition: color 0.25s ease;
+  -o-transition: color 0.25s ease;
+  -ms-transition: color 0.25s ease;
+  transition: color 0.25s ease;
+}
+.category-list .category-list-item a.category-list-link:hover {
+  color: #3a76b8;
+}
+.category-list .category-list-item a.category-list-link::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff9db6;
+  -webkit-box-shadow: 0 0 0 3px rgba(255,157,182,0.25);
+  box-shadow: 0 0 0 3px rgba(255,157,182,0.25);
+  -webkit-transition: -webkit-transform 0.25s ease;
+  -moz-transition: -moz-transform 0.25s ease;
+  -o-transition: -o-transform 0.25s ease;
+  -ms-transition: -ms-transform 0.25s ease;
+  transition: transform 0.25s ease;
+}
+.category-list .category-list-item a.category-list-link:hover::before {
+  -webkit-transform: scale(1.4);
+  -moz-transform: scale(1.4);
+  -o-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  transform: scale(1.4);
+}
+/* ---------- 归档（圆点） ---------- */
+#aside-content .card-archive-list .card-archive-list-item {
+  display: inline-block;
+  margin: 4px 6px 4px 0;
+  position: relative;
+}
+#aside-content .card-archive-list .card-archive-list-item a.card-archive-list-link {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-box;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  padding: 3px 4px;
+  font-size: 0.88em;
+  font-weight: 600;
+  text-decoration: none;
+  color: #c74e6f;
+  -webkit-transition: color 0.25s ease;
+  -moz-transition: color 0.25s ease;
+  -o-transition: color 0.25s ease;
+  -ms-transition: color 0.25s ease;
+  transition: color 0.25s ease;
+}
+#aside-content .card-archive-list .card-archive-list-item a.card-archive-list-link::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff9db6;
+  -webkit-box-shadow: 0 0 0 3px rgba(255,157,182,0.25);
+  box-shadow: 0 0 0 3px rgba(255,157,182,0.25);
+  -webkit-transition: -webkit-transform 0.25s ease;
+  -moz-transition: -moz-transform 0.25s ease;
+  -o-transition: -o-transform 0.25s ease;
+  -ms-transition: -ms-transform 0.25s ease;
+  transition: transform 0.25s ease;
+}
+#aside-content .card-archive-list .card-archive-list-item a.card-archive-list-link:hover {
+  filter: brightness(0.95);
+}
+#aside-content .card-archive-list .card-archive-list-item a.card-archive-list-link:hover::before {
+  -webkit-transform: scale(1.4);
+  -moz-transform: scale(1.4);
+  -o-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  transform: scale(1.4);
+}
+/* ---------- 清新色轮换（分类 + 归档 · 圆点色/文字色） ---------- */
+#aside-content .card-category-list .card-category-list-item:nth-child(1) a.card-category-list-link {
+  color: #c74e6f;
+}
+#aside-content .card-category-list .card-category-list-item:nth-child(1) a.card-category-list-link::before {
+  background: #ff9db6;
+  -webkit-box-shadow: 0 0 0 3px rgba(255,157,182,0.25);
+  box-shadow: 0 0 0 3px rgba(255,157,182,0.25);
+}
+#aside-content .card-category-list .card-category-list-item:nth-child(2) a.card-category-list-link {
+  color: #3a76b8;
+}
+#aside-content .card-category-list .card-category-list-item:nth-child(2) a.card-category-list-link::before {
+  background: #8fb9e8;
+  -webkit-box-shadow: 0 0 0 3px rgba(143,185,232,0.25);
+  box-shadow: 0 0 0 3px rgba(143,185,232,0.25);
+}
+#aside-content .card-category-list .card-category-list-item:nth-child(3) a.card-category-list-link {
+  color: #6a52b8;
+}
+#aside-content .card-category-list .card-category-list-item:nth-child(3) a.card-category-list-link::before {
+  background: #ad9bee;
+  -webkit-box-shadow: 0 0 0 3px rgba(173,155,238,0.25);
+  box-shadow: 0 0 0 3px rgba(173,155,238,0.25);
+}
+#aside-content .card-category-list .card-category-list-item:nth-child(4) a.card-category-list-link {
+  color: #2f8f5e;
+}
+#aside-content .card-category-list .card-category-list-item:nth-child(4) a.card-category-list-link::before {
+  background: #92d2ac;
+  -webkit-box-shadow: 0 0 0 3px rgba(146,210,172,0.25);
+  box-shadow: 0 0 0 3px rgba(146,210,172,0.25);
+}
+#aside-content .card-category-list .card-category-list-item:nth-child(5) a.card-category-list-link {
+  color: #b06f2a;
+}
+#aside-content .card-category-list .card-category-list-item:nth-child(5) a.card-category-list-link::before {
+  background: #f5c087;
+  -webkit-box-shadow: 0 0 0 3px rgba(245,192,135,0.25);
+  box-shadow: 0 0 0 3px rgba(245,192,135,0.25);
+}
+#aside-content .card-category-list .card-category-list-item:nth-child(6) a.card-category-list-link {
+  color: #2f8a85;
+}
+#aside-content .card-category-list .card-category-list-item:nth-child(6) a.card-category-list-link::before {
+  background: #7fcec8;
+  -webkit-box-shadow: 0 0 0 3px rgba(127,206,200,0.25);
+  box-shadow: 0 0 0 3px rgba(127,206,200,0.25);
+}
+.category-list .category-list-item:nth-child(1) a.category-list-link {
+  color: #c74e6f;
+}
+.category-list .category-list-item:nth-child(1) a.category-list-link::before {
+  background: #ff9db6;
+  -webkit-box-shadow: 0 0 0 3px rgba(255,157,182,0.25);
+  box-shadow: 0 0 0 3px rgba(255,157,182,0.25);
+}
+.category-list .category-list-item:nth-child(2) a.category-list-link {
+  color: #3a76b8;
+}
+.category-list .category-list-item:nth-child(2) a.category-list-link::before {
+  background: #8fb9e8;
+  -webkit-box-shadow: 0 0 0 3px rgba(143,185,232,0.25);
+  box-shadow: 0 0 0 3px rgba(143,185,232,0.25);
+}
+.category-list .category-list-item:nth-child(3) a.category-list-link {
+  color: #6a52b8;
+}
+.category-list .category-list-item:nth-child(3) a.category-list-link::before {
+  background: #ad9bee;
+  -webkit-box-shadow: 0 0 0 3px rgba(173,155,238,0.25);
+  box-shadow: 0 0 0 3px rgba(173,155,238,0.25);
+}
+.category-list .category-list-item:nth-child(4) a.category-list-link {
+  color: #2f8f5e;
+}
+.category-list .category-list-item:nth-child(4) a.category-list-link::before {
+  background: #92d2ac;
+  -webkit-box-shadow: 0 0 0 3px rgba(146,210,172,0.25);
+  box-shadow: 0 0 0 3px rgba(146,210,172,0.25);
+}
+.category-list .category-list-item:nth-child(5) a.category-list-link {
+  color: #b06f2a;
+}
+.category-list .category-list-item:nth-child(5) a.category-list-link::before {
+  background: #f5c087;
+  -webkit-box-shadow: 0 0 0 3px rgba(245,192,135,0.25);
+  box-shadow: 0 0 0 3px rgba(245,192,135,0.25);
+}
+.category-list .category-list-item:nth-child(6) a.category-list-link {
+  color: #2f8a85;
+}
+.category-list .category-list-item:nth-child(6) a.category-list-link::before {
+  background: #7fcec8;
+  -webkit-box-shadow: 0 0 0 3px rgba(127,206,200,0.25);
+  box-shadow: 0 0 0 3px rgba(127,206,200,0.25);
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(1) a.card-archive-list-link {
+  color: #c74e6f;
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(1) a.card-archive-list-link::before {
+  background: #ff9db6;
+  -webkit-box-shadow: 0 0 0 3px rgba(255,157,182,0.25);
+  box-shadow: 0 0 0 3px rgba(255,157,182,0.25);
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(2) a.card-archive-list-link {
+  color: #3a76b8;
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(2) a.card-archive-list-link::before {
+  background: #8fb9e8;
+  -webkit-box-shadow: 0 0 0 3px rgba(143,185,232,0.25);
+  box-shadow: 0 0 0 3px rgba(143,185,232,0.25);
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(3) a.card-archive-list-link {
+  color: #6a52b8;
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(3) a.card-archive-list-link::before {
+  background: #ad9bee;
+  -webkit-box-shadow: 0 0 0 3px rgba(173,155,238,0.25);
+  box-shadow: 0 0 0 3px rgba(173,155,238,0.25);
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(4) a.card-archive-list-link {
+  color: #2f8f5e;
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(4) a.card-archive-list-link::before {
+  background: #92d2ac;
+  -webkit-box-shadow: 0 0 0 3px rgba(146,210,172,0.25);
+  box-shadow: 0 0 0 3px rgba(146,210,172,0.25);
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(5) a.card-archive-list-link {
+  color: #b06f2a;
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(5) a.card-archive-list-link::before {
+  background: #f5c087;
+  -webkit-box-shadow: 0 0 0 3px rgba(245,192,135,0.25);
+  box-shadow: 0 0 0 3px rgba(245,192,135,0.25);
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(6) a.card-archive-list-link {
+  color: #2f8a85;
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(6) a.card-archive-list-link::before {
+  background: #7fcec8;
+  -webkit-box-shadow: 0 0 0 3px rgba(127,206,200,0.25);
+  box-shadow: 0 0 0 3px rgba(127,206,200,0.25);
+}
+/* =========================================================
+ * 🔔 公告卡片 · 糖果渐变文字 + 浅渐变底
+ * ========================================================= */
+#aside-content .card-announcement .announcement_content {
+  position: relative;
+  z-index: 1;
+  margin-top: 8px;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  line-height: 1.6;
+  text-align: center;
+  background: -webkit-linear-gradient(0deg, #ff6f9c, #6c9bff, #8f7bff);
+  background: -moz-linear-gradient(0deg, #ff6f9c, #6c9bff, #8f7bff);
+  background: -o-linear-gradient(0deg, #ff6f9c, #6c9bff, #8f7bff);
+  background: -ms-linear-gradient(0deg, #ff6f9c, #6c9bff, #8f7bff);
+  background: linear-gradient(90deg, #ff6f9c, #6c9bff, #8f7bff);
+  -webkit-background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-transition: -webkit-transform 0.25s ease;
+  -moz-transition: -moz-transform 0.25s ease;
+  -o-transition: -o-transform 0.25s ease;
+  -ms-transition: -ms-transform 0.25s ease;
+  transition: transform 0.25s ease;
+}
+#aside-content .card-announcement .announcement_content::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 0 12px 12px 0;
+  border-left: 4px solid;
+  -webkit-border-image: -webkit-linear-gradient(270deg, #ff6f9c, #6c9bff, #8f7bff) 1;
+  -moz-border-image: -moz-linear-gradient(270deg, #ff6f9c, #6c9bff, #8f7bff) 1;
+  -o-border-image: -o-linear-gradient(270deg, #ff6f9c, #6c9bff, #8f7bff) 1;
+  border-image: linear-gradient(180deg, #ff6f9c, #6c9bff, #8f7bff) 1;
+  background: -webkit-linear-gradient(315deg, rgba(255,111,156,0.1), rgba(108,155,255,0.1), rgba(143,123,255,0.1));
+  background: -moz-linear-gradient(315deg, rgba(255,111,156,0.1), rgba(108,155,255,0.1), rgba(143,123,255,0.1));
+  background: -o-linear-gradient(315deg, rgba(255,111,156,0.1), rgba(108,155,255,0.1), rgba(143,123,255,0.1));
+  background: -ms-linear-gradient(315deg, rgba(255,111,156,0.1), rgba(108,155,255,0.1), rgba(143,123,255,0.1));
+  background: linear-gradient(135deg, rgba(255,111,156,0.1), rgba(108,155,255,0.1), rgba(143,123,255,0.1));
+  content: '';
+  pointer-events: none;
+}
+#aside-content .card-announcement .announcement_content:hover {
+  -webkit-transform: translateY(-2px);
+  -moz-transform: translateY(-2px);
+  -o-transform: translateY(-2px);
+  -ms-transform: translateY(-2px);
+  transform: translateY(-2px);
+}
+/* =========================================================
+ * 🍭 分类 · 糖果果冻胶囊（首页侧边栏 + categories 页面）
+ * ========================================================= */
+/* ---------- 首页侧边栏分类卡 ---------- */
+#aside-content .card-category-list .card-category-list-item {
+  display: inline-block;
+  margin: 4px 6px 4px 0;
+  position: relative;
+}
+#aside-content .card-category-list .card-category-list-item a.card-category-list-link {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-box;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  position: relative;
+  padding: 5px 15px 7px;
   border-radius: 999px;
   color: #fff;
+  font-weight: 600;
+  font-size: 0.9em;
   text-shadow: 0 1px 1px rgba(0,0,0,0.15);
-/* 果冻渐变 + 纯色兜底 */
-  background: var(--tagc);
-  background: -webkit-linear-gradient(270deg, color-mix(in srgb, var(--tagc) 62%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 82%, #000) 100%);
-  background: -moz-linear-gradient(270deg, color-mix(in srgb, var(--tagc) 62%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 82%, #000) 100%);
-  background: -o-linear-gradient(270deg, color-mix(in srgb, var(--tagc) 62%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 82%, #000) 100%);
-  background: -ms-linear-gradient(270deg, color-mix(in srgb, var(--tagc) 62%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 82%, #000) 100%);
-  background: linear-gradient(180deg, color-mix(in srgb, var(--tagc) 62%, #fff) 0%, var(--tagc) 50%, color-mix(in srgb, var(--tagc) 82%, #000) 100%);
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 0 0 1px rgba(255, 255, 255, .22), inset 0 -3px 6px rgba(0, 0, 0, .15), 0 3px 8px color-mix(in srgb, var(--tagc) 40%, transparent), 0 1px 2px rgba(0, 0, 0, .15);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 0 0 1px rgba(255, 255, 255, .22), inset 0 -3px 6px rgba(0, 0, 0, .15), 0 3px 8px color-mix(in srgb, var(--tagc) 40%, transparent), 0 1px 2px rgba(0, 0, 0, .15);
   -webkit-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   -moz-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   -o-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   -ms-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-/* 糖果顶部高光 */
-#aside-content .card-tag-cloud a::after {
+#aside-content .card-category-list .card-category-list-item a.card-category-list-link::after {
   position: absolute;
-  left: 18%;
-  right: 18%;
-  top: 2px;
-  height: 34%;
+  left: 20%;
+  right: 20%;
+  top: 3px;
+  height: 38%;
   border-radius: 50%;
-  background: -webkit-linear-gradient(270deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  background: -moz-linear-gradient(270deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  background: -o-linear-gradient(270deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  background: -ms-linear-gradient(270deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
+  background: -webkit-linear-gradient(270deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  background: -moz-linear-gradient(270deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  background: -o-linear-gradient(270deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  background: -ms-linear-gradient(270deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
   content: '';
   pointer-events: none;
-  -webkit-transition: opacity 0.3s ease;
-  -moz-transition: opacity 0.3s ease;
-  -o-transition: opacity 0.3s ease;
-  -ms-transition: opacity 0.3s ease;
-  transition: opacity 0.3s ease;
 }
-#aside-content .card-tag-cloud a:hover {
+#aside-content .card-category-list .card-category-list-item a.card-category-list-link:hover {
+  -webkit-transform: translateY(-2px) scale(1.03);
+  -moz-transform: translateY(-2px) scale(1.03);
+  -o-transform: translateY(-2px) scale(1.03);
+  -ms-transform: translateY(-2px) scale(1.03);
+  transform: translateY(-2px) scale(1.03);
+  filter: brightness(1.06);
+}
+#aside-content .card-category-list .card-category-list-count {
+  margin-left: 6px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.3);
+  color: #fff;
+  font-size: 0.78em;
+  line-height: 1.6;
+}
+/* ---------- categories 页面 ---------- */
+.category-list .category-list-item {
+  display: inline-block;
+  position: relative;
+  margin: 8px 10px 8px 0;
+  padding: 6px 16px 8px;
+  border-radius: 999px;
+  color: #fff;
+  -webkit-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -o-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -ms-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.category-list .category-list-item:hover {
   -webkit-transform: translateY(-2px) scale(1.03);
   -moz-transform: translateY(-2px) scale(1.03);
   -o-transform: translateY(-2px) scale(1.03);
   -ms-transform: translateY(-2px) scale(1.03);
   transform: translateY(-2px) scale(1.03);
   filter: brightness(1.05);
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), inset 0 0 0 1px rgba(255, 255, 255, .3), inset 0 -3px 6px rgba(0, 0, 0, .12), 0 6px 14px color-mix(in srgb, var(--tagc) 45%, transparent), 0 2px 4px rgba(0, 0, 0, .15);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), inset 0 0 0 1px rgba(255, 255, 255, .3), inset 0 -3px 6px rgba(0, 0, 0, .12), 0 6px 14px color-mix(in srgb, var(--tagc) 45%, transparent), 0 2px 4px rgba(0, 0, 0, .15);
 }
-/*文章分页卡片美化*/
-.relatedPosts > .relatedPosts-list > div {
-  border-radius: 20px;
-  border-style: dashed;
-  border-width: 1px;
-  margin: 1px;
+.category-list .category-list-item::after {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  top: 3px;
+  height: 38%;
+  border-radius: 50%;
+  background: -webkit-linear-gradient(270deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  background: -moz-linear-gradient(270deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  background: -o-linear-gradient(270deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  background: -ms-linear-gradient(270deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  content: '';
+  pointer-events: none;
 }
-.relatedPosts > .relatedPosts-list > a {
-  margin: 3px;
-  height: 200px;
-  border-radius: 20px;
+.category-list .category-list-item a.category-list-link {
+  color: #fff;
+  font-size: 1.05em;
+  font-weight: 600;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.15);
 }
-/* =====================================================
- * 文章相关推荐卡片
- * 月光玻璃边框
- * ===================================================== */
-#content-inner .relatedPosts .pagination-related {
-  position: relative !important;
-/* 极细月光边框 */
-  border: 1px solid rgba(145,165,200,0.48) !important;
-  border-radius: 20px !important;
-/* 柔和月光 */
-  -webkit-box-shadow: 0 0 6px rgba(145,165,200,0.16), 0 0 16px rgba(145,165,200,0.1), 0 0 30px rgba(145,165,200,0.06) !important;
-  box-shadow: 0 0 6px rgba(145,165,200,0.16), 0 0 16px rgba(145,165,200,0.1), 0 0 30px rgba(145,165,200,0.06) !important;
-  -webkit-transition: -webkit-transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
-  -moz-transition: -moz-transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
-  -o-transition: -o-transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
-  -ms-transition: -ms-transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
-  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+.category-list .category-list-item a.category-list-link:hover {
+  color: #fff;
 }
-/* =====================================================
- * 鼠标悬停
- * ===================================================== */
-#content-inner .relatedPosts .pagination-related:hover {
-  -webkit-transform: translateY(-3px) !important;
-  -moz-transform: translateY(-3px) !important;
-  -o-transform: translateY(-3px) !important;
-  -ms-transform: translateY(-3px) !important;
-  transform: translateY(-3px) !important;
-  border-color: rgba(165,190,225,0.78) !important;
-  -webkit-box-shadow: 0 0 8px rgba(155,185,225,0.28), 0 0 20px rgba(155,185,225,0.18), 0 0 38px rgba(155,185,225,0.1) !important;
-  box-shadow: 0 0 8px rgba(155,185,225,0.28), 0 0 20px rgba(155,185,225,0.18), 0 0 38px rgba(155,185,225,0.1) !important;
+.category-list .category-list-count {
+  margin-left: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.3);
+  color: #fff;
+  font-size: 0.78em;
 }
-/* =====================================================
- * 夜间模式
- * ===================================================== */
-[data-theme="dark"] #content-inner .relatedPosts .pagination-related {
-  border-color: rgba(175,195,230,0.52) !important;
-  -webkit-box-shadow: 0 0 7px rgba(175,195,230,0.2), 0 0 18px rgba(165,190,230,0.13), 0 0 34px rgba(150,180,225,0.08) !important;
-  box-shadow: 0 0 7px rgba(175,195,230,0.2), 0 0 18px rgba(165,190,230,0.13), 0 0 34px rgba(150,180,225,0.08) !important;
+.category-list .category-list-count::before,
+.category-list .category-list-count::after {
+  content: none;
 }
-/* =====================================================
- * 夜间悬停
- * ===================================================== */
-[data-theme="dark"] #content-inner .relatedPosts .pagination-related:hover {
-  border-color: rgba(205,220,245,0.82) !important;
-  -webkit-box-shadow: 0 0 10px rgba(190,210,245,0.32), 0 0 24px rgba(175,200,240,0.22), 0 0 42px rgba(155,185,230,0.12) !important;
-  box-shadow: 0 0 10px rgba(190,210,245,0.32), 0 0 24px rgba(175,200,240,0.22), 0 0 42px rgba(155,185,230,0.12) !important;
+/* ---------- 糖果色轮换（侧边栏） ---------- */
+#aside-content .card-category-list .card-category-list-item:nth-child(1) a.card-category-list-link {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,111,156,.35), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,111,156,.35), 0 1px 2px rgba(0,0,0,.15);
 }
-/* =========================================================
- * 🌙 文章目录 · 月光效果
- * 只修改目录视觉，不修改目录位置和结构
- * ========================================================= */
-/* ---------------------------------------------------------
- * 目录整体
- * --------------------------------------------------------- */
-#aside-content #card-toc .toc-content {
-  margin: 10px -18px;
+#aside-content .card-category-list .card-category-list-item:nth-child(2) a.card-category-list-link {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(108,155,255,.35), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(108,155,255,.35), 0 1px 2px rgba(0,0,0,.15);
 }
-/* ---------------------------------------------------------
- * 🌙 当前正在阅读的目录
- * --------------------------------------------------------- */
-#aside-content #card-toc .toc-content .toc-link.active {
-  line-height: 1.2;
-  border-radius: 12px;
-  border-left-color: var(--heo-hovertext);
-  background-color: var(--heo-card-bg);
-  color: var(--heo-lighttext);
-  font-weight: bold;
-  font-size: 20px;
-/*
-   * 月光主体
-   */
-  -webkit-box-shadow: 0 0 8px rgba(220,235,255,0.1), 0 0 18px rgba(210,228,255,0.08), 0 0 32px rgba(200,220,255,0.045);
-  box-shadow: 0 0 8px rgba(220,235,255,0.1), 0 0 18px rgba(210,228,255,0.08), 0 0 32px rgba(200,220,255,0.045);
-/*
-   * 很轻的过渡
-   */
-  -webkit-transition: color 0.5s ease, background-color 0.5s ease, box-shadow 0.8s ease;
-  -moz-transition: color 0.5s ease, background-color 0.5s ease, box-shadow 0.8s ease;
-  -o-transition: color 0.5s ease, background-color 0.5s ease, box-shadow 0.8s ease;
-  -ms-transition: color 0.5s ease, background-color 0.5s ease, box-shadow 0.8s ease;
-  transition: color 0.5s ease, background-color 0.5s ease, box-shadow 0.8s ease;
+#aside-content .card-category-list .card-category-list-item:nth-child(3) a.card-category-list-link {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(143,123,255,.35), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(143,123,255,.35), 0 1px 2px rgba(0,0,0,.15);
 }
-/* ---------------------------------------------------------
- * 🌙 当前目录文字
- * --------------------------------------------------------- */
-[data-theme=dark].toc .toc-item.active .toc-link .toc-text {
-  color: var(--heo-white);
-/*
-   * 月光文字
-   */
-  text-shadow: 0 0 6px rgba(220,235,255,0.25), 0 0 14px rgba(210,230,255,0.12);
+#aside-content .card-category-list .card-category-list-item:nth-child(4) a.card-category-list-link {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(94,207,143,.35), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(94,207,143,.35), 0 1px 2px rgba(0,0,0,.15);
 }
-/* ---------------------------------------------------------
- * 当前目录保持原本透明度
- * --------------------------------------------------------- */
-#aside-content #card-toc .toc-content .toc-item.active .toc-link {
-  opacity: 1;
-  -ms-filter: none;
-  filter: none;
-  border-radius: 8px;
+#aside-content .card-category-list .card-category-list-item:nth-child(5) a.card-category-list-link {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,178,107,.35), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,178,107,.35), 0 1px 2px rgba(0,0,0,.15);
 }
-/* ---------------------------------------------------------
- * 📖 普通目录
- * --------------------------------------------------------- */
-#aside-content #card-toc .toc-content .toc-link {
-  line-height: 1.2;
-  padding: 8px;
-  border-left: 0px solid transparent;
-  border-radius: 12px;
-  color: var(--heo-secondtext);
-  cursor: default;
-/*
-   * 让月光过渡更自然
-   */
-  -webkit-transition: color 0.45s ease, opacity 0.45s ease, text-shadow 0.45s ease, background-color 0.45s ease;
-  -moz-transition: color 0.45s ease, opacity 0.45s ease, text-shadow 0.45s ease, background-color 0.45s ease;
-  -o-transition: color 0.45s ease, opacity 0.45s ease, text-shadow 0.45s ease, background-color 0.45s ease;
-  -ms-transition: color 0.45s ease, opacity 0.45s ease, text-shadow 0.45s ease, background-color 0.45s ease;
-  transition: color 0.45s ease, opacity 0.45s ease, text-shadow 0.45s ease, background-color 0.45s ease;
+#aside-content .card-category-list .card-category-list-item:nth-child(6) a.card-category-list-link {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,121,121,.35), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,121,121,.35), 0 1px 2px rgba(0,0,0,.15);
 }
-/* ---------------------------------------------------------
- * 🌫️ 普通目录
- *
- * 保留你原来的轻微模糊
- * --------------------------------------------------------- */
-#aside-content #card-toc .toc-content .toc-link:not(.active) span {
-  opacity: 0.6;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
-  filter: alpha(opacity=60);
-  cursor: pointer;
-  filter: blur(1px);
-  -webkit-transition: filter 0.5s ease, opacity 0.5s ease, color 0.5s ease, text-shadow 0.5s ease;
-  -moz-transition: filter 0.5s ease, opacity 0.5s ease, color 0.5s ease, text-shadow 0.5s ease;
-  -o-transition: filter 0.5s ease, opacity 0.5s ease, color 0.5s ease, text-shadow 0.5s ease;
-  -ms-transition: filter 0.5s ease, opacity 0.5s ease, color 0.5s ease, text-shadow 0.5s ease;
-  transition: filter 0.5s ease, opacity 0.5s ease, color 0.5s ease, text-shadow 0.5s ease;
+/* ---------- 糖果色轮换（categories 页面） ---------- */
+.category-list .category-list-item:nth-child(1) {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -4px 8px rgba(0,0,0,.15), 0 5px 14px rgba(255,111,156,.35), 0 1px 3px rgba(0,0,0,.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -4px 8px rgba(0,0,0,.15), 0 5px 14px rgba(255,111,156,.35), 0 1px 3px rgba(0,0,0,.18);
 }
-/* ---------------------------------------------------------
- * 🌙 鼠标进入目录
- *
- * 普通目录从雾里慢慢清晰
- * --------------------------------------------------------- */
-#aside-content #card-toc:hover .toc-content .toc-link:not(.active) span {
-  filter: blur(0px);
-  opacity: 1;
-  -ms-filter: none;
-  filter: none;
+.category-list .category-list-item:nth-child(2) {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -4px 8px rgba(0,0,0,.15), 0 5px 14px rgba(108,155,255,.35), 0 1px 3px rgba(0,0,0,.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -4px 8px rgba(0,0,0,.15), 0 5px 14px rgba(108,155,255,.35), 0 1px 3px rgba(0,0,0,.18);
 }
-/* ---------------------------------------------------------
- * ✨ 鼠标移动到某一项
- *
- * 像月光扫过文字
- * --------------------------------------------------------- */
-#aside-content #card-toc .toc-content .toc-link:not(.active) span:hover {
-  color: var(--heo-lighttext);
-/*
-   * 很轻的月光
-   */
-  text-shadow: 0 0 5px rgba(225,238,255,0.3), 0 0 12px rgba(215,232,255,0.16);
+.category-list .category-list-item:nth-child(3) {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -4px 8px rgba(0,0,0,.15), 0 5px 14px rgba(143,123,255,.35), 0 1px 3px rgba(0,0,0,.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -4px 8px rgba(0,0,0,.15), 0 5px 14px rgba(143,123,255,.35), 0 1px 3px rgba(0,0,0,.18);
+}
+.category-list .category-list-item:nth-child(4) {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -4px 8px rgba(0,0,0,.15), 0 5px 14px rgba(94,207,143,.35), 0 1px 3px rgba(0,0,0,.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -4px 8px rgba(0,0,0,.15), 0 5px 14px rgba(94,207,143,.35), 0 1px 3px rgba(0,0,0,.18);
+}
+.category-list .category-list-item:nth-child(5) {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -4px 8px rgba(0,0,0,.15), 0 5px 14px rgba(255,178,107,.35), 0 1px 3px rgba(0,0,0,.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -4px 8px rgba(0,0,0,.15), 0 5px 14px rgba(255,178,107,.35), 0 1px 3px rgba(0,0,0,.18);
+}
+.category-list .category-list-item:nth-child(6) {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -4px 8px rgba(0,0,0,.15), 0 5px 14px rgba(255,121,121,.35), 0 1px 3px rgba(0,0,0,.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -4px 8px rgba(0,0,0,.15), 0 5px 14px rgba(255,121,121,.35), 0 1px 3px rgba(0,0,0,.18);
 }
 /* =========================================================
- * 🌙 当前目录 Hover
+ * 🗓️ 归档 · 糖果果冻胶囊（首页侧边栏）
  * ========================================================= */
-#aside-content #card-toc .toc-content .toc-link.active:hover {
-  -webkit-box-shadow: 0 0 10px rgba(225,238,255,0.15), 0 0 22px rgba(215,232,255,0.11), 0 0 40px rgba(200,220,255,0.06);
-  box-shadow: 0 0 10px rgba(225,238,255,0.15), 0 0 22px rgba(215,232,255,0.11), 0 0 40px rgba(200,220,255,0.06);
-}
-/* =========================================================
- * 🌌 Dark Mode
- *
- * 冷色月光
- * ========================================================= */
-[data-theme="dark"],
-#aside-content,
-#card-toc,
-.toc-content,
-.toc-link.active {
-  -webkit-box-shadow: 0 0 8px rgba(205,225,255,0.13), 0 0 20px rgba(190,215,255,0.09), 0 0 38px rgba(180,205,255,0.055);
-  box-shadow: 0 0 8px rgba(205,225,255,0.13), 0 0 20px rgba(190,215,255,0.09), 0 0 38px rgba(180,205,255,0.055);
-}
-/* ---------------------------------------------------------
- * 🌙 Dark Mode 当前文字
- * --------------------------------------------------------- */
-[data-theme="dark"],
-#aside-content,
-#card-toc,
-.toc-content,
-.toc-link.active,
-.toc-text {
-  text-shadow: 0 0 7px rgba(220,235,255,0.28), 0 0 16px rgba(200,225,255,0.13);
-}
-/* =========================================================
- * ☀️ Light Mode
- *
- * 白天不要出现明显蓝色光
- * 只保留一点银白色柔光
- * ========================================================= */
-[data-theme="light"],
-#aside-content,
-#card-toc,
-.toc-content,
-.toc-link.active {
-  -webkit-box-shadow: 0 0 7px rgba(210,220,235,0.12), 0 0 18px rgba(205,215,230,0.07);
-  box-shadow: 0 0 7px rgba(210,220,235,0.12), 0 0 18px rgba(205,215,230,0.07);
-}
-/* ---------------------------------------------------------
- * ☀️ Light Mode 当前文字
- * --------------------------------------------------------- */
-[data-theme="light"],
-#aside-content,
-#card-toc,
-.toc-content,
-.toc-link.active,
-.toc-text {
-  text-shadow: 0 0 5px rgba(210,220,235,0.18);
-}
-/* =========================================================
- * 🌙 页脚网站运行时间
- * 月光边框 + 光晕
- *
- * 不改变原本页面背景
- * ========================================================= */
-div#runtime {
-  width: fit-content;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
-  margin: auto;
-  padding: 0 10px;
-  border-radius: 10px;
-/*
-     * 默认文字颜色
-     */
-  color: rgba(105,125,155,0.82);
-/*
-     * 不设置 background-color
-     * 保留原本页面背景
-     */
-/*
-     * 月光边框
-     */
-  border: 1px solid rgba(145,165,195,0.28);
-/*
-     * 很淡的月光光晕
-     */
-  -webkit-box-shadow: 0 0 5px rgba(145,165,195,0.1), 0 0 12px rgba(145,165,195,0.05);
-  box-shadow: 0 0 5px rgba(145,165,195,0.1), 0 0 12px rgba(145,165,195,0.05);
-  -webkit-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-  -moz-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-  -o-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-  -ms-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-  transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-}
-/* =========================================================
- * ☀️ Light Mode · 网站运行时间
- *
- * 不改变白天原本背景
- * ========================================================= */
-[data-theme="light"],
-div#runtime {
-  color: rgba(100,120,150,0.82);
-/*
-     * 不设置 background-color
-     */
-  border-color: rgba(135,155,185,0.3);
-  -webkit-box-shadow: 0 0 5px rgba(135,155,185,0.12), 0 0 13px rgba(135,155,185,0.06);
-  box-shadow: 0 0 5px rgba(135,155,185,0.12), 0 0 13px rgba(135,155,185,0.06);
-}
-/* =========================================================
- * 🌙 Dark Mode · 网站运行时间
- *
- * 不改变原本夜间背景
- * ========================================================= */
-[data-theme="dark"],
-div#runtime {
-  color: rgba(190,210,235,0.78);
-/*
-     * 不设置 background-color
-     */
-  border-color: rgba(175,195,230,0.32);
-  -webkit-box-shadow: 0 0 6px rgba(175,195,230,0.16), 0 0 15px rgba(165,190,230,0.08);
-  box-shadow: 0 0 6px rgba(175,195,230,0.16), 0 0 15px rgba(165,190,230,0.08);
-}
-/* =========================================================
- * ✨ Hover
- * ========================================================= */
-#runtime:hover {
-  color: rgba(95,115,145,0.95);
-/*
-     * 不改变背景
-     */
-  border-color: rgba(135,160,195,0.45);
-  -webkit-box-shadow: 0 0 7px rgba(145,170,205,0.18), 0 0 17px rgba(145,170,205,0.1);
-  box-shadow: 0 0 7px rgba(145,170,205,0.18), 0 0 17px rgba(145,170,205,0.1);
-}
-/* =========================================================
- * 🌙 Dark Mode Hover
- * ========================================================= */
-[data-theme="dark"],
-#runtime:hover {
-  color: rgba(215,225,245,0.95);
-/*
-     * 不改变背景
-     */
-  border-color: rgba(195,215,245,0.48);
-  -webkit-box-shadow: 0 0 8px rgba(185,210,240,0.2), 0 0 20px rgba(175,200,235,0.1);
-  box-shadow: 0 0 8px rgba(185,210,240,0.2), 0 0 20px rgba(175,200,235,0.1);
-}
-/* =========================================================
- * 🌙 页脚版权 · © 2026 By 华生
- *
- * 边框只包住文字
- * 不改变原本页脚背景
- * ========================================================= */
-#footer .footer-copyright .copyright {
+#aside-content .card-archive-list .card-archive-list-item {
   display: inline-block;
-  padding: 2px 10px;
-  border-radius: 10px;
-/*
-     * 与 runtime 保持一致
-     */
-  color: rgba(105,125,155,0.82) !important;
-/*
-     * 防止 Butterfly 原本透明度影响文字
-     */
-  opacity: 1 !important;
-  -ms-filter: none !important;
-  filter: none !important;
-/*
-     * 不设置 background-color
-     * 保留页面原本背景
-     */
-/*
-     * 月光边框
-     */
-  border: 1px solid rgba(145,165,195,0.28);
-/*
-     * 月光光晕
-     */
-  -webkit-box-shadow: 0 0 5px rgba(145,165,195,0.1), 0 0 12px rgba(145,165,195,0.05);
-  box-shadow: 0 0 5px rgba(145,165,195,0.1), 0 0 12px rgba(145,165,195,0.05);
-  -webkit-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-  -moz-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-  -o-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-  -ms-transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-  transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  margin: 4px 6px 4px 0;
+  position: relative;
 }
-/* =========================================================
- * ☀️ Light Mode · © 2026 By 华生
- *
- * 不改变白天原本背景
- * ========================================================= */
-[data-theme="light"],
-#footer .footer-copyright .copyright {
-  color: rgba(100,120,150,0.82) !important;
-  opacity: 1 !important;
-  -ms-filter: none !important;
-  filter: none !important;
-/*
-     * 不设置 background-color
-     */
-  border-color: rgba(135,155,185,0.3);
-  -webkit-box-shadow: 0 0 5px rgba(135,155,185,0.12), 0 0 13px rgba(135,155,185,0.06);
-  box-shadow: 0 0 5px rgba(135,155,185,0.12), 0 0 13px rgba(135,155,185,0.06);
+#aside-content .card-archive-list .card-archive-list-item a.card-archive-list-link {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-box;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  position: relative;
+  padding: 5px 15px 7px;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.88em;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+  -webkit-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -o-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -ms-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-/* =========================================================
- * 🌙 Dark Mode · © 2026 By 华生
- * ========================================================= */
-[data-theme="dark"],
-#footer .footer-copyright .copyright {
-  color: rgba(190,210,235,0.78) !important;
-  opacity: 1 !important;
-  -ms-filter: none !important;
-  filter: none !important;
-/*
-     * 不改变原本夜间背景
-     */
-  border-color: rgba(175,195,230,0.32);
-  -webkit-box-shadow: 0 0 6px rgba(175,195,230,0.16), 0 0 15px rgba(165,190,230,0.08);
-  box-shadow: 0 0 6px rgba(175,195,230,0.16), 0 0 15px rgba(165,190,230,0.08);
+#aside-content .card-archive-list .card-archive-list-item a.card-archive-list-link::after {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  top: 3px;
+  height: 38%;
+  border-radius: 50%;
+  background: -webkit-linear-gradient(270deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  background: -moz-linear-gradient(270deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  background: -o-linear-gradient(270deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  background: -ms-linear-gradient(270deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+  content: '';
+  pointer-events: none;
 }
-/* =========================================================
- * ✨ Hover
- * ========================================================= */
-#footer .footer-copyright .copyright:hover {
-  color: rgba(95,115,145,0.95) !important;
-/*
-     * 不改变背景
-     */
-  border-color: rgba(135,160,195,0.45);
-  -webkit-box-shadow: 0 0 7px rgba(145,170,205,0.18), 0 0 17px rgba(145,170,205,0.1);
-  box-shadow: 0 0 7px rgba(145,170,205,0.18), 0 0 17px rgba(145,170,205,0.1);
+#aside-content .card-archive-list .card-archive-list-item a.card-archive-list-link:hover {
+  -webkit-transform: translateY(-2px) scale(1.03);
+  -moz-transform: translateY(-2px) scale(1.03);
+  -o-transform: translateY(-2px) scale(1.03);
+  -ms-transform: translateY(-2px) scale(1.03);
+  transform: translateY(-2px) scale(1.03);
+  filter: brightness(1.06);
 }
-/* =========================================================
- * 🌙 Dark Mode Hover
- * ========================================================= */
-[data-theme="dark"],
-#footer .footer-copyright .copyright:hover {
-  color: rgba(215,225,245,0.95) !important;
-/*
-     * 不改变背景
-     */
-  border-color: rgba(195,215,245,0.48);
-  -webkit-box-shadow: 0 0 8px rgba(185,210,240,0.2), 0 0 18px rgba(175,200,235,0.1);
-  box-shadow: 0 0 8px rgba(185,210,240,0.2), 0 0 18px rgba(175,200,235,0.1);
+#aside-content .card-archive-list .card-archive-list-count {
+  margin-left: 6px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.3);
+  color: #fff;
+  font-size: 0.78em;
+  line-height: 1.6;
+}
+/* ---------- 糖果色轮换 ---------- */
+#aside-content .card-archive-list .card-archive-list-item:nth-child(1) a.card-archive-list-link {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #ff9ec0 62%, #fff) 0%, #ff6f9c 50%, color-mix(in srgb, #ff6f9c 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,111,156,.35), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,111,156,.35), 0 1px 2px rgba(0,0,0,.15);
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(2) a.card-archive-list-link {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #a8c8ff 62%, #fff) 0%, #6c9bff 50%, color-mix(in srgb, #6c9bff 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(108,155,255,.35), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(108,155,255,.35), 0 1px 2px rgba(0,0,0,.15);
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(3) a.card-archive-list-link {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #c9b8ff 62%, #fff) 0%, #8f7bff 50%, color-mix(in srgb, #8f7bff 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(143,123,255,.35), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(143,123,255,.35), 0 1px 2px rgba(0,0,0,.15);
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(4) a.card-archive-list-link {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #a8f0c8 62%, #fff) 0%, #5ecf8f 50%, color-mix(in srgb, #5ecf8f 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(94,207,143,.35), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(94,207,143,.35), 0 1px 2px rgba(0,0,0,.15);
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(5) a.card-archive-list-link {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #ffd4a0 62%, #fff) 0%, #ffb26b 50%, color-mix(in srgb, #ffb26b 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,178,107,.35), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,178,107,.35), 0 1px 2px rgba(0,0,0,.15);
+}
+#aside-content .card-archive-list .card-archive-list-item:nth-child(6) a.card-archive-list-link {
+  background: -webkit-linear-gradient(270deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  background: -moz-linear-gradient(270deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  background: -o-linear-gradient(270deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  background: -ms-linear-gradient(270deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, #ffb3b3 62%, #fff) 0%, #ff7979 50%, color-mix(in srgb, #ff7979 82%, #000) 100%);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,121,121,.35), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,121,121,.35), 0 1px 2px rgba(0,0,0,.15);
 }
 @-moz-keyframes move-forever {
   0% {
