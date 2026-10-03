@@ -9191,6 +9191,10 @@ div#category {
   -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,121,121,.35), 0 1px 2px rgba(0,0,0,.15);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(255,255,255,.22), inset 0 -3px 6px rgba(0,0,0,.15), 0 4px 12px rgba(255,121,121,.35), 0 1px 2px rgba(0,0,0,.15);
 }
+/* 隐藏式目录：收起非当前项 */
+.toc-fold-hidden {
+  display: none !important;
+}
 @-moz-keyframes move-forever {
   0% {
     -webkit-transform: translate3d(-90px, 0, 0);
